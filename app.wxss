@@ -1,0 +1,50 @@
+/**app.wxss**/
+.container {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  padding: 200rpx 0;
+  box-sizing: border-box;
+} 
+.f-flex-justStart-alignStart{
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+}
+.f-flex-justBetween-alignCenter{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.f-flex-justStart-alignCenter{
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+.f-flex-justStart-wrap{
+  display: flex;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+}
+.f-flex-justBetween-wrap{
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+.f-ellipsis1 {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.f-ellipsis2 {
+  overflow: hidden;
+  display: -webkit-box;
+  text-overflow: ellipsis;
+  word-break: break-all;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+}
