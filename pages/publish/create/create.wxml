@@ -1,1 +1,3 @@
-<text>发布信息</text>
+<view>
+  <input placeholder="转让标题" auto-focus />
+</view>

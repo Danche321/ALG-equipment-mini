@@ -23,25 +23,25 @@
     "list": [
       {
         "pagePath": "pages/index/home/home",
-        "text": "首页",
-        "iconPath": "icons/publish_off.png",
-        "selectedIconPath": "icons/publish_off.png"
+        "text": "找机械",
+        "iconPath": "icons/device_off.png",
+        "selectedIconPath": "icons/device_on.png"
       },
       {
         "pagePath": "pages/publish/create/create",
         "text": "发布",
         "iconPath": "icons/publish_off.png",
-        "selectedIconPath": "icons/publish_off.png"
+        "selectedIconPath": "icons/publish_on.png"
       },
       {
         "pagePath": "pages/my/index/index",
         "text": "我的",
         "iconPath": "icons/my_off.png",
-        "selectedIconPath": "icons/my_off.png"
+        "selectedIconPath": "icons/my_on.png"
       }
     ],
-    "color": "#0c0b16",
-    "selectedColor": "#89c1be"
+    "color": "#0C0B16",
+    "selectedColor": "#3669F8"
   },
   "sitemapLocation": "sitemap.json"
 }

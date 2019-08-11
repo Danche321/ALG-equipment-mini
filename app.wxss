@@ -48,3 +48,7 @@
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 2;
 }
+
+.f-border--right{
+  border-right: 1rpx solid rgba(245,246,248,1);
+}

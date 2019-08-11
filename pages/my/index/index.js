@@ -5,14 +5,22 @@ Page({
    * 页面的初始数据
    */
   data: {
-
+    user: {
+      headimg:'',
+      nickname: '高哥哥二手机械',
+      desc: '专业出售二手机械，有需要的联系我...专业出售二手机械，有需要的联系我...专业出售二手机械，有需要的联系我...'
+    },
+    total: {
+      follow: 777,
+      fans: 999,
+      visitor: 9878
+    }
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
   },
 
   /**
