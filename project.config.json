@@ -44,8 +44,8 @@
 			"list": [
 				{
 					"id": 0,
-					"name": "开发",
-					"pathName": "pages/my/index/index",
+					"name": "pages/my/follow/follow",
+					"pathName": "pages/my/follow/follow",
 					"query": "",
 					"scene": null
 				}

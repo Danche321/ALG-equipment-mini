@@ -17,6 +17,26 @@ Page({
     }
   },
 
+  handleToPublish() {
+    wx.navigateTo({
+      url: '/pages/my/my-publish/my-publish',
+    })
+  },
+  handleToCollect() {
+    wx.navigateTo({
+      url: '/pages/my/collect/collect',
+    })
+  },
+  handleToFollow() {
+    wx.navigateTo({
+      url: '/pages/my/follow/follow',
+    })
+  },
+  handleToFans() {
+    wx.navigateTo({
+      url: '/pages/my/fans/fans',
+    })
+  },
   /**
    * 生命周期函数--监听页面加载
    */

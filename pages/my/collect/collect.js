@@ -1,11 +1,42 @@
-// pages/my/collect/collect.js
+// pages/my/my-publish/my-publish.js
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-
+    listData: [
+      {
+        img: '',
+        title: '九成新装载机转让，有诚意私可 电话私聊：18457123123有诚意私可 电话私聊：18457123123',
+        tags: ['挖掘机', '原价9982', '2013年'],
+        price: 7999,
+        visitor: 520,
+        message: 80,
+        status: 1,
+        user: {
+          headimg: '',
+          nickname: '老高二手机械',
+          area: '福建·平潭'
+        },
+        isCollect: false
+      },
+      {
+        img: '',
+        title: '九成新装载机转让，有诚意私可 电话私聊：18457123123有诚意私可 电话私聊：18457123123',
+        tags: ['挖掘机', '原价9982', '2013年'],
+        price: 7999,
+        visitor: 520,
+        message: 80,
+        status: 0,
+        user: {
+          headimg: '',
+          nickname: '老高二手机械',
+          area: '福建·平潭'
+        },
+        isCollect: true
+      }
+    ]
   },
 
   /**

@@ -1,11 +1,29 @@
-// pages/my/fans/fans.js
+// pages/my/follow/follow.js
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-
+    listData: [{
+      img: '',
+      nickname: '高哥哥二手机械',
+      fans: 112,
+      publish: 2221,
+      relative: 0 // 0未关注 1已关注 2互相关注
+    }, {
+      img: '',
+      nickname: '高哥哥二手机械',
+      fans: 112,
+      publish: 2221,
+      relative: 1
+    }, {
+      img: '',
+      nickname: '高哥哥二手机械',
+      fans: 112,
+      publish: 2221,
+      relative: 2
+    }]
   },
 
   /**
