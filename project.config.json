@@ -44,8 +44,8 @@
 			"list": [
 				{
 					"id": 0,
-					"name": "pages/my/follow/follow",
-					"pathName": "pages/my/follow/follow",
+					"name": "pages/publish/detail/detail",
+					"pathName": "pages/publish/detail/detail",
 					"query": "",
 					"scene": null
 				}

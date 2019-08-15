@@ -78,3 +78,6 @@
 .f-ml40{
   margin-left: 40rpx;
 }
+.f-mr70{
+  margin-right: 70rpx;
+}
