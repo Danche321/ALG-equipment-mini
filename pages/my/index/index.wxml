@@ -1,6 +1,6 @@
 <!-- 头部 -->
 <view class="page__header">
-  <view class="header__user f-flex-justBetween-alignCenter">
+  <view class="header__user" bindtap="handleToPersonInfo">
     <view class="f-flex-justStart-alignCenter">
       <image class="user__headimg" src="{{user.headimg||'../../../icons/my_head.png'}}"></image>
       <view class="user-block__info">

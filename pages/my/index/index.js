@@ -6,7 +6,7 @@ Page({
    */
   data: {
     user: {
-      headimg:'',
+      headimg: '',
       nickname: '高哥哥二手机械',
       desc: '专业出售二手机械，有需要的联系我...专业出售二手机械，有需要的联系我...专业出售二手机械，有需要的联系我...'
     },
@@ -16,7 +16,11 @@ Page({
       visitor: 9878
     }
   },
-
+  handleToPersonInfo() {
+    wx.navigateTo({
+      url: '/pages/my/person-info/person-info',
+    })
+  },
   handleToPublish() {
     wx.navigateTo({
       url: '/pages/my/my-publish/my-publish',
@@ -40,55 +44,54 @@ Page({
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function (options) {
-  },
+  onLoad: function(options) {},
 
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
-  onReady: function () {
+  onReady: function() {
 
   },
 
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow: function () {
+  onShow: function() {
 
   },
 
   /**
    * 生命周期函数--监听页面隐藏
    */
-  onHide: function () {
+  onHide: function() {
 
   },
 
   /**
    * 生命周期函数--监听页面卸载
    */
-  onUnload: function () {
+  onUnload: function() {
 
   },
 
   /**
    * 页面相关事件处理函数--监听用户下拉动作
    */
-  onPullDownRefresh: function () {
+  onPullDownRefresh: function() {
 
   },
 
   /**
    * 页面上拉触底事件的处理函数
    */
-  onReachBottom: function () {
+  onReachBottom: function() {
 
   },
 
   /**
    * 用户点击右上角分享
    */
-  onShareAppMessage: function () {
+  onShareAppMessage: function() {
 
   }
 })

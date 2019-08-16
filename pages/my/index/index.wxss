@@ -16,6 +16,9 @@ page {
   padding: 37rpx 44rpx 0 44rpx;
   color: #fff;
   padding-bottom: 150rpx;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 
 .user__headimg {

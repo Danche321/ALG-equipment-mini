@@ -47,7 +47,37 @@ Page({
       url: '',
       name: '挖掘机9'
     }],
-    publishList: [
+    publishList: [{
+        img: '',
+        title: '八成二手挖机转让八成二手挖机转让八成二手挖机转让八成二手挖机转让八成二手挖机转让',
+        voice: {
+          width: '30%',
+          second: 15
+        },
+        price: '8999',
+        area: '福建·平潭',
+        headImg: '',
+        nickname: '高哥哥二手机械高哥哥二手机械'
+      }, {
+        img: '',
+        title: '八成二手挖机转让',
+        voice: {
+          width: '50%',
+          second: 30
+        },
+        price: '8999',
+        area: '福建·平潭',
+        headImg: '',
+        nickname: '高哥哥二手机械'
+      }, {
+        img: '',
+        title: '八成二手挖机转让',
+        voice: null,
+        price: '8999',
+        area: '福建·平潭',
+        headImg: '',
+        nickname: '高哥哥二手机械'
+      },
       {
         img: '',
         title: '八成二手挖机转让八成二手挖机转让八成二手挖机转让八成二手挖机转让八成二手挖机转让',
@@ -73,10 +103,38 @@ Page({
       }, {
         img: '',
         title: '八成二手挖机转让',
+        voice: null,
+        price: '8999',
+        area: '福建·平潭',
+        headImg: '',
+        nickname: '高哥哥二手机械'
+      },
+      {
+        img: '',
+        title: '八成二手挖机转让八成二手挖机转让八成二手挖机转让八成二手挖机转让八成二手挖机转让',
         voice: {
-          width: '100%',
-          second: 60
+          width: '30%',
+          second: 15
         },
+        price: '8999',
+        area: '福建·平潭',
+        headImg: '',
+        nickname: '高哥哥二手机械高哥哥二手机械'
+      }, {
+        img: '',
+        title: '八成二手挖机转让',
+        voice: {
+          width: '50%',
+          second: 30
+        },
+        price: '8999',
+        area: '福建·平潭',
+        headImg: '',
+        nickname: '高哥哥二手机械'
+      }, {
+        img: '',
+        title: '八成二手挖机转让',
+        voice: null,
         price: '8999',
         area: '福建·平潭',
         headImg: '',
@@ -112,6 +170,11 @@ Page({
   getData() {
     this.setData({
       publishList: [...this.data.publishList, ...this.data.publishList]
+    })
+  },
+  handleToDetail() {
+    wx.navigateTo({
+      url: '/pages/publish/detail/detail',
     })
   },
 

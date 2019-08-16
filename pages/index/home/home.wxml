@@ -24,19 +24,40 @@
   </view>
 </view>
 <!-- 发布列表 -->
-<view class="publish-box f-flex-justBetween-wrap">
-  <view wx:for="{{publishList}}" wx:key="{{index}}" class="publish-item">
-    <image class="img" src="{{item.img}}"></image>
-    <view class="publish__content">
-      <view class="title f-ellipsis2">{{item.title}}</view>
-      <view class="voice" style="width:{{item.voice.width}}">{{item.voice.second}}"</view>
-      <view class="f-flex-justBetween-alignCenter">
-        <view class="price"><text class="price__unit">￥</text>{{item.price}}</view>
-        <text class="area">{{item.area}}</text>
+<view class="publish-box">
+  <view class="publish-column">
+    <view wx:if="{{index%2===0}}" wx:for="{{publishList}}" wx:key="{{index}}" class="publish-item" bindtap="handleToDetail">
+      <image class="img" src="{{item.img}}"></image>
+      <view class="publish__content">
+        <view class="title f-ellipsis2">{{item.title}}</view>
+        <view wx:if="{{item.voice}}" class="voice" style="width:{{item.voice.width}}">{{item.voice.second}}"</view>
+        <view class="f-flex-justBetween-alignCenter">
+          <view class="price">
+            <text class="price__unit">￥</text>{{item.price}}</view>
+          <text class="area">{{item.area}}</text>
+        </view>
+        <view class="user-info f-flex-justStart-alignCenter">
+          <image src="{{item.headImg}}" class="headimg"></image>
+          <text class="nickname f-ellipsis1">{{item.nickname}}</text>
+        </view>
       </view>
-      <view class="user-info f-flex-justStart-alignCenter">
-        <image src="{{item.headImg}}" class="headimg"></image>
-        <text class="nickname f-ellipsis1">{{item.nickname}}</text>
+    </view>
+  </view>
+  <view class="publish-column">
+    <view wx:if="{{index%2!==0}}" wx:for="{{publishList}}" wx:key="{{index}}" class="publish-item" bindtap="handleToDetail">
+      <image class="img" src="{{item.img}}"></image>
+      <view class="publish__content">
+        <view class="title f-ellipsis2">{{item.title}}</view>
+        <view wx:if="{{item.voice}}" class="voice" style="width:{{item.voice.width}}">{{item.voice.second}}"</view>
+        <view class="f-flex-justBetween-alignCenter">
+          <view class="price">
+            <text class="price__unit">￥</text>{{item.price}}</view>
+          <text class="area">{{item.area}}</text>
+        </view>
+        <view class="user-info f-flex-justStart-alignCenter">
+          <image src="{{item.headImg}}" class="headimg"></image>
+          <text class="nickname f-ellipsis1">{{item.nickname}}</text>
+        </view>
       </view>
     </view>
   </view>
