@@ -1,6 +1,6 @@
 <!-- 头像 -->
 <view class="page-avatar">
-  <view class="avatar__content">
+  <view class="avatar__content" bindtap="handleUpload">
     <image class="avatar__photo" src=""></image>
     <view class="avatar__upload">
       <image class="upload__icon"></image>

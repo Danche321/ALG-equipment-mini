@@ -41,6 +41,11 @@ Page({
       url: '/pages/my/fans/fans',
     })
   },
+  handleToDynamic() {
+    wx.navigateTo({
+      url: '/pages/my/dynamic/dynamic',
+    })
+  },
   /**
    * 生命周期函数--监听页面加载
    */

@@ -41,7 +41,7 @@
     </view>
     <text class="card__btn">去查看</text>
   </view>
-  <view class="card-item f-flex-justBetween-alignCenter">
+  <view bindtap='handleToDynamic' class="card-item f-flex-justBetween-alignCenter">
     <view class='f-flex-justStart-alignCenter'>
       <image src="../../../icons/my_dynamic.png" class="card__icon"></image>
       <view class='card__label card__label-dynamic'>
