@@ -1,0 +1,82 @@
+<!-- 轮播 -->
+<swiper autoplay circular duration="{{duration}}" class="swiper-box" bindchange="handleSwiperChange">
+  <block wx:for="{{imgUrls}}" wx:key="{{index}}">
+    <swiper-item class="swiper-item">
+      <image src="{{item}}" mode='aspectFill' class='swiper-item' data-list="{{imgUrls}}" data-src="{{item}}" bindtap='handlePriviewImg'></image>
+    </swiper-item>
+  </block>
+</swiper>
+<view wx:if="{{imgUrls.length}}" class="swiper-indicator">{{swiperCurrent+1}}/{{imgUrls.length}}</view>
+<!-- 头部信息 -->
+<view class="page-header">
+  <view class="f-flex-justBetween-alignCenter">
+    <view class="price">
+      ￥
+      <text class="price__num">20.90</text>万
+    </view>
+    <view class="f-flex-justStart-alignCenter header__user">
+      <image class="header__user__headimg" src="../../../icons/headimg.png"></image>
+      <text class="header__user__nickname">老高二手机械</text>
+    </view>
+  </view>
+  <view class="title">{{title}}</view>
+  <view class="tags">
+    <text wx:for="{{tags}}" class="tag-item" wx:key="{{index}}">{{item}}</text>
+  </view>
+</view>
+<!-- 设备描述 -->
+<view class="page-desc">
+  <view class="listen">
+    <text class="listen__text">点击听卖家留言</text>
+    <text class="listen__voice">{{voice.second}}"</text>
+  </view>
+  <view class="desc">{{desc}}</view>
+  <view class="num">
+    <text class="f-mr70">已点赞{{zanNum}}</text>
+    <text>已阅读{{readNum}}</text>
+  </view>
+</view>
+<!-- 留言 -->
+<view class="page-message">
+  <view class="message__total">全部留言·{{totalMsg}}</view>
+  <view wx:for="{{messageList}}" wx:key="{{index}}" class="message-item">
+    <view class="f-flex-justBetween-alignCenter">
+      <view class="f-flex-justStart-alignCenter">
+        <image class="message__headimg" src="{{item.headimg||headimgTest}}"></image>
+        <text class="message__nickname">{{item.nickname}}</text>
+      </view>
+      <text class="message__time">{{item.time}}</text>
+    </view>
+    <view class="message-bottom">
+      <view class="message__content">{{item.content}}</view>
+      <view wx:for="{{item.children}}" wx:key="{{index}}" class="message-child">
+        <view class="f-flex-justBetween-alignCenter">
+          <view class="f-flex-justStart-alignCenter">
+            <image class="child__headimg" src="{{item.headimg||headimgTest}}"></image>
+            <text class="child__nickname">{{item.nickname}}</text>
+          </view>
+          <text class="child__time">{{item.time}}</text>
+        </view>
+        <view class="child__content">回复
+          <text class="child__toName">{{item.toName}}:</text> {{item.content}}</view>
+      </view>
+    </view>
+  </view>
+</view>
+<!-- 底部 -->
+<view class="page-footer f-flex-justBetween-alignCenter">
+  <view class="f-flex-justBetween-alignCenter footer-handles">
+    <view class="handle__item">
+      <image class="item__icon" src="../../../icons/zan.png"></image>超赞
+    </view>
+    <view class="handle__item">
+      <image class="item__icon" src="../../../icons/message.png"></image>留言
+    </view>
+    <view class="handle__item">
+      <image class="item__icon" src="../../../icons/collect.png"></image>收藏
+    </view>
+  </view>
+  <view class="footer-connect">
+    <image class="connect__icon" src="../../../icons/mobile.png"></image>联系TA
+  </view>
+</view>

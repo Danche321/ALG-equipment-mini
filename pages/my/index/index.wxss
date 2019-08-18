@@ -1,0 +1,132 @@
+page {
+  background-color: #f5f5f5;
+}
+
+/* 头部 */
+
+.page__header {
+  width: 100%;
+  background-color: #fff;
+  position: relative;
+  border-radius: 0 0 5% 5%;
+  background: linear-gradient(#3669f8, #3f85fa);
+}
+
+.header__user {
+  padding: 37rpx 44rpx 0 44rpx;
+  color: #fff;
+  padding-bottom: 150rpx;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.user__headimg {
+  width: 120rpx;
+  height: 120rpx;
+  border-radius: 50%;
+  margin-right: 30rpx;
+}
+
+.user-block__info {
+  width: 370rpx;
+  line-height: 1;
+}
+
+.user__nickname {
+  font-size: 34rpx;
+  margin-bottom: 28rpx;
+}
+
+.user__desc {
+  width: 100%;
+  font-size: 22rpx;
+}
+
+.user__homeIcon {
+  width: 138rpx;
+  height: 50rpx;
+}
+
+.header__total {
+  background: #fff;
+  width: 686rpx;
+  height: 181rpx;
+  position: absolute;
+  bottom: -90rpx;
+  left: 50%;
+  transform: translateX(-50%);
+  box-shadow: 0 0 20rpx 0 rgba(197, 197, 197, 0.3);
+  border-radius: 16rpx;
+}
+
+.total-item {
+  width: 33.33333%;
+  text-align: center;
+  line-height: 1;
+}
+
+.total-item__value {
+  font-size: 56rpx;
+  color: #333;
+  margin-bottom: 18rpx;
+}
+
+.total-item__label {
+  font-size: 24rpx;
+  color: #999;
+}
+
+/* 跳转卡片 */
+
+.page__cards {
+  margin-top: 150rpx;
+  padding: 0 30rpx;
+}
+
+.card__icon {
+  width: 64rpx;
+  height: 64rpx;
+  margin-right: 32rpx;
+}
+
+.card-item {
+  width: 100%;
+  height: 151rpx;
+  background-color: #fff;
+  box-shadow: 0 0 20rpx 0 rgba(197, 197, 197, 0.3);
+  border-radius: 20rpx;
+  margin-top: 36rpx;
+  padding: 0 33rpx 0 38rpx;
+  box-sizing: border-box;
+}
+
+.card__label {
+  font-size: 30rpx;
+  color: #464646;
+}
+
+.card__label-dynamic {
+  position: relative;
+}
+
+.label__add {
+  position: absolute;
+  text-align: center;
+  color: rgba(255, 59, 48, 1);
+  font-size: 34rpx;
+  top: -20rpx;
+  right: -70rpx;
+  font-weight: bold;
+}
+
+.card__btn {
+  width: 133rpx;
+  height: 52rpx;
+  line-height: 52rpx;
+  text-align: center;
+  background: rgba(245, 245, 245, 1);
+  border-radius: 26rpx;
+  font-size: 22rpx;
+  color: #3979fd;
+}

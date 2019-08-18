@@ -1,0 +1,34 @@
+<!-- 头部 -->
+<view class='page__header'>
+  <image class='header__back' src="../../"></image>
+  <view class='header__content'>
+    <image class='header__headimg' src=''></image>
+    <view class='header__nickname'>高哥哥二手机械</view>
+    <view class="header__desc">专业出售二手机械，需要的联系我：19451232311</view>
+    <view class='header__bottom'>
+      <view class="header__num">
+        <text class='header__num-item'>关注 29</text>
+        <text class='header__num-item'>粉丝 29</text>
+        <text class='header__num-item'>发布 29</text>
+      </view>
+      <view class='header__location'>
+        <image class='location__icon' src='../../../icons/location-white.png'></image>
+        <text>福建·平潭</text>
+      </view>
+    </view>
+  </view>
+</view>
+<!-- 发布列表 -->
+<view class='page-publish'>
+  <view class='publish-item' wx:for="{{publishList}}" wx:key="{{index}}">
+    <view class='item__day'>{{item.day}}</view>
+    <view class='item__child-wrap'>
+      <view class='item__day-child' wx:for="{{item.items}}" wx:key="{{index}}">
+        <view class='child__img-wrap'>
+          <image src='' class="child__img--1"></image>
+        </view>
+        <view class='child__title'>{{item.title}}</view>
+      </view>
+    </view>
+  </view>
+</view>
