@@ -44,8 +44,8 @@
 			"list": [
 				{
 					"id": 0,
-					"name": "pages/my/person-info/person-info",
-					"pathName": "pages/my/person-info/person-info",
+					"name": "pages/my/dynamic/dynamic",
+					"pathName": "pages/my/person-home/person-home",
 					"query": "",
 					"scene": null
 				}

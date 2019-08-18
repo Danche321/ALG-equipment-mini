@@ -1,3 +1,74 @@
-<view>
-  <input placeholder="转让标题" auto-focus />
+<view class="page-base">
+  <!-- 标题/内容 -->
+  <input class="input-title" placeholder="标题：如设备品牌型号等" auto-focus />
+  <textarea class="input-desc" placeholder="描述：使用语音/文字，描述你想转手的原因，入手渠道和使用感受···" maxlength="-1"></textarea>
+  <!-- 录音 -->
+  <view class="page-voice">
+    <button class="btn-voice">
+      <text class="voice__text">按住说话</text>
+      <image class="voice__icon" src="../../../icons/yuyin.png"></image>
+    </button>
+  </view>
+  <!-- 图片上传 -->
+  <view class='page-upload'>
+    <view wx:for="{{uploadList}}" class="upload-file-item">
+      <image class="upload-img" src="{{item}}"></image>
+      <image src="../../../icons/close.png" class="upload-del"></image>
+    </view>
+    <view class='upload-add'>
+      <text class='upload-add__icon'>+</text>
+      <text class='upload-add__text'>图片/视频</text>
+    </view>
+  </view>
+  <!-- 定位 -->
+  <view class="location">
+    <image class="location__icon" src="../../../icons/location--publish.png"></image>
+    <text class="location__text">福建省福州平潭县</text>
+  </view>
 </view>
+
+<view class="page-contact">
+  <view class="contact-item">
+    <view class="contact-item__label">
+      <image class="contact__label__icon" src="../../../icons/category--publish.png "></image>
+      <text>设备分类</text>
+    </view>
+    <view class="contact-item__value">
+      <text>请选择</text>
+      <image class="contact_arrowIcon" src="../../../icons/arrow-right-black.png"></image>
+    </view>
+  </view>
+  <view class="contact-item">
+    <view class="contact-item__label">
+      <image class="contact__label__icon" src="../../../icons/mobile--publish.png "></image>
+      <text>联系电话</text>
+    </view>
+    <input class="contact-item__value" placeholder="联系电话" type="number"></input>
+  </view>
+</view>
+<!-- 设备信息 -->
+<view class="page-info">
+  <view class="info__title">设备信息</view>
+  <view class="info-item">
+    <text>价格</text>
+    <input class="info__value-input" placeholder="面议可不填" type="number"></input>
+  </view>
+  <view class="info-item">
+    <text>入手价</text>
+    <input class="info__value-input" placeholder="￥0.00" type="number"></input>
+  </view>
+  <view class="info-item info-item-year">
+    <text>生产年份</text>
+    <view class="info__value--year">
+      <view class="tag-year">
+        <text wx:for="{{yearTags}}" class="tag-year-item {{activeYear===item?'active':''}}">{{item}}</text>
+      </view>
+      <view class="other-year">
+        <text>其他年份</text>
+        <image class="info__arrow" src="../../../icons/arrow-right-blue.png"></image>
+      </view>
+    </view>
+  </view>
+</view>
+
+<button class="btn-publish">发布</button>

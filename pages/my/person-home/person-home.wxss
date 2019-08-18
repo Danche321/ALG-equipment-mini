@@ -1,0 +1,111 @@
+page{}
+/* 头部 */
+.page__header{
+  height: 615rpx;
+  background:rgba(0,0,0,.3);
+  color: #fff;
+}
+.header__back{
+  width: 15rpx;
+  height: 26rpx;
+  padding: 20rpx;
+}
+.header__content{
+  padding: 50rpx 32rpx 0 37rpx;
+}
+.header__headimg{
+  width: 146rpx;
+  height: 146rpx;
+  border-radius: 50%;
+  background-color: #f5f5f5;
+}
+.header__nickname{
+  font-size: 36rpx;
+  font-weight:500;
+  margin: 37rpx 0 21rpx 0;
+}
+.header__desc{
+  font-size: 30rpx;
+  color:rgba(255,255,255,.8);
+  margin-bottom: 40rpx;
+}
+.header__bottom{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.header__num{
+  font-size: 26rpx;
+}
+.header__num-item{
+  margin-right: 20rpx;
+  padding-right: 20rpx;
+  position: relative;
+}
+.header__num-item::after{
+  content: '';
+  display: inline-block;
+  width: 2rpx;
+  height: 28rpx;
+  background-color: #fff;
+  position: absolute;
+  top: 50%;
+  right: 0;
+  transform: translateY(-50%);
+}
+.header__num-item:last-child::after{
+  display: none;
+}
+.header__location{
+  font-size: 28rpx;
+}
+.location__icon{
+  width: 17rpx;
+  height: 23rpx;
+  margin-right: 12rpx;
+}
+/* 发布列表 */
+.page-publish{
+}
+.publish-item{
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 30rpx;
+}
+.item__day{
+  font-size: 56rpx;
+  font-weight: bold;
+}
+.item__child-wrap{
+  flex: 1;
+}
+.item__day-child{
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 22rpx;
+}
+.child__img-wrap{
+  width: 180rpx;
+  height: 180rpx;
+  margin: 0 20rpx 0 30rpx;
+}
+.child__img-wrap image{
+  background-color: #f5f5f5;
+}
+.child__img--1{
+  width: 180rpx;
+  height: 180rpx;
+  border-radius:4rpx;
+}
+.child__title{
+  flex: 1;
+  font-size: 30rpx;
+  overflow: hidden;
+  display: -webkit-box;
+  text-overflow: ellipsis;
+  word-break: break-all;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 4;
+}

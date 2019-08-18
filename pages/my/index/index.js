@@ -16,6 +16,11 @@ Page({
       visitor: 9878
     }
   },
+  handleToHome() {
+    wx.navigateTo({
+      url: '/pages/my/person-home/person-home',
+    })
+  },
   handleToPersonInfo() {
     wx.navigateTo({
       url: '/pages/my/person-info/person-info',
@@ -39,6 +44,11 @@ Page({
   handleToFans() {
     wx.navigateTo({
       url: '/pages/my/fans/fans',
+    })
+  },
+  handleToDynamic() {
+    wx.navigateTo({
+      url: '/pages/my/dynamic/dynamic',
     })
   },
   /**
