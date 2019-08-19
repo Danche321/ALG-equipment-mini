@@ -70,7 +70,11 @@ page {
 .children-item__img {
   width: 130rpx;
   height: 130rpx;
-  background-color: #f5f5f5;
+}
+
+.children-item__all{
+  width: 90rpx;
+  height: 90rpx;
 }
 
 .children-item__name {

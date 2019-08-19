@@ -1,29 +1,33 @@
-<view class="list-item {{item.status===0?'item--disabled':''}}" wx:for="{{listData}}" wx:key="{{index}}">
+<view class="list-item {{item.isDownShelf?'item--disabled':''}}" wx:for="{{listData}}" wx:key="{{index}}">
   <view class="item__top f-flex-justBetween-alignStart">
     <view class="img-box">
-      <image src="{{item.img||'../../../icons/demo/demo1.jpeg'}}" class="item__img" mode="aspectFill"></image>
+      <image src="{{item.mainMedia}}" class="item__img" mode="aspectFill"></image>
     </view>
     <view class='item__right'>
       <view class="f-ellipsis2 item__title">{{item.title}}</view>
       <view class="tag-box">
-        <text wx:for="{{item.tags}}" wx:key="{{index}}" class="item__tag">{{item}}</text>
+        <text wx:if="{{item.categoryFirstName}}" class="item__tag">{{item.categoryFirstName}}</text>
+        <text wx:if="{{item.categorySecondName}}" class="item__tag">{{item.categorySecondName}}</text>
+        <text wx:if="{{item.productiveYear}}" class="item__tag">{{item.productiveYear}}年</text>
       </view>
-      <view class="item__price">
-        <text class="price__unit">¥</text>{{item.price}}</view>
+      <view wx:if="{{item.outPrice}}" class="item__price">
+        <text class="price__unit">¥</text>{{item.outPrice}}
+      </view>
+      <view wx:else class="item__price">面议</view>
     </view>
   </view>
   <view class='f-flex-justBetween-alignCenter'>
     <view class='f-flex-justStart-alignCenter'>
-      <text class="item__num">{{item.visitor}}浏览</text>
-      <text class="item__num">{{item.message}}留言</text>
+      <text class="item__num ">{{item.viewCount}}浏览</text>
+      <text class="item__num ">{{item.discussCount}}留言</text>
     </view>
     <view class='f-flex-justStart-alignCenter'>
-      <block wx:if="{{item.status===1}}">
-        <image class="item__btn" src="../../../icons/btn_shelves.png"></image>
-        <image class="item__btn" src="../../../icons/btn_modify.png"></image>
+      <block wx:if="{{!item.isDownShelf}} ">
+        <image class="item__btn " src="../../../icons/btn_shelves.png "></image>
+        <image class="item__btn " src="../../../icons/btn_modify.png "></image>
       </block>
-      <text wx:else class="btn-publish">重新发布</text>
+      <text wx:else class="btn-publish ">重新发布</text>
     </view>
   </view>
-  <image wx:if="{{item.status===0}}" src="../../../icons/sale--down.png" class="icon-saleDown"></image>
+  <image wx:if="{{item.status===0}} " src="../../../icons/sale--down.png " class="icon-saleDown "></image>
 </view>

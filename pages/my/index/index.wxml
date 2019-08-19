@@ -2,25 +2,25 @@
 <view class="page__header">
   <view class="header__user">
     <view class="f-flex-justStart-alignCenter" bindtap="handleToPersonInfo">
-      <image class="user__headimg" src="{{user.headimg||'../../../icons/my_head.png'}}"></image>
+      <image class="user__headimg" src="{{userInfo.headPortrait}}"></image>
       <view class="user-block__info">
-        <view class="user__nickname">{{user.nickname}}</view>
-        <view class="user__desc f-ellipsis1">{{user.desc}}</view>
+        <view class="user__nickname">{{userInfo.nickname}}</view>
+        <view class="user__desc f-ellipsis1">{{userInfo.nickName}}</view>
       </view>
     </view>
     <image bindtap='handleToHome' class="user__homeIcon" src="../../../icons/my_home.png"></image>
   </view>
   <view class="header__total f-flex-justBetween-alignCenter">
     <view class="total-item f-border--right" bindtap="handleToFollow">
-      <view class="total-item__value">{{total.follow}}</view>
+      <view class="total-item__value">{{userInfo.followCount}}</view>
       <view class="total-item__label">关注</view>
     </view>
     <view class="total-item f-border--right" bindtap="handleToFans">
-      <view class="total-item__value">{{total.fans}}</view>
+      <view class="total-item__value">{{userInfo.fansCount}}</view>
       <view class="total-item__label">粉丝</view>
     </view>
     <view class="total-item">
-      <view class="total-item__value">{{total.visitor}}</view>
+      <view class="total-item__value">{{userInfo.viewPhoneCount}}</view>
       <view class="total-item__label">累计访客</view>
     </view>
   </view>
@@ -46,7 +46,7 @@
       <image src="../../../icons/my_dynamic.png" class="card__icon"></image>
       <view class='card__label card__label-dynamic'>
         <text>我的动态</text>
-        <text class="label__add">+10</text>
+        <text wx:if="{{userInfo.unreadCommentCount}}" class="label__add">+{{userInfo.unreadCommentCount}}</text>
       </view>
     </view>
     <text class="card__btn">去查看</text>

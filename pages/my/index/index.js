@@ -1,21 +1,24 @@
-// pages/my/index/index.js
+import { fetchUserInfo } from '../../../api/user.js'
+const app = getApp()
+
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    user: {
-      headimg: '',
-      nickname: '高哥哥二手机械',
-      desc: '专业出售二手机械，有需要的联系我...专业出售二手机械，有需要的联系我...专业出售二手机械，有需要的联系我...'
-    },
-    total: {
-      follow: 777,
-      fans: 999,
-      visitor: 9878
-    }
+    userInfo: null
   },
+
+  // 获取个人信息
+  getUserInfo() {
+    fetchUserInfo({ closeLoading: true}).then(res => {
+      this.setData({
+        userInfo: res.data
+      })
+    })
+  },
+
   handleToHome() {
     wx.navigateTo({
       url: '/pages/my/person-home/person-home',
@@ -54,7 +57,12 @@ Page({
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function(options) {},
+  onLoad: function(options) {
+    wx.showLoading({
+      title: '加载中',
+      mask: true
+    })
+  },
 
   /**
    * 生命周期函数--监听页面初次渲染完成
@@ -67,7 +75,7 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function() {
-
+    this.getUserInfo()
   },
 
   /**

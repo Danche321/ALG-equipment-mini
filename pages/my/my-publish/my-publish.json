@@ -1,4 +1,6 @@
 {
   "navigationBarTitleText": "我发布的",
-  "usingComponents": {}
+  "usingComponents": {},
+  "onReachBottomDistance": 50,
+  "enablePullDownRefresh": true
 }

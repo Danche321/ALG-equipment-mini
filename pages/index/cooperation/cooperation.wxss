@@ -1,1 +1,83 @@
-/* pages/index/cooperation/cooperation.wxss */
+page {
+  background-color: #f5f5f5;
+  color: #666;
+  font-size: 28rpx;
+  box-sizing: border-box;
+}
+
+.list-item {
+  padding: 30rpx;
+  background-color: #fff;
+  margin-bottom: 20rpx;
+}
+
+.item-top {
+  display: flex;
+  align-items: flex-start;
+  border-bottom: 1rpx solid #f5f5f5;
+  padding-bottom: 20rpx;
+}
+
+.item__logo {
+  width: 160rpx;
+  height: 160rpx;
+  margin-right: 29rpx;
+  background: #f5f5f5;
+}
+
+.item__info {
+  flex: 1;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.item__name {
+  font-size: 34rpx;
+  color: #000;
+  line-height: 1;
+}
+
+.item__bottom {
+  padding-top: 20rpx;
+}
+
+.item__phone {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  margin-bottom: 20rpx;
+}
+
+.item__address {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+
+.item__address__text {
+  flex: 1;
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+
+.item__address__content {
+  flex: 1;
+}
+
+.item__desc {
+  padding-top: 16rpx;
+  font-size: 24rpx;
+}
+
+.icon-mobile {
+  width: 31rpx;
+  height: 35rpx;
+  margin-right: 21rpx;
+}
+
+.icon-location {
+  width: 28rpx;
+  height: 38rpx;
+  margin-right: 21rpx;
+}

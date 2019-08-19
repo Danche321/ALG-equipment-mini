@@ -1,7 +1,7 @@
 <!-- 头像 -->
 <view class="page-avatar">
   <view class="avatar__content" bindtap="handleUpload">
-    <image class="avatar__photo" src="../../../icons/headimg.png"></image>
+    <image class="avatar__photo" src="{{userInfo.headPortrait}}"></image>
     <view class="avatar__upload">
       <image src="../../../icons/camera.png" class="upload__icon"></image>
     </view>
@@ -13,21 +13,21 @@
   <view class="base-field">
     <text class="field__label">昵称</text>
     <view class="field__value">
-      <text class='field__value-input'>{{nickname}}</text>
+      <text class='field__value-input'>{{userInfo.nickName}}</text>
       <image class='field__value-arrow' src='../../../icons/arrow-right-gray.png'></image>
     </view>
   </view>
   <view class="base-field">
     <text class="field__label">家乡</text>
     <view class="field__value">
-      <text>{{hometown}}</text>
+      <text>{{userInfo.location}}</text>
       <image class='field__value-arrow' src='../../../icons/arrow-right-gray.png'></image>
     </view>
   </view>
   <view class="field-signature">
     <text class="field__label">个性签名</text>
     <view class="field__value">
-      <text class="field__value--signature">{{signature}}</text>
+      <text class="field__value--signature">{{userInfo.signature}}</text>
       <image class='field__value-arrow' src='../../../icons/arrow-right-gray.png'></image>
     </view>
   </view>
@@ -35,7 +35,5 @@
 <!-- 手机号 -->
 <view class="page-mobile">
   <text class="field__label">手机号</text>
-  <text class="field__value--black">13328202442</text>
+  <text class="field__value--black">{{userInfo.phone}}</text>
 </view>
-
-<button class="btn-publish">保存</button>

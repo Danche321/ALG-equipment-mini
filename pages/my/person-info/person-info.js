@@ -1,13 +1,22 @@
-// pages/my/person-info/person-info.js
+import { fetchUserInfo } from '../../../api/user.js'
+const app = getApp()
+
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    nickname: '老高二手机械',
-    hometown: '福建·平潭',
-    signature: '专业出售二手机械，需要的联系我专业出售二手机械，需要的联系我'
+    userInfo: null
+  },
+
+  // 获取个人信息
+  getUserInfo() {
+    fetchUserInfo().then(res => {
+      this.setData({
+        userInfo: res.data
+      })
+    })
   },
 
   // 上次头像
@@ -59,7 +68,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
-
+    this.getUserInfo()
   },
 
   /**

@@ -1,4 +1,4 @@
 {
   "navigationBarTitleText": "合作公司",
-  "usingComponents": {}
+  "onReachBottomDistance": 50
 }

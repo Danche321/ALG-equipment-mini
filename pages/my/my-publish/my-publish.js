@@ -1,37 +1,37 @@
-// pages/my/my-publish/my-publish.js
+import { fetchMyPublish } from '../../../api/publish.js'
+
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    listData: [
-      {
-        img: '',
-        title: '九成新装载机转让，有诚意私可 电话私聊：18457123123有诚意私可 电话私聊：18457123123',
-        tags: ['挖掘机', '原价9982', '2013年'],
-        price: 7999,
-        visitor: 520,
-        message: 80,
-        status: 1
-      },
-      {
-        img: '',
-        title: '九成新装载机转让，有诚意私可 电话私聊：18457123123有诚意私可 电话私聊：18457123123',
-        tags: ['挖掘机', '原价9982', '2013年'],
-        price: 7999,
-        visitor: 520,
-        message: 80,
-        status: 0
-      }
-    ]
+    listData: [],
+    params: {
+      pageNum: 1,
+      pageSize: 10
+    },
+    hasNextPage: true
+  },
+
+  getList(isFirst) {
+    const params = this.data.params
+    if (isFirst) this.data.params.pageNum = 1
+    fetchMyPublish(params).then(res => {
+      const { items, hasNextPage } = res.data
+      this.setData({
+        listData: items,
+        hasNextPage
+      })
+      if (isFirst) wx.stopPullDownRefresh()
+    })
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
+    this.getList()
   },
 
   /**
@@ -66,14 +66,17 @@ Page({
    * 页面相关事件处理函数--监听用户下拉动作
    */
   onPullDownRefresh: function () {
-
+    this.getList(1)
   },
 
   /**
    * 页面上拉触底事件的处理函数
    */
   onReachBottom: function () {
-
+    if (this.data.hasNextPage) {
+      this.data.params.pageNum++
+      this.getList()
+    }
   },
 
   /**

@@ -13,7 +13,7 @@
     </view>
     <view class='children-item'>
       <view class='item__img-wrap'>
-        <image class='children-item__img' src=''></image>
+        <image class='children-item__all' src="../../../icons/category-all.png"></image>
       </view>
       <text class='children-item__name'>全部分类</text>
     </view>

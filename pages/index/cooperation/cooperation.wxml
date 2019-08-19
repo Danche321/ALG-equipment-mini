@@ -1,1 +1,22 @@
-<view>合作公司</view>
+<view wx:for="{{listData}}" class='list-item'>
+  <view class='item-top'>
+    <image class='item__logo' src="{{item.image}}"></image>
+    <view class="item__info">
+      <view class='item__name'>{{item.name}}</view>
+      <view class='item__desc'>业务介绍：{{item.bizIntroduce}}</view>
+    </view>
+  </view>
+  <view class='item__bottom'>
+    <view class='item__phone'>
+      <image class='icon-mobile' src='../../../icons/cooraption_mobile.png'></image>
+      <text>联系电话：{{item.contactPhone}}</text>
+    </view>
+    <view class='item__address'>
+      <image class='icon-location' src='../../../icons/cooraption_location.png'></image>
+      <view class='item__address__text'>
+        <text>地址：</text>
+        <text class='item__address__content'>{{item.address}}</text>
+      </view>
+    </view>
+  </view>
+</view>

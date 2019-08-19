@@ -1,15 +1,13 @@
 const app = getApp()
+import { fetchBanner } from '../../../api/index.js'
+import { fetchPublish } from '../../../api/publish.js'
+import { fetchHomeCategory } from '../../../api/category.js'
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    imgUrls: [
-      'https://images.unsplash.com/photo-1551334787-21e6bd3ab135?w=640',
-      'https://images.unsplash.com/photo-1551214012-84f95e060dee?w=640',
-      'https://images.unsplash.com/photo-1551446591-142875a901a1?w=640'
-    ],
     interval: 4000,
     duration: 100,
     statusBarHeight: '',
@@ -19,134 +17,28 @@ Page({
       width: '',
       left: ''
     },
-    categoryList: [{
-      url: '',
-      name: '挖掘机11'
-    }, {
-      url: '',
-      name: '挖掘机2'
-    }, {
-      url: '',
-      name: '挖掘机3'
-    }, {
-      url: '',
-      name: '挖掘机4'
-    }, {
-      url: '',
-      name: '挖掘机5'
-    }, {
-      url: '',
-      name: '挖掘机6'
-    }, {
-      url: '',
-      name: '挖掘机7'
-    }, {
-      url: '',
-      name: '挖掘机8'
-    }, {
-      url: '',
-      name: '挖掘机9'
-    }],
-    publishList: [{
-        img: '',
-        title: '八成二手挖机转让八成二手挖机转让八成二手挖机转让八成二手挖机转让八成二手挖机转让',
-        voice: {
-          width: '30%',
-          second: 15
-        },
-        price: '8999',
-        area: '福建·平潭',
-        headImg: '',
-        nickname: '高哥哥二手机械高哥哥二手机械'
-      }, {
-        img: '',
-        title: '八成二手挖机转让',
-        voice: {
-          width: '50%',
-          second: 30
-        },
-        price: '8999',
-        area: '福建·平潭',
-        headImg: '',
-        nickname: '高哥哥二手机械'
-      }, {
-        img: '',
-        title: '八成二手挖机转让',
-        voice: null,
-        price: '8999',
-        area: '福建·平潭',
-        headImg: '',
-        nickname: '高哥哥二手机械'
-      },
-      {
-        img: '',
-        title: '八成二手挖机转让八成二手挖机转让八成二手挖机转让八成二手挖机转让八成二手挖机转让',
-        voice: {
-          width: '30%',
-          second: 15
-        },
-        price: '8999',
-        area: '福建·平潭',
-        headImg: '',
-        nickname: '高哥哥二手机械高哥哥二手机械'
-      }, {
-        img: '',
-        title: '八成二手挖机转让',
-        voice: {
-          width: '50%',
-          second: 30
-        },
-        price: '8999',
-        area: '福建·平潭',
-        headImg: '',
-        nickname: '高哥哥二手机械'
-      }, {
-        img: '',
-        title: '八成二手挖机转让',
-        voice: null,
-        price: '8999',
-        area: '福建·平潭',
-        headImg: '',
-        nickname: '高哥哥二手机械'
-      },
-      {
-        img: '',
-        title: '八成二手挖机转让八成二手挖机转让八成二手挖机转让八成二手挖机转让八成二手挖机转让',
-        voice: {
-          width: '30%',
-          second: 15
-        },
-        price: '8999',
-        area: '福建·平潭',
-        headImg: '',
-        nickname: '高哥哥二手机械高哥哥二手机械'
-      }, {
-        img: '',
-        title: '八成二手挖机转让',
-        voice: {
-          width: '50%',
-          second: 30
-        },
-        price: '8999',
-        area: '福建·平潭',
-        headImg: '',
-        nickname: '高哥哥二手机械'
-      }, {
-        img: '',
-        title: '八成二手挖机转让',
-        voice: null,
-        price: '8999',
-        area: '福建·平潭',
-        headImg: '',
-        nickname: '高哥哥二手机械'
-      }
-    ]
+    bannerList: [],
+    categoryList: [],
+    publishParams: {
+      pageNum: 1,
+      pageSize: 10
+    },
+    publishList: [],
+    hasNextPage: true
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
+    this.setHeaderConfig()
+    this.getBanner()
+    this.getCategory()
+    this.getPublish()
+  },
+
+  // 头部样式
+  setHeaderConfig() {
     wx.getSystemInfo({
       success: (res) => {
         const sys = wx.getSystemInfoSync()
@@ -167,11 +59,47 @@ Page({
     })
   },
 
-  getData() {
-    this.setData({
-      publishList: [...this.data.publishList, ...this.data.publishList]
+  // banner列表
+  getBanner() {
+    const params = {
+      count: 6
+    }
+    fetchBanner(params).then(res => {
+      this.setData({
+        bannerList: res.data
+      })
     })
   },
+
+  // 分类
+  getCategory() {
+    fetchHomeCategory().then(res => {
+      this.setData({
+        categoryList: res.data
+      })
+    })
+  },
+
+  // 发布列表
+  getPublish(isFirst) {
+    const params = this.data.publishParams
+    if (isFirst) this.data.publishParams.pageNum = 1
+    fetchPublish(params).then(res => {
+      const { items, hasNextPage } = res.data
+      let resList = []
+      if (isFirst) {
+        resList = items
+      } else {
+        resList = [...this.data.publishList, ...items]
+      }
+      this.setData({
+        publishList: resList,
+        hasNextPage
+      })
+      if (isFirst) wx.stopPullDownRefresh()
+    })
+  },
+
   handleToDetail() {
     wx.navigateTo({
       url: '/pages/publish/detail/detail',
@@ -203,26 +131,26 @@ Page({
    * 生命周期函数--监听页面卸载
    */
   onUnload: function() {
-    this.getData()
+    this.getPublish()
   },
 
   /**
    * 页面相关事件处理函数--监听用户下拉动作
    */
-  onPullDownRefresh: function() {
-
+  onPullDownRefresh: function () {
+    this.getBanner()
+    this.getCategory()
+    this.getPublish(1)
   },
 
   /**
    * 页面上拉触底事件的处理函数
    */
-  onReachBottom: function() {
-    if (this.data.isBottom) return
-    this.setData({
-      page: ++this.data.page,
-      size: 10,
-    });
-    this.getData();
+  onReachBottom: function () {
+    if (this.data.hasNextPage) {
+      this.data.publishParams.pageNum++
+      this.getPublish()
+    }
   },
 
   /**

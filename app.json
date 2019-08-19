@@ -54,7 +54,7 @@
         "selectedIconPath": "icons/my_on.png"
       }
     ],
-    "color": "#0C0B16",
+    "color": "#707070",
     "selectedColor": "#3669F8"
   },
   "sitemapLocation": "sitemap.json"
