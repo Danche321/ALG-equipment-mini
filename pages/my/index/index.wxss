@@ -130,3 +130,9 @@ page {
   font-size: 22rpx;
   color: #3979fd;
 }
+
+/* 联系客服 */
+.kefu__icon{
+  width: 50rpx;
+  height: 50rpx;
+}

@@ -1,6 +1,4 @@
-import {
-  fetchMyCollect
-} from '../../../api/publish.js'
+import { fetchMyCollect } from '../../../api/my.js'
 
 Page({
 

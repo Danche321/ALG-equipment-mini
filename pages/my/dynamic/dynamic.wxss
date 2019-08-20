@@ -1,6 +1,7 @@
 page {
   background-color: #fff;
   color: #333;
+  font-size: 30rpx;
 }
 
 .list-item {
@@ -38,24 +39,28 @@ page {
 
 .item__nickname {
   font-weight: 500;
-  color: #333;
-  font-size: 36rpx;
+  color: #000;
+  font-size: 32rpx;
 }
 
 .item__time {
   color: rgba(51, 51, 51, 0.7);
-  font-size: 28rpx;
+  font-size: 26rpx;
 }
 
 .item-origin__title {
   color: rgba(51, 51, 51, 0.7);
   font-size: 28rpx;
   vertical-align: middle;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
 }
 .title__content{
-  width: 168rpx;
   display: inline-block;
   vertical-align: middle;
+  font-size: 26rpx;
+  max-width: 280rpx;
 }
 
 .item-origin__img {

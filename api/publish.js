@@ -9,19 +9,10 @@ export function fetchPublish(data) {
   })
 }
 
-// 获取我的发布列表
-export function fetchMyPublish(data) {
+// 获取发布详情
+export function fetchDetail(data) {
   return request({
-    url: '/my/myPublishPageData.action',
-    method: 'get',
-    data: data
-  })
-}
-
-// 获取我的收藏列表
-export function fetchMyCollect(data) {
-  return request({
-    url: '/my/myCollectionPageData.action',
+    url: '/publish/detail.action',
     method: 'get',
     data: data
   })

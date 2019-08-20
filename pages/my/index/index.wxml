@@ -4,8 +4,8 @@
     <view class="f-flex-justStart-alignCenter" bindtap="handleToPersonInfo">
       <image class="user__headimg" src="{{userInfo.headPortrait}}"></image>
       <view class="user-block__info">
-        <view class="user__nickname">{{userInfo.nickname}}</view>
-        <view class="user__desc f-ellipsis1">{{userInfo.nickName}}</view>
+        <view class="user__nickname">{{userInfo.nickName}}</view>
+        <view class="user__desc f-ellipsis1">{{userInfo.signature}}</view>
       </view>
     </view>
     <image bindtap='handleToHome' class="user__homeIcon" src="../../../icons/my_home.png"></image>
@@ -20,8 +20,8 @@
       <view class="total-item__label">粉丝</view>
     </view>
     <view class="total-item">
-      <view class="total-item__value">{{userInfo.viewPhoneCount}}</view>
-      <view class="total-item__label">累计访客</view>
+    <image class='total-item__value kefu__icon' src="../../../icons/kefu.png"></image>
+      <view class="total-item__label">联系平台</view>
     </view>
   </view>
 </view>

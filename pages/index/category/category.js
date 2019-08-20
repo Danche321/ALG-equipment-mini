@@ -1,4 +1,4 @@
-import { fetchAllCategory } from '../../../api/category'
+import { fetchAllCategory } from '../../../api/index.js'
 Page({
 
   /**

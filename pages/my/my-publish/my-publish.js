@@ -1,4 +1,4 @@
-import { fetchMyPublish } from '../../../api/publish.js'
+import { fetchMyPublish } from '../../../api/my.js'
 
 Page({
 

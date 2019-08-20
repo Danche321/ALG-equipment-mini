@@ -69,7 +69,7 @@ swiper {
 }
 
 .title {
-  color: #333;
+  color: #000;
   font-size: 30rpx;
   font-weight: 500;
   margin: 20rpx 0;
@@ -88,6 +88,27 @@ swiper {
   margin-right: 20rpx;
 }
 
+.header-bottom{
+  margin-top: 30rpx;
+  font-size: 24rpx;
+  color: #777;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.location{
+  display: flex;
+  align-content: center;
+  justify-content: flex-start;
+}
+.location__icon{
+  width: 30rpx;
+  height: 30rpx;
+  margin-right: 10rpx;
+}
+.publish__time{
+
+}
 /* 描述 */
 
 .page-desc {

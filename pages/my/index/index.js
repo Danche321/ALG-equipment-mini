@@ -1,4 +1,4 @@
-import { fetchUserInfo } from '../../../api/user.js'
+import { fetchUserInfo } from '../../../api/my.js'
 const app = getApp()
 
 Page({

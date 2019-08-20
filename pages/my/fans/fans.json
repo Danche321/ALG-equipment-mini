@@ -1,4 +1,6 @@
 {
   "navigationBarTitleText": "我的粉丝",
-  "usingComponents": {}
+  "usingComponents": {},
+  "onReachBottomDistance": 50,
+  "enablePullDownRefresh": true
 }

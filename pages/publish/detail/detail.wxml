@@ -1,64 +1,73 @@
 <!-- 轮播 -->
 <swiper autoplay circular duration="{{duration}}" class="swiper-box" bindchange="handleSwiperChange">
-  <block wx:for="{{imgUrls}}" wx:key="{{index}}">
+  <block wx:for="{{publishInfo.imageVideos}}" wx:key="{{index}}">
     <swiper-item class="swiper-item">
-      <image src="{{item}}" mode='aspectFill' class='swiper-item' data-list="{{imgUrls}}" data-src="{{item}}" bindtap='handlePriviewImg'></image>
+      <image src="{{item.file}}" mode='aspectFill' class='swiper-item' data-list="{{publishInfo.imageVideos}}" data-src="{{item.file}}" bindtap='handlePriviewImg'></image>
     </swiper-item>
   </block>
 </swiper>
-<view wx:if="{{imgUrls.length}}" class="swiper-indicator">{{swiperCurrent+1}}/{{imgUrls.length}}</view>
+<view wx:if="{{publishInfo.imageVideos.length}}" class="swiper-indicator">{{swiperCurrent+1}}/{{publishInfo.imageVideos.length}}</view>
 <!-- 头部信息 -->
 <view class="page-header">
   <view class="f-flex-justBetween-alignCenter">
     <view class="price">
-      ￥
-      <text class="price__num">20.90</text>万
+      <text wx:if="{{publishInfo.outPrice}}">￥</text>
+      <text class="price__num">{{publishInfo.outPrice}}</text>
     </view>
     <view class="f-flex-justStart-alignCenter header__user">
-      <image class="header__user__headimg" src="../../../icons/headimg.png"></image>
-      <text class="header__user__nickname">老高二手机械</text>
+      <image class="header__user__headimg" src="{{publishInfo.publishUserInfo.headPortrait}}"></image>
+      <text class="header__user__nickname">{{publishInfo.publishUserInfo.nickName}}</text>
     </view>
   </view>
-  <view class="title">{{title}}</view>
+  <view class="title">{{publishInfo.title}}</view>
   <view class="tags">
-    <text wx:for="{{tags}}" class="tag-item" wx:key="{{index}}">{{item}}</text>
+    <text wx:if="{{publishInfo.categoryFirstName}}" class="tag-item">{{publishInfo.categoryFirstName}}</text>
+    <text wx:if="{{publishInfo.categorySecondName}}" class="tag-item">{{publishInfo.categorySecondName}}</text>
+    <text wx:if="{{publishInfo.productiveYear}}" class="tag-item">{{publishInfo.productiveYear}}年</text>
+  </view>
+  <view class='header-bottom'>
+    <view class='location'>
+      <image class='location__icon' src="../../../icons/location--publish.png"></image>
+      <text>发货地：{{publishInfo.location}}</text>
+    </view>
+    <view class='publish__time'>发布时间：{{publishInfo.createTimeFriendly}}</view>
   </view>
 </view>
 <!-- 设备描述 -->
 <view class="page-desc">
-  <view class="listen">
+  <view wx:if="{{publishInfo.voiceIntroduce}}" class="listen">
     <text class="listen__text">点击听卖家留言</text>
     <text class="listen__voice">{{voice.second}}"</text>
   </view>
-  <view class="desc">{{desc}}</view>
+  <view class="desc">{{publishInfo.textIntroduce}}</view>
   <view class="num">
-    <text class="f-mr70">已点赞{{zanNum}}</text>
-    <text>已阅读{{readNum}}</text>
+    <text class="f-mr70">点赞{{publishInfo.likeCount}}</text>
+    <text>浏览{{publishInfo.viewCount}}</text>
   </view>
 </view>
 <!-- 留言 -->
 <view class="page-message">
-  <view class="message__total">全部留言·{{totalMsg}}</view>
-  <view wx:for="{{messageList}}" wx:key="{{index}}" class="message-item">
+  <view class="message__total">全部留言·{{publishInfo.discussCount}}</view>
+  <view wx:for="{{discussInfo}}" wx:key="{{index}}" class="message-item">
     <view class="f-flex-justBetween-alignCenter">
       <view class="f-flex-justStart-alignCenter">
-        <image class="message__headimg" src="{{item.headimg||headimgTest}}"></image>
-        <text class="message__nickname">{{item.nickname}}</text>
+        <image class="message__headimg" src="{{item.userInfo.headPortrait}}"></image>
+        <text class="message__nickname">{{item.userInfo.nickName}}</text>
       </view>
-      <text class="message__time">{{item.time}}</text>
+      <text class="message__time">{{item.createTimeFriendly}}</text>
     </view>
     <view class="message-bottom">
       <view class="message__content">{{item.content}}</view>
       <view wx:for="{{item.children}}" wx:key="{{index}}" class="message-child">
         <view class="f-flex-justBetween-alignCenter">
           <view class="f-flex-justStart-alignCenter">
-            <image class="child__headimg" src="{{item.headimg||headimgTest}}"></image>
-            <text class="child__nickname">{{item.nickname}}</text>
+            <image class="child__headimg" src="{{item.userInfo.headPortrait}}"></image>
+            <text class="child__nickname">{{item.userInfo.nickName}}</text>
           </view>
-          <text class="child__time">{{item.time}}</text>
+          <text class="child__time">{{item.createTimeFriendly}}</text>
         </view>
         <view class="child__content">回复
-          <text class="child__toName">{{item.toName}}:</text> {{item.content}}</view>
+          <text class="child__toName">{{item.contentPrefix}}:</text> {{item.content}}</view>
       </view>
     </view>
   </view>

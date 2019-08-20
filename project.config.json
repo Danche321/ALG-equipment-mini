@@ -45,7 +45,7 @@
 				{
 					"id": 0,
 					"name": "pages/my/dynamic/dynamic",
-					"pathName": "pages/my/collect/collect",
+					"pathName": "pages/my/index/index",
 					"query": "",
 					"scene": null
 				}

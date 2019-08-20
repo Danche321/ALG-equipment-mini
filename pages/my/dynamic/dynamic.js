@@ -1,36 +1,37 @@
-// pages/my/dynamic/dynamic.js
+import { fetchMyDynamic } from '../../../api/my.js'
+
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    listData: [{
-      headimg: '',
-      name: '搞个个二手机械',
-      time: '19:25',
-      title: '九成新挖掘机九成新挖掘机',
-      message: '看着不错，车漆都很新，并且前挡风玻璃也是刚换的，就是价格贵了点，便宜些呢'
-    }, {
-      headimg: '',
-      name: '搞个个二手机械',
-      time: '19:25',
-      title: '九成新挖掘机九成新挖掘机',
-      message: '看着不错，车漆都很新，并且前挡风玻璃也是刚换的，就是价格贵了点，便宜些呢'
-    }, {
-      headimg: '',
-      name: '搞个个二手机械',
-      time: '19:25',
-      title: '九成新挖掘机九成新挖掘机',
-      message: '看着不错，车漆都很新，并且前挡风玻璃也是刚换的，就是价格贵了点，便宜些呢'
-    }]
+    listData: [],
+    params: {
+      pageNum: 1,
+      pageSize: 10
+    },
+    hasNextPage: true
+  },
+
+  getList(isFirst) {
+    const params = this.data.params
+    if (isFirst) this.data.params.pageNum = 1
+    fetchMyDynamic(params).then(res => {
+      const { items, hasNextPage } = res.data
+      this.setData({
+        listData: items,
+        hasNextPage
+      })
+      if (isFirst) wx.stopPullDownRefresh()
+    })
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
+    this.getList()
   },
 
   /**
@@ -65,14 +66,17 @@ Page({
    * 页面相关事件处理函数--监听用户下拉动作
    */
   onPullDownRefresh: function () {
-
+    this.getList(1)
   },
 
   /**
    * 页面上拉触底事件的处理函数
    */
   onReachBottom: function () {
-
+    if (this.data.hasNextPage) {
+      this.data.params.pageNum++
+      this.getList()
+    }
   },
 
   /**

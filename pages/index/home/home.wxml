@@ -33,7 +33,7 @@
 <!-- 发布列表 -->
 <view class="publish-box">
   <view class="publish-column">
-    <view wx:if="{{index%2===0}}" wx:for="{{publishList}}" wx:key="{{index}}" class="publish-item" bindtap="handleToDetail">
+    <view wx:if="{{index%2===0}}" wx:for="{{publishList}}" wx:key="{{index}}" class="publish-item" data-id="{{item.id}}" bindtap="handleToDetail">
       <image class="img" src="{{item.mainMedia}}"></image>
       <view class="publish__content">
         <view class="title f-ellipsis2">{{item.title}}</view>
@@ -53,7 +53,7 @@
     </view>
   </view>
   <view class="publish-column">
-    <view wx:if="{{index%2!==0}}" wx:for="{{publishList}}" wx:key="{{index}}" class="publish-item" bindtap="handleToDetail">
+    <view wx:if="{{index%2!==0}}" wx:for="{{publishList}}" wx:key="{{index}}" class="publish-item" data-id="{{item.id}}" bindtap="handleToDetail">
       <image class="img" src="{{item.mainMedia}}"></image>
       <view class="publish__content">
         <view class="title f-ellipsis2">{{item.title}}</view>

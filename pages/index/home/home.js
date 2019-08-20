@@ -1,7 +1,6 @@
 const app = getApp()
-import { fetchBanner } from '../../../api/index.js'
+import { fetchBanner, fetchHomeCategory } from '../../../api/index.js'
 import { fetchPublish } from '../../../api/publish.js'
-import { fetchHomeCategory } from '../../../api/category.js'
 Page({
 
   /**
@@ -100,9 +99,10 @@ Page({
     })
   },
 
-  handleToDetail() {
+  handleToDetail(e) {
+    const id = e.currentTarget.dataset.id
     wx.navigateTo({
-      url: '/pages/publish/detail/detail',
+      url: `/pages/publish/detail/detail?id=${id}`,
     })
   },
 

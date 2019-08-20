@@ -1,16 +1,18 @@
 <view wx:for="{{listData}}" wx:key="{{index}}" class="list-item">
-  <image class="item__headimg" src="../../../icons/headimg.png"></image>
+  <image class="item__headimg" src="{{item.headPortrait}}"></image>
   <view class="item__right">
     <view class="item__top">
       <view class="item_top__base">
-        <view class="item__nickname">{{item.name}}</view>
-        <view class="item__time">{{item.time}}</view>
+        <view class="item__nickname">{{item.nickName}}</view>
+        <view class="item__time">{{item.createdTime}}</view>
         <view class="item-origin__title">
-          评论了您的发布《<text class="title__content f-ellipsis1">{{item.title}}</text>》
+          <text>评论了《</text>
+          <text class="title__content f-ellipsis1">{{item.title}}</text>
+          <text>》</text>
         </view>
       </view>
-      <image class="item-origin__img" src="{{item.img}}"></image>
+      <image class="item-origin__img" src="{{item.mainMedia}}"></image>
     </view>
-    <view class="item__message">{{item.message}}</view>
+    <view class="item__message">{{item.content}}</view>
   </view>
 </view>
