@@ -6,31 +6,11 @@ Page({
    */
   data: {
     statusBarHeight: '',
-    publishList: [
-      {
-        day: '今天',
-        items: [
-          {
-            img: [],
-            title: '八成新挖掘机出售，八成新挖掘机出售啦，便宜卖八成新挖掘机啦，价格便宜的八成新挖掘机八成新挖掘机出售，八成新挖掘机出售啦，便宜卖八成新挖掘机啦，价格便宜的八成新挖掘机.'
-          }, {
-            img: [],
-            title: '八成新挖掘机出售，八成'
-          }
-        ]
-      }, {
-        day: '今天',
-        items: [
-          {
-            img: [],
-            title: '八成新挖掘机出售，八成新挖掘机出售啦，便宜卖八成新挖掘机啦，价格便宜的八成新挖掘机八成新挖掘机出售，八成新挖掘机出售啦，便宜卖八成新挖掘机啦，价格便宜的八成新挖掘机.'
-          }, {
-            img: [],
-            title: '八成新挖掘机出售，八成'
-          }
-        ]
-      }
-    ]
+    publishList: [],
+    currentFlagId: -1, // 临界点id
+    followed: false, // 是否已关注
+    hasMore: true, // 是否有下一页
+    whoInfo: null
   },
 
   /**
@@ -38,17 +18,25 @@ Page({
    */
   onLoad: function (options) {
     this.setHeaderConfig()
-    this.getInfo()
+    this.getList()
   },
 
   // 获取信息
-  getInfo() {
+  getList(isFirst) {
     const params = {
       whoId: 1,
-      baseSize: 10
+      baseSize: isFirst || this.data.currentFlagId
     }
     fetchMyHome(params).then(res => {
-
+      const { publishInHp, followed, whoInfo } = res.data
+      this.setData({
+        publishList: publishInHp.items,
+        followed,
+        whoInfo,
+        currentFlagId: publishInHp.currentFlagId,
+        hasMore: publishInHp.hasMore
+      })
+      if (isFirst) wx.stopPullDownRefresh()
     })
   },
   // 自定义头部
@@ -92,19 +80,18 @@ Page({
   onUnload: function () {
 
   },
-
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
+  
   onPullDownRefresh: function () {
-
+    this.getList(-1)
   },
 
   /**
    * 页面上拉触底事件的处理函数
    */
   onReachBottom: function () {
-
+    if (this.data.hasMore) {
+      this.getList()
+    }
   },
 
   /**

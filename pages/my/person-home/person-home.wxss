@@ -1,4 +1,5 @@
-page{}
+page{
+}
 /* 头部 */
 .page__header{
   height: 615rpx;
@@ -35,7 +36,7 @@ page{}
   justify-content: space-between;
 }
 .header__num{
-  font-size: 26rpx;
+  font-size: 24rpx;
 }
 .header__num-item{
   margin-right: 20rpx;
@@ -57,7 +58,7 @@ page{}
   display: none;
 }
 .header__location{
-  font-size: 28rpx;
+  font-size: 24rpx;
 }
 .location__icon{
   width: 17rpx;
@@ -65,8 +66,6 @@ page{}
   margin-right: 12rpx;
 }
 /* 发布列表 */
-.page-publish{
-}
 .publish-item{
   display: flex;
   justify-content: space-between;
@@ -108,4 +107,10 @@ page{}
   word-break: break-all;
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 4;
+}
+
+/* 空数据 */
+.m-page-empty{
+  height: calc(100vh - 615rpx);
+  background: none;
 }

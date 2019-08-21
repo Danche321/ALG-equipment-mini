@@ -5,7 +5,7 @@
     <view class="search-box" style="height:{{titleBar.height}}px;width:{{titleBar.width}}px;margin-top:{{titleBar.top}}px;margin-left:{{titleBar.left}}px">
       <text class="search__area">全国</text>
       <text class="search__split"></text>
-      <view class='search__input'>
+      <view class='search__input' bindtap='handleToSearch'>
         <image class='icon-search' src='../../../icons/search.png'></image>
         <text>搜索机械设备</text>
       </view>

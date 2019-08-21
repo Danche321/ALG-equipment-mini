@@ -2,17 +2,14 @@
 <view class="page-header">
   <view class="header__statusBar" style="height:{{statusBarHeight}}px"></view>
   <view class="header__titleBar" style="top:{{statusBarHeight}}px;padding-bottom:{{titleBar.top*2}}px">
-    <view class="f-flex-justStart-alignCenter search-box" style="height:{{titleBar.height}}px;width:{{titleBar.width}}px;margin-top:{{titleBar.top}}px;margin-left:{{titleBar.left}}px">
-      <input placeholder="搜索机械设备"></input>
+    <view class="search-box" style="height:{{titleBar.height}}px;width:{{titleBar.width}}px;margin-top:{{titleBar.top}}px;margin-left:{{titleBar.left}}px">
+        <image class='icon-search' src='../../../icons/search.png'></image>
+      <input placeholder="搜索机械设备" class="search__input"></input>
     </view>
   </view>
 </view>
 <!-- 筛选条件 -->
 <view class="page-filter" style="margin-top:{{statusBarHeight+titleBar.height+titleBar.top+titleBar.top*2}}px">
-  <view class="filter-item">
-    <text>综合排序</text>
-    <image class="filter-item__arow" src="../../../icons/arrow-down.png"></image>
-  </view>
   <view class="filter-item">
     <text>区域</text>
     <image class="filter-item__arow" src="../../../icons/arrow-down.png"></image>
@@ -23,39 +20,46 @@
   </view>
 </view>
 <!-- 发布列表 -->
-<view class="page-publish">
+<view class="publish-box">
   <view class="publish-column">
-    <view wx:if="{{index%2===0}}" wx:for="{{publishList}}" wx:key="{{index}}" class="publish-item" bindtap="handleToDetail">
-      <image class="img" src="{{item.img}}"></image>
+    <view wx:if="{{index%2===0}}" wx:for="{{publishList}}" wx:key="{{index}}" class="publish-item" data-id="{{item.id}}" bindtap="handleToDetail">
+      <image class="img" src="{{item.mainMedia}}"></image>
       <view class="publish__content">
         <view class="title f-ellipsis2">{{item.title}}</view>
         <view wx:if="{{item.voice}}" class="voice" style="width:{{item.voice.width}}">{{item.voice.second}}"</view>
         <view class="f-flex-justBetween-alignCenter">
-          <view class="price">
-            <text class="price__unit">￥</text>{{item.price}}</view>
-          <text class="area">{{item.area}}</text>
+          <view wx:if="{{item.outPrice}}" class="price">
+            <text class="price__unit">￥</text>{{item.outPrice}}
+          </view>
+          <view wx:else class="price">面议</view>
+          <text class="area">{{item.location}}</text>
         </view>
         <view class="user-info f-flex-justStart-alignCenter">
-          <image src="{{item.headImg}}" class="headimg"></image>
-          <text class="nickname f-ellipsis1">{{item.nickname}}</text>
+          <image src="{{item.publishUserInfo.headPortrait}}" class="headimg"></image>
+          <text class="nickname f-ellipsis1">{{item.publishUserInfo.nickName}}</text>
         </view>
       </view>
     </view>
   </view>
   <view class="publish-column">
-    <view wx:if="{{index%2!==0}}" wx:for="{{publishList}}" wx:key="{{index}}" class="publish-item" bindtap="handleToDetail">
-      <image class="img" src="{{item.img}}"></image>
+    <view wx:if="{{index%2!==0}}" wx:for="{{publishList}}" wx:key="{{index}}" class="publish-item" data-id="{{item.id}}" bindtap="handleToDetail">
+      <image class="img" src="{{item.mainMedia}}"></image>
       <view class="publish__content">
         <view class="title f-ellipsis2">{{item.title}}</view>
-        <view wx:if="{{item.voice}}" class="voice" style="width:{{item.voice.width}}">{{item.voice.second}}"</view>
+        <view wx:if="{{item.voiceIntroduce}}" class="voice" style="width:{{item.voice.width}}">
+          <image class='voice__icon' src='../../../icons/voice.png'></image>
+          <text class='voice__text'>{{item.voice.second}}"</text>
+        </view>
         <view class="f-flex-justBetween-alignCenter">
-          <view class="price">
-            <text class="price__unit">￥</text>{{item.price}}</view>
-          <text class="area">{{item.area}}</text>
+          <view wx:if="{{item.outPrice}}" class="price">
+            <text class="price__unit">￥</text>{{item.outPrice}}
+          </view>
+          <view wx:else class="price">面议</view>
+          <text class="area">{{item.location}}</text>
         </view>
         <view class="user-info f-flex-justStart-alignCenter">
-          <image src="{{item.headImg}}" class="headimg"></image>
-          <text class="nickname f-ellipsis1">{{item.nickname}}</text>
+          <image src="{{item.publishUserInfo.headPortrait}}" class="headimg"></image>
+          <text class="nickname f-ellipsis1">{{item.publishUserInfo.nickName}}</text>
         </view>
       </view>
     </view>

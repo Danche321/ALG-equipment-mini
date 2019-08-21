@@ -1,7 +1,7 @@
 <view class="page-base">
   <!-- 标题/内容 -->
   <input class="input-title" placeholder="标题：如设备品牌型号等" auto-focus />
-  <textarea class="input-desc" placeholder="描述：使用语音/文字，描述你想转手的原因，入手渠道和使用感受···" maxlength="-1"></textarea>
+  <textarea class="input-desc" placeholder="描述：使用语音或者文字进行描述···" maxlength="-1"></textarea>
   <!-- 录音 -->
   <view class="page-voice">
     <button class="btn-voice">

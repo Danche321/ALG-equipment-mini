@@ -1,4 +1,5 @@
 const app = getApp()
+import { fetchPublish } from '../../../api/publish.js'
 Page({
 
   /**
@@ -12,107 +13,24 @@ Page({
       width: '',
       left: ''
     },
-    publishList: [
-      {
-        img: '',
-        title: '八成二手挖机转让八成二手挖机转让八成二手挖机转让八成二手挖机转让八成二手挖机转让',
-        voice: {
-          width: '30%',
-          second: 15
-        },
-        price: '8999',
-        area: '福建·平潭',
-        headImg: '',
-        nickname: '高哥哥二手机械高哥哥二手机械'
-      }, {
-        img: '',
-        title: '八成二手挖机转让',
-        voice: {
-          width: '50%',
-          second: 30
-        },
-        price: '8999',
-        area: '福建·平潭',
-        headImg: '',
-        nickname: '高哥哥二手机械'
-      }, {
-        img: '',
-        title: '八成二手挖机转让',
-        voice: null,
-        price: '8999',
-        area: '福建·平潭',
-        headImg: '',
-        nickname: '高哥哥二手机械'
-      },
-      {
-        img: '',
-        title: '八成二手挖机转让八成二手挖机转让八成二手挖机转让八成二手挖机转让八成二手挖机转让',
-        voice: {
-          width: '30%',
-          second: 15
-        },
-        price: '8999',
-        area: '福建·平潭',
-        headImg: '',
-        nickname: '高哥哥二手机械高哥哥二手机械'
-      }, {
-        img: '',
-        title: '八成二手挖机转让',
-        voice: {
-          width: '50%',
-          second: 30
-        },
-        price: '8999',
-        area: '福建·平潭',
-        headImg: '',
-        nickname: '高哥哥二手机械'
-      }, {
-        img: '',
-        title: '八成二手挖机转让',
-        voice: null,
-        price: '8999',
-        area: '福建·平潭',
-        headImg: '',
-        nickname: '高哥哥二手机械'
-      },
-      {
-        img: '',
-        title: '八成二手挖机转让八成二手挖机转让八成二手挖机转让八成二手挖机转让八成二手挖机转让',
-        voice: {
-          width: '30%',
-          second: 15
-        },
-        price: '8999',
-        area: '福建·平潭',
-        headImg: '',
-        nickname: '高哥哥二手机械高哥哥二手机械'
-      }, {
-        img: '',
-        title: '八成二手挖机转让',
-        voice: {
-          width: '50%',
-          second: 30
-        },
-        price: '8999',
-        area: '福建·平潭',
-        headImg: '',
-        nickname: '高哥哥二手机械'
-      }, {
-        img: '',
-        title: '八成二手挖机转让',
-        voice: null,
-        price: '8999',
-        area: '福建·平潭',
-        headImg: '',
-        nickname: '高哥哥二手机械'
-      }
-    ]
+    publishList: [],
+    publishParams: {
+      pageNum: 1,
+      pageSize: 10
+    },
+    publishList: [],
+    hasNextPage: true
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    this.getHeaderConfig()
+    this.getList()
+  },
+
+  getHeaderConfig() {
     wx.getSystemInfo({
       success: (res) => {
         const sys = wx.getSystemInfoSync()
@@ -133,14 +51,30 @@ Page({
     })
   },
 
-  getList() {
-    this.setData({
-      publishList: [...this.data.publishList, ...this.data.publishList]
+  // 发布列表
+  getList(isFirst) {
+    const params = this.data.publishParams
+    if (isFirst) this.data.publishParams.pageNum = 1
+    fetchPublish(params).then(res => {
+      const { items, hasNextPage } = res.data
+      let resList = []
+      if (isFirst) {
+        resList = items
+      } else {
+        resList = [...this.data.publishList, ...items]
+      }
+      this.setData({
+        publishList: resList,
+        hasNextPage
+      })
+      if (isFirst) wx.stopPullDownRefresh()
     })
   },
-  handleToDetail() {
+
+  handleToDetail(e) {
+    const id = e.currentTarget.dataset.id
     wx.navigateTo({
-      url: '/pages/publish/detail/detail',
+      url: `/pages/publish/detail/detail?id=${id}`,
     })
   },
 
