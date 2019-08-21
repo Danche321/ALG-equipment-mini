@@ -5,47 +5,7 @@ Page({
    * 页面的初始数据
    */
   data: {
-    categaryList: [{
-      name: '挖掘机',
-      id: 1,
-      children: [{
-        name: '哈哈1',
-        icon: ''
-      }, {
-        name: '哈哈2',
-        icon: ''
-      }, {
-        name: '哈哈3',
-        icon: ''
-      }]
-    },
-     { name: '挖掘机', id: 1 },
-     { name: '挖掘机', id: 1 },
-     { name: '挖掘机', id: 1 },
-     { name: '挖掘机', id: 1 },
-     { name: '挖掘机', id: 1 },
-     { name: '挖掘机', id: 1 },
-     { name: '挖掘机', id: 1 },
-     { name: '挖掘机', id: 1 },
-     { name: '挖掘机', id: 1 },
-     { name: '挖掘机', id: 1 },
-     { name: '挖掘机', id: 1 },
-     { name: '挖掘机', id: 1 },
-     { name: '挖掘机', id: 1 },
-     { name: '挖掘机', id: 1 },
-     { name: '挖掘机', id: 1 },
-     { name: '挖掘机', id: 1 },
-     { name: '挖掘机', id: 1 },
-     { name: '挖掘机', id: 1 },
-     { name: '挖掘机', id: 1 },
-     { name: '挖掘机', id: 1 },
-     { name: '挖掘机', id: 1 },
-     { name: '挖掘机', id: 1 },
-     { name: '挖掘机', id: 1 },
-     { name: '挖掘机', id: 1 },
-     { name: '挖掘机', id: 1 },
-     { name: '挖掘机22', id: 1 }
-    ],
+    categaryList: [],
     activeIndex: 0
   },
 

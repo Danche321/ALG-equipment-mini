@@ -20,16 +20,16 @@
   </swiper>
 </view>
 <!-- 分类 -->
-<view class="category-box f-flex-justStart-wrap">
-  <view wx:for="{{categoryList}}" wx:key="{{index}}" class="category-item">
-    <image src="{{item.icon}}"></image>
-    <view>{{item.name}}</view>
-  </view>
-  <view class="category-item">
-    <image src="../../../icons/category-all.png"></image>
-    <view>全部分类</view>
-  </view>
-</view>
+<swiper class="swiper-category" indicator-dots circular>
+  <swiper-item class="swiper-item" wx:for="{{categoryList}}" wx:key="{{index}}">
+    <view class="category-box f-flex-justStart-wrap">
+      <view wx:for="{{item}}" wx:for-item="cell" class="category-item">
+        <image src="{{cell.icon}}"></image>
+        <view>{{cell.name}}</view>
+      </view>
+    </view>
+  </swiper-item>
+</swiper>
 <!-- 发布列表 -->
 <view class="publish-box">
   <view class="publish-column">

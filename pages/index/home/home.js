@@ -1,5 +1,5 @@
 const app = getApp()
-import { fetchBanner, fetchHomeCategory } from '../../../api/index.js'
+import { fetchBanner, fetchAllCategory } from '../../../api/index.js'
 import { fetchPublish } from '../../../api/publish.js'
 Page({
 
@@ -72,9 +72,14 @@ Page({
 
   // 分类
   getCategory() {
-    fetchHomeCategory().then(res => {
+    fetchAllCategory().then(res => {
+      const { data } = res
+      let resArr = []
+      for (let i = 0; i < data.length; i += 10) {
+        resArr.push(data.slice(i, i + 10))
+      }
       this.setData({
-        categoryList: res.data
+        categoryList: resArr
       })
     })
   },

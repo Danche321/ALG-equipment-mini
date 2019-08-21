@@ -123,18 +123,26 @@ page {
 }
 
 /* 分类 */
-
+.swiper-category{
+  margin-top: 150rpx;
+  height: 340rpx;
+}
+.swiper-category .swiper-item{
+  padding-bottom: 40rpx;
+}
+.swiper-category .wx-swiper-dot{
+  background: #3669f8 !important;
+}
 .category-box {
-  margin-top: 180rpx;
-  font-size: 28rpx;
   padding: 0 20rpx;
   background-color: #fff;
+  font-size: 24rpx;
 }
 
 .category-item {
   text-align: center;
   width: 20%;
-  margin-bottom: 40rpx;
+  margin-bottom: 30rpx;
 }
 
 .category-item image {

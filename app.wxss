@@ -81,3 +81,20 @@
 .f-mr70{
   margin-right: 70rpx;
 }
+.m-page-empty{
+  height: 100vh;
+  background-color: #fff;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+}
+.empty__img{
+  width: 196rpx;
+  height: 128rpx;
+}
+.empty__text{
+  font-size: 28rpx;
+  color: #8a96a3;
+  margin-top: 40rpx;
+}

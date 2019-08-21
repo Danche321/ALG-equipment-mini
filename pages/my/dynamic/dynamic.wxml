@@ -1,18 +1,26 @@
-<view wx:for="{{listData}}" wx:key="{{index}}" class="list-item">
-  <image class="item__headimg" src="{{item.headPortrait}}"></image>
-  <view class="item__right">
-    <view class="item__top">
-      <view class="item_top__base">
-        <view class="item__nickname">{{item.nickName}}</view>
-        <view class="item__time">{{item.createdTime}}</view>
-        <view class="item-origin__title">
-          <text>评论了《</text>
-          <text class="title__content f-ellipsis1">{{item.title}}</text>
-          <text>》</text>
+<block wx:if="{{listData.length}}">
+  <view wx:for="{{listData}}" wx:key="{{index}}" class="list-item">
+    <image class="item__headimg" src="{{item.headPortrait}}"></image>
+    <view class="item__right">
+      <view class="item__top">
+        <view class="item_top__base">
+          <view class="item__nickname">{{item.nickName}}</view>
+          <view class="item__time">{{item.createdTime}}</view>
+          <view class="item-origin__title">
+            <text>评论了《</text>
+            <text class="title__content f-ellipsis1">{{item.title}}</text>
+            <text>》</text>
+          </view>
         </view>
+        <image class="item-origin__img" src="{{item.mainMedia}}"></image>
       </view>
-      <image class="item-origin__img" src="{{item.mainMedia}}"></image>
+      <view class="item__message">{{item.content}}</view>
     </view>
-    <view class="item__message">{{item.content}}</view>
   </view>
+</block>
+
+<!-- 无数据 -->
+<view wx:else class='m-page-empty'>
+  <image class='empty__img' src="../../../icons/empty.png"></image>
+  <text class='empty__text'>您还没有任何动态～</text>
 </view>

@@ -20,51 +20,38 @@
       <text class='upload-add__text'>图片/视频</text>
     </view>
   </view>
-  <!-- 定位 -->
-  <view class="location">
-    <image class="location__icon" src="../../../icons/location--publish.png"></image>
-    <text class="location__text">福建省福州平潭县</text>
+  <!-- 定位和电话 -->
+  <view class='page-contact'>
+    <view class="mobile">
+      <image class="contact-icon" src="../../../icons/mobile-publish-gray.png"></image>
+      <text>13328202442</text>
+    </view>
+    <view class="location">
+      <image class="contact-icon" src="../../../icons/location--publish.png"></image>
+      <text class='f-ellipsis1 location__text'>福建省福州平潭县福建省福州平潭县</text>
+    </view>
   </view>
 </view>
 
-<view class="page-contact">
-  <view class="contact-item">
-    <view class="contact-item__label">
-      <image class="contact__label__icon" src="../../../icons/category--publish.png "></image>
-      <text>设备分类</text>
-    </view>
-    <view class="contact-item__value">
-      <text>请选择</text>
-      <image class="contact_arrowIcon" src="../../../icons/arrow-right-black.png"></image>
-    </view>
-  </view>
-  <view class="contact-item">
-    <view class="contact-item__label">
-      <image class="contact__label__icon" src="../../../icons/mobile--publish.png "></image>
-      <text>联系电话</text>
-    </view>
-    <input class="contact-item__value" placeholder="联系电话" type="number"></input>
-  </view>
-</view>
 <!-- 设备信息 -->
 <view class="page-info">
   <view class="info__title">设备信息</view>
   <view class="info-item">
     <text>价格</text>
-    <input class="info__value-input" placeholder="面议可不填" type="number"></input>
+    <input class="info__value-input" placeholder="选填" type="number"></input>
   </view>
   <view class="info-item">
-    <text>入手价</text>
-    <input class="info__value-input" placeholder="￥0.00" type="number"></input>
+    <text>出厂年份</text>
+    <input class="info__value-input" placeholder="选择生产年份" type="number"></input>
   </view>
   <view class="info-item info-item-year">
-    <text>生产年份</text>
+    <text>机型</text>
     <view class="info__value--year">
       <view class="tag-year">
         <text wx:for="{{yearTags}}" class="tag-year-item {{activeYear===item?'active':''}}">{{item}}</text>
       </view>
       <view class="other-year">
-        <text>其他年份</text>
+        <text>其他机型</text>
         <image class="info__arrow" src="../../../icons/arrow-right-blue.png"></image>
       </view>
     </view>

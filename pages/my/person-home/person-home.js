@@ -1,4 +1,4 @@
-// pages/my/person-home/person-home.js
+import { fetchMyHome } from '../../../api/my.js'
 Page({
 
   /**
@@ -37,6 +37,22 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    this.setHeaderConfig()
+    this.getInfo()
+  },
+
+  // 获取信息
+  getInfo() {
+    const params = {
+      whoId: 1,
+      baseSize: 10
+    }
+    fetchMyHome(params).then(res => {
+
+    })
+  },
+  // 自定义头部
+  setHeaderConfig() {
     wx.getSystemInfo({
       success: (res) => {
         const sys = wx.getSystemInfoSync()

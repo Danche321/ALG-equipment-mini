@@ -54,3 +54,12 @@ export function fetchMyFans(data) {
     data: data
   })
 }
+
+// 个人主页
+export function fetchMyHome(data) {
+  return request({
+    url: '/my/personalHomePage.action',
+    method: 'get',
+    data: data
+  })
+}

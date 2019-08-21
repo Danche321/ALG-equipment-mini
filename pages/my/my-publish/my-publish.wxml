@@ -1,33 +1,41 @@
-<view class="list-item {{item.isDownShelf?'item--disabled':''}}" wx:for="{{listData}}" wx:key="{{index}}">
-  <view class="item__top f-flex-justBetween-alignStart">
-    <view class="img-box">
-      <image src="{{item.mainMedia}}" class="item__img" mode="aspectFill"></image>
-    </view>
-    <view class='item__right'>
-      <view class="f-ellipsis2 item__title">{{item.title}}</view>
-      <view class="tag-box">
-        <text wx:if="{{item.categoryFirstName}}" class="item__tag">{{item.categoryFirstName}}</text>
-        <text wx:if="{{item.categorySecondName}}" class="item__tag">{{item.categorySecondName}}</text>
-        <text wx:if="{{item.productiveYear}}" class="item__tag">{{item.productiveYear}}年</text>
+<block wx:if="{{listData.length}}">
+  <view class="list-item {{item.isDownShelf?'item--disabled':''}}" wx:for="{{listData}}" wx:key="{{index}}">
+    <view class="item__top f-flex-justBetween-alignStart">
+      <view class="img-box">
+        <image src="{{item.mainMedia}}" class="item__img" mode="aspectFill"></image>
       </view>
-      <view wx:if="{{item.outPrice}}" class="item__price">
-        <text class="price__unit">¥</text>{{item.outPrice}}
+      <view class='item__right'>
+        <view class="f-ellipsis2 item__title">{{item.title}}</view>
+        <view class="tag-box">
+          <text wx:if="{{item.categoryFirstName}}" class="item__tag">{{item.categoryFirstName}}</text>
+          <text wx:if="{{item.categorySecondName}}" class="item__tag">{{item.categorySecondName}}</text>
+          <text wx:if="{{item.productiveYear}}" class="item__tag">{{item.productiveYear}}年</text>
+        </view>
+        <view wx:if="{{item.outPrice}}" class="item__price">
+          <text class="price__unit">¥</text>{{item.outPrice}}
+        </view>
+        <view wx:else class="item__price">面议</view>
       </view>
-      <view wx:else class="item__price">面议</view>
     </view>
+    <view class='f-flex-justBetween-alignCenter'>
+      <view class='f-flex-justStart-alignCenter'>
+        <text class="item__num ">{{item.viewCount}}浏览</text>
+        <text class="item__num ">{{item.discussCount}}留言</text>
+      </view>
+      <view class='f-flex-justStart-alignCenter'>
+        <block wx:if="{{!item.isDownShelf}} ">
+          <image class="item__btn " src="../../../icons/btn_shelves.png "></image>
+          <image class="item__btn " src="../../../icons/btn_modify.png "></image>
+        </block>
+        <text wx:else class="btn-publish ">重新发布</text>
+      </view>
+    </view>
+    <image wx:if="{{item.status===0}} " src="../../../icons/sale--down.png " class="icon-saleDown "></image>
   </view>
-  <view class='f-flex-justBetween-alignCenter'>
-    <view class='f-flex-justStart-alignCenter'>
-      <text class="item__num ">{{item.viewCount}}浏览</text>
-      <text class="item__num ">{{item.discussCount}}留言</text>
-    </view>
-    <view class='f-flex-justStart-alignCenter'>
-      <block wx:if="{{!item.isDownShelf}} ">
-        <image class="item__btn " src="../../../icons/btn_shelves.png "></image>
-        <image class="item__btn " src="../../../icons/btn_modify.png "></image>
-      </block>
-      <text wx:else class="btn-publish ">重新发布</text>
-    </view>
-  </view>
-  <image wx:if="{{item.status===0}} " src="../../../icons/sale--down.png " class="icon-saleDown "></image>
+</block>
+
+<!-- 无数据 -->
+<view wx:else class='m-page-empty'>
+  <image class='empty__img' src="../../../icons/empty.png"></image>
+  <text class='empty__text'>您还没有发布过内容～</text>
 </view>

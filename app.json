@@ -30,12 +30,6 @@
         "selectedIconPath": "icons/device_on.png"
       },
       {
-        "pagePath": "pages/index/category/category",
-        "text": "分类",
-        "iconPath": "icons/category_off.png",
-        "selectedIconPath": "icons/category_on.png"
-      },
-      {
         "pagePath": "pages/publish/create/create",
         "text": "发布",
         "iconPath": "icons/publish_off.png",

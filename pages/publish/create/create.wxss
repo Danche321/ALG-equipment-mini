@@ -1,6 +1,6 @@
 page {
   background-color: #f5f5f5;
-  font-size: 32rpx;
+  font-size: 28rpx;
 }
 
 .page-base {
@@ -68,21 +68,24 @@ page {
   margin-right: 35rpx;
   background: #f5f5f5;
 }
-.upload-add{
+
+.upload-add {
   width: 140rpx;
   height: 140rpx;
   text-align: center;
   border-radius: 10rpx;
-  background:#f5f5f5;
+  background: #f5f5f5;
   display: flex;
   flex-direction: column;
   color: #bbb;
 }
-.upload-add__icon{
+
+.upload-add__icon {
   font-size: 80rpx;
   line-height: 1;
-  }
-.upload-add__text{
+}
+
+.upload-add__text {
   font-size: 26rpx;
 }
 
@@ -100,76 +103,52 @@ page {
   top: -14rpx;
 }
 
-.location{
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
-  margin-top: 34rpx;
-  position: relative;
-  height: 51rpx;
-}
-.location__icon {
-  width: 37rpx;
-  height: 37rpx;
-  margin-right: 12rpx;
-  position: absolute;
-  left: 18rpx;
-  z-index: 2;
-}
-
-.location__text {
-  font-size: 28rpx;
-  color: #707070;
-  position: absolute;
-  background: #f5f5f5;
-  padding-left: 67rpx;
-  padding-right: 30rpx;
-  border-radius:26rpx;
-  height: 51rpx;
-  line-height: 51rpx;
-}
-
-/* 联系电话/分类 */
-
+/* 定位和电话 */
 .page-contact {
-  padding: 0 30rpx;
-  background-color: #fff;
-  margin: 20rpx 0;
-}
-
-.contact-item {
-  height: 80rpx;
   display: flex;
+  align-items: center;
   justify-content: space-between;
-  align-items: center;
-  border-bottom: 1rpx solid #f5f5f5;
+  font-size: 26rpx;
+  color: #707070;
+  margin-top: 34rpx;
 }
-.contact-item__label,.contact-item__value{
+.contact-icon {
+  width: 30rpx;
+  height: 30rpx;
+  margin-right: 16rpx;
+}
+
+.location {
   display: flex;
-  justify-content: flex-start;
   align-items: center;
-}
-.contact-item__value{
-  text-align: right;
-}
-
-.contact__label__icon {
-  width: 42rpx;
-  height: 42rpx;
-  margin-right: 10rpx;
+  justify-content: flex-start;
+  height: 46rpx;
+  background: #f5f5f5;
+  border-radius: 26rpx;
+  padding: 0 20rpx;
 }
 
-.contact_arrowIcon {
-  width: 11rpx;
-  height: 19rpx;
-  margin-left: 20rpx;
+.location__text{
+  max-width: 300rpx;
 }
+
+.mobile {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  height: 46rpx;
+  background: #f5f5f5;
+  border-radius: 26rpx;
+  padding: 0 20rpx;
+}
+
 
 /* 设备信息 */
 
 .page-info {
   padding: 30rpx;
   background-color: #fff;
+  margin-top: 20rpx;
 }
 
 .info__title {
@@ -177,7 +156,8 @@ page {
   padding-left: 23rpx;
   margin-bottom: 20rpx;
 }
-.info__title::before{
+
+.info__title::before {
   content: '';
   display: inline-block;
   position: absolute;
@@ -210,42 +190,49 @@ page {
   height: 19rpx;
   margin-left: 14rpx;
 }
-.info-item-year{
+
+.info-item-year {
   align-items: flex-start;
   justify-content: space-between;
   padding-top: 23rpx;
   height: auto;
   padding-bottom: 27rpx;
 }
-.info__value--year{
+
+.info__value--year {
   flex: 1;
 }
-.tag-year{
+
+.tag-year {
   display: flex;
   justify-content: flex-end;
   flex-wrap: wrap;
 }
-.tag-year-item{
+
+.tag-year-item {
   width: 107rpx;
   height: 42rpx;
   line-height: 42rpx;
   text-align: center;
   background-color: #f5f5f5;
-  border-radius:26px;
-  border: 1rpx solid #D9D9D9;
+  border-radius: 26px;
+  border: 1rpx solid #d9d9d9;
   font-size: 22rpx;
   margin: 0 0 24rpx 26rpx;
 }
-.tag-year-item.active{
-  background: linear-gradient(to right, #3C95FC, #3369f8);
+
+.tag-year-item.active {
+  background: linear-gradient(to right, #3c95fc, #3369f8);
   color: #fff;
   border: 1rpx solid #fff;
 }
-.other-year{
-  color: #3669F8;
+
+.other-year {
+  color: #3669f8;
   font-size: 28rpx;
   text-align: right;
 }
+
 .btn-publish {
   background: linear-gradient(to right bottom, #3fa4fe, #3369f8);
   color: #fff;

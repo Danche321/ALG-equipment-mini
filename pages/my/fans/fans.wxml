@@ -1,19 +1,27 @@
-<view wx:for="{{listData}}" class="f-flex-justBetween-alignCenter list-item">
-  <view class="f-flex-justStart-alignCenter">
-    <image class="item__img" src="{{item.personInfo.headPortrait}}"></image>
-    <view>
-      <view class="item__nickname">{{item.personInfo.nickName}}</view>
-      <view class="item__num">
-        <text>{{item.personInfo.fansCount}}粉丝</text>
-        <text class="f-ml40">{{item.personInfo.publishCount}}发布</text>
+<block wx:if="{{listData.length}}">
+  <view wx:for="{{listData}}" class="f-flex-justBetween-alignCenter list-item">
+    <view class="f-flex-justStart-alignCenter">
+      <image class="item__img" src="{{item.personInfo.headPortrait}}"></image>
+      <view>
+        <view class="item__nickname">{{item.personInfo.nickName}}</view>
+        <view class="item__num">
+          <text>{{item.personInfo.fansCount}}粉丝</text>
+          <text class="f-ml40">{{item.personInfo.publishCount}}发布</text>
+        </view>
       </view>
     </view>
+    <view wx:if="{{item.followed}}" class="item__btn btn--gray">
+      <text class="focus__text">已关注</text>
+    </view>
+    <view wx:else class="item__btn btn--blue ">
+      <text class="focus__add ">+</text>
+      <text class="focus__text ">关注</text>
+    </view>
   </view>
-  <view wx:if="{{item.followed}}" class="item__btn btn--gray">
-    <text class="focus__text">已关注</text>
-  </view>
-  <view wx:else class="item__btn btn--blue ">
-    <text class="focus__add ">+</text>
-    <text class="focus__text ">关注</text>
-  </view>
+</block>
+
+<!-- 无数据 -->
+<view wx:else class='m-page-empty'>
+  <image class='empty__img' src="../../../icons/empty.png"></image>
+  <text class='empty__text'>发布闲置设备，让更多人关注你～</text>
 </view>
