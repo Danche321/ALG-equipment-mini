@@ -21,6 +21,12 @@ Page({
     this.getList()
   },
 
+  handleBack() {
+    wx.navigateBack({
+      delta: 2,
+    })
+  },
+
   // 获取信息
   getList(isFirst) {
     const params = {

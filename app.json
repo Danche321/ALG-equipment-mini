@@ -25,6 +25,12 @@
     "list": [
       {
         "pagePath": "pages/index/home/home",
+        "text": "首页",
+        "iconPath": "icons/home_off.png",
+        "selectedIconPath": "icons/home_on.png"
+      },
+      {
+        "pagePath": "pages/publish/list/list",
         "text": "找机械",
         "iconPath": "icons/device_off.png",
         "selectedIconPath": "icons/device_on.png"

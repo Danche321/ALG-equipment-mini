@@ -1,5 +1,5 @@
 import { fetchMyCollect } from '../../../api/my.js'
-
+import {  handleCollect,  handleCancelCollect } from '../../../api/publish.js'
 Page({
 
   /**
@@ -27,6 +27,49 @@ Page({
         hasNextPage
       })
       if (isFirst) wx.stopPullDownRefresh()
+    })
+  },
+
+  // 收藏
+  handleCollect(e) {
+    const id = e.currentTarget.dataset.id
+    const index = e.currentTarget.dataset.index
+    const params = {
+      publishId: id
+    }
+    handleCollect(params).then(() => {
+      wx.showToast({
+        title: '已收藏',
+      })
+      this.data.listData[index].isCollect = !
+      this.setData({
+        listData: [...this.data.listData]
+      })
+    })
+  },
+  // 取消收藏
+  handleCancelCollect(e) {
+    const id = e.currentTarget.dataset.id
+    const index = e.currentTarget.dataset.index
+    const params = {
+      publishId: id
+    }
+    handleCancelCollect(params).then(() => {
+      wx.showToast({
+        title: '已取消',
+        icon: 'none'
+      })
+      this.data.listData[index].isCollect = !this.data.listData[index].isCollect
+      this.setData({
+        listData: [...this.data.listData]
+      })
+    })
+  },
+
+  handleToDetail(e) {
+    const id = e.currentTarget.dataset.id
+    wx.navigateTo({
+      url: `/pages/publish/detail/detail?id=${id}`,
     })
   },
 

@@ -1,4 +1,5 @@
 import request from '../utils/request.js'
+const app = getApp()
 
 // 用户信息
 export function fetchUserInfo({ data, closeLoading } = {}) {
@@ -61,5 +62,25 @@ export function fetchMyHome(data) {
     url: '/my/personalHomePage.action',
     method: 'get',
     data: data
+  })
+}
+
+//下架商品
+export function handleDown(data) {
+  const userId = app.globalData.userId
+  const publishId = data.publishId
+  return request({
+    url: `/publish/downPublish.action?userId=${userId}&publishId=${publishId}`,
+    method: 'post'
+  })
+}
+
+// 重新上架
+export function handleRePublish(data) {
+  const userId = app.globalData.userId
+  const publishId = data.publishId
+  return request({
+    url: `/publish/upPublish.action?userId=${userId}&publishId=${publishId}`,
+    method: 'post'
   })
 }

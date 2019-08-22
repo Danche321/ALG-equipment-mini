@@ -7,12 +7,15 @@ page{
   color: #fff;
 }
 .header__back{
-  width: 15rpx;
-  height: 26rpx;
-  padding: 20rpx;
+  width: 60rpx;
+  height: 60rpx;
+  padding: 30rpx;
+  position: fixed;
+  left: 0;
+  opacity: .8;
 }
 .header__content{
-  padding: 50rpx 32rpx 0 37rpx;
+  padding: 130rpx 32rpx 0 37rpx;
 }
 .header__headimg{
   width: 146rpx;

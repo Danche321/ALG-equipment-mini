@@ -75,14 +75,16 @@
 <!-- 底部 -->
 <view class="page-footer f-flex-justBetween-alignCenter">
   <view class="f-flex-justBetween-alignCenter footer-handles">
-    <view class="handle__item">
-      <image class="item__icon" src="../../../icons/zan.png"></image>超赞
+    <view class="handle__item" bindtap="handleZan">
+      <image wx:if="{{!isZan}}" class="item__icon" src="../../../icons/zan.png"></image>
+      <image wx:else class="item__icon" src="../../../icons/zan_on.png"></image>超赞
     </view>
-    <view class="handle__item">
+    <view class="handle__item" bindtap="handleMsg">
       <image class="item__icon" src="../../../icons/message.png"></image>留言
     </view>
-    <view class="handle__item">
-      <image class="item__icon" src="../../../icons/collect.png"></image>收藏
+    <view class="handle__item" bindtap="handleCollect">
+      <image wx:if="{{isCollect}}" class="item__icon" src="../../../icons/collect--yellow.png"></image>
+      <image wx:else class="item__icon" src="../../../icons/collect.png"></image>收藏
     </view>
   </view>
   <view class="footer-connect">

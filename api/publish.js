@@ -1,4 +1,5 @@
 import request from '../utils/request.js'
+const app = getApp()
 
 // 发布列表
 export function fetchPublish(data) {
@@ -15,5 +16,35 @@ export function fetchDetail(data) {
     url: '/publish/detail.action',
     method: 'get',
     data: data
+  })
+}
+
+// 点赞
+export function handleZan(data) {
+  const userId = app.globalData.userId
+  const publishId = data.publishId
+  return request({
+    url: `/publish/like.action?userId=${userId}&publishId=${publishId}`,
+    method: 'post'
+  })
+}
+
+// 收藏
+export function handleCollect(data) {
+  const userId = app.globalData.userId
+  const publishId = data.publishId
+  return request({
+    url: `/collection/toCollect.action?userId=${userId}&publishId=${publishId}`,
+    method: 'post'
+  })
+}
+
+// 取消收藏
+export function handleCancelCollect(data) {
+  const userId = app.globalData.userId
+  const publishId = data.publishId
+  return request({
+    url: `/collection/unCollect.action?userId=${userId}&publishId=${publishId}`,
+    method: 'post'
   })
 }

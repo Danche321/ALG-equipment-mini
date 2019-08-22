@@ -1,5 +1,5 @@
 <block wx:if="{{listData.length}}">
-  <view class="list-item {{item.isDownShelf?'item--disabled':''}}" wx:for="{{listData}}" wx:key="{{index}}">
+  <view class="list-item {{item.isDownShelf?'item--disabled':''}}" wx:for="{{listData}}" wx:key="{{index}}" data-id="{{item.id}}" bindtap="handleToDetail">
     <view class="item__top f-flex-justBetween-alignStart">
       <view class="img-box">
         <image src="{{item.mainMedia}}" class="item__img" mode="aspectFill"></image>
@@ -23,14 +23,14 @@
         <text class="item__num ">{{item.discussCount}}留言</text>
       </view>
       <view class='f-flex-justStart-alignCenter'>
-        <block wx:if="{{!item.isDownShelf}} ">
-          <image class="item__btn " src="../../../icons/btn_shelves.png "></image>
+        <block wx:if="{{!item.isDownShelf}}">
+          <image bindtap='handleDown' data-id="{{item.id}}" data-index="{{index}}" class="item__btn " src="../../../icons/btn_shelves.png "></image>
           <image class="item__btn " src="../../../icons/btn_modify.png "></image>
         </block>
-        <text wx:else class="btn-publish ">重新发布</text>
+        <text wx:else class="btn-publish" data-id="{{item.id}}" data-index="{{index}}" bindtap="handleRePublish">重新发布</text>
       </view>
     </view>
-    <image wx:if="{{item.status===0}} " src="../../../icons/sale--down.png " class="icon-saleDown "></image>
+    <image wx:if="{{item.isDownShelf}}" src="../../../icons/sale--down.png " class="icon-saleDown "></image>
   </view>
 </block>
 

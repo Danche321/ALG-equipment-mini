@@ -1,5 +1,5 @@
 <block wx:if="{{listData.length}}">
-  <view class="list-item {{item.isDownShelf?'item--disabled':''}}" wx:for="{{listData}}" wx:key="{{index}}">
+  <view class="list-item {{item.isDownShelf?'item--disabled':''}}" wx:for="{{listData}}" wx:key="{{index}}" data-id="{{item.id}}" bindtap="handleToDetail">
     <view class="item__top f-flex-justBetween-alignStart">
       <view class="img-box">
         <image src="{{item.mainMedia}}" class="item__img" mode="aspectFill"></image>
@@ -30,11 +30,11 @@
           <view class="item__nickname">{{item.publishUserInfo.nickName}}</view>
         </view>
       </view>
-      <view wx:if="{{item.isCollect}}" class="btn-collect active f-flex-justCenter-alignCenter">
+      <view wx:if="{{!item.isCollect}}" class="btn-collect active f-flex-justCenter-alignCenter" data-id="{{item.id}}" data-index="{{index}}" bindtap="handleCancelCollect">
         <image class="collect__icon" src="../../../icons/collect--yellow.png"></image>
         <text class="collect__text">取消收藏</text>
       </view>
-      <view wx:else class="btn-collect f-flex-justCenter-alignCenter">
+      <view wx:else class="btn-collect f-flex-justCenter-alignCenter" data-id="{{item.id}}" data-index="{{index}}" bindtap="handleCollect">
         <image class="collect__icon " src="../../../icons/collect--gray.png "></image>
         <text class="collect__text">收藏</text>
       </view>
@@ -44,7 +44,7 @@
 </block>
 
 <!-- 无数据 -->
-<view wx:elseif class='m-page-empty'>
+<view wx:else class='m-page-empty'>
   <image class='empty__img' src="../../../icons/empty.png"></image>
   <text class='empty__text'>您还没有任何收藏～</text>
 </view>

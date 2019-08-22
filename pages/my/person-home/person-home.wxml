@@ -1,6 +1,7 @@
 <!-- 头部 -->
 <view class='page__header'>
-  <image class='header__back' src=""></image>
+  <view class="header__statusBar" style="height:{{statusBarHeight}}px"></view>
+  <image class='header__back' src="../../../icons/home_back.png" style="top: {{statusBarHeight}}px" bindtap='handleBack'></image>
   <view class='header__content'>
     <image class='header__headimg' src='{{whoInfo.headPortrait}}'></image>
     <view class='header__nickname'>{{whoInfo.nickName}}</view>

@@ -10,7 +10,8 @@
 		"minified": true,
 		"newFeature": true,
 		"autoAudits": false,
-		"coverView": true
+		"coverView": true,
+		"nodeModules": true
 	},
 	"compileType": "miniprogram",
 	"libVersion": "2.7.7",
@@ -44,8 +45,8 @@
 			"list": [
 				{
 					"id": 0,
-					"name": "pages/my/dynamic/dynamic",
-					"pathName": "pages/publish/list/list",
+					"name": "pages/my/collect/collect",
+					"pathName": "pages/my/collect/collect",
 					"query": "",
 					"scene": null
 				}

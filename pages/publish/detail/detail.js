@@ -1,4 +1,9 @@
-import { fetchDetail } from '../../../api/publish.js'
+import {
+  fetchDetail,
+  handleZan,
+  handleCollect,
+  handleCancelCollect
+} from '../../../api/publish.js'
 Page({
 
   /**
@@ -15,43 +20,9 @@ Page({
     voice: {
       second: 30
     },
-    messageList: [{
-      headimg: '',
-      nickname: '长城',
-      time: '4小时前',
-      content: '能不能再便宜点，感觉机器挺好的，就是价格有点贵了呢？',
-      children: [{
-        headimg: '',
-        nickname: '长城',
-        time: '10分钟前',
-        toName: '高龙',
-        content: '这已经是最低价格了，不能再低了。'
-      }, {
-        headimg: '',
-        nickname: '长城',
-        time: '10分钟前',
-        toName: '高龙',
-        content: '这已经是最低价格了，不能再低了。'
-      }]
-    }, {
-      headimg: '',
-      nickname: '长城',
-      time: '4小时前',
-      content: '能不能再便宜点，感觉机器挺好的，就是价格有点贵了呢？',
-      children: [{
-        headimg: '',
-        nickname: '长城',
-        time: '10分钟前',
-        toName: '高龙',
-        content: '这已经是最低价格了，不能再低了。'
-      }, {
-        headimg: '',
-        nickname: '长城',
-        time: '10分钟前',
-        toName: '高龙',
-        content: '这已经是最低价格了，不能再低了。'
-      }]
-    }]
+    messageList: [],
+    isZan: false,
+    isCollect: false
   },
 
   // 图片预览
@@ -71,17 +42,64 @@ Page({
     })
   },
 
+  // 详情
   getDetail() {
     const params = {
       publishId: this.data.id || 4
     }
     fetchDetail(params).then(res => {
-      const { publish, discuss } = res.data
+      const {
+        publish,
+        discuss
+      } = res.data
       this.setData({
         publishInfo: publish,
         discussInfo: discuss
       })
     })
+  },
+
+  // 点赞
+  handleZan() {
+    if (this.data.isZan) return false
+    const params = {
+      publishId: this.data.id
+    }
+    handleZan(params).then(() => {
+      this.setData({
+        isZan: !this.data.isZan
+      })
+    })
+  },
+
+  // 留言
+  handleMsg() {},
+
+  // 收藏
+  handleCollect() {
+    const params = {
+      publishId: this.data.id
+    }
+    if (this.data.isCollect) {
+      handleCancelCollect(params).then(() => {
+        wx.showToast({
+          title: '已取消',
+          icon: 'none'
+        })
+        this.setData({
+          isCollect: !this.data.isCollect
+        })
+      })
+    } else {
+      handleCollect(params).then(() => {
+        wx.showToast({
+          title: '已收藏',
+        })
+        this.setData({
+          isCollect: !this.data.isCollect
+        })
+      })
+    }
   },
 
   /**
@@ -93,7 +111,7 @@ Page({
     })
     this.getDetail()
   },
-  
+
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
