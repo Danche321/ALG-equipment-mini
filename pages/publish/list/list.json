@@ -1,5 +1,7 @@
 {
-  "navigationStyle": "custom",
+  "navigationBarTitleText": "麒麟二手机",
   "navigationBarTextStyle": "white",
-  "onReachBottomDistance": 50
+  "usingComponents": {
+    "select-category": "/components/SelectCategory/SelectCategory"
+  }
 }

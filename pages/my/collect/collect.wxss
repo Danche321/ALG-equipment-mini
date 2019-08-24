@@ -18,7 +18,7 @@ page {
 }
 
 .item__nickname {
-  font-size: 28rpx;
+  font-size: 26rpx;
 }
 
 .item__area {

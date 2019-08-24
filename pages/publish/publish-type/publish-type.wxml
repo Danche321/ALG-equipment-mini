@@ -1,0 +1,14 @@
+<view class="item" bindtap="handleToSale">
+  <image class="item__icon" src="../../../icons/sale.png"></image>
+  <view class="item__text">
+    <text class="item__title">转让</text>
+    <text class="item__desc">我有设备要卖，海量买家来围观</text>
+  </view>
+</view>
+<view class="item" bindtap="handleToBug">
+  <image class="item__icon" src="../../../icons/sale.png"></image>
+  <view class="item__text">
+    <text class="item__title">求购</text>
+    <text class="item__desc">我要购买设备</text>
+  </view>
+</view>

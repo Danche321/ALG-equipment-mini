@@ -1,7 +1,7 @@
 <!-- 头像 -->
 <view class="page-avatar">
   <view class="avatar__content" bindtap="handleUpload">
-    <image class="avatar__photo" src="{{userInfo.headPortrait}}"></image>
+    <image mode="aspectFill" class="avatar__photo" src="{{userInfo.headPortrait}}"></image>
     <view class="avatar__upload">
       <image src="../../../icons/camera.png" class="upload__icon"></image>
     </view>
@@ -10,21 +10,24 @@
 <!-- 基本信息 -->
 <view class="page-base">
   <view class="base__title">基本信息</view>
-  <view class="base-field">
+  <view class="base-field" data-type="nickName" data-value="{{userInfo.nickName}}" bindtap="handleToUpdate">
     <text class="field__label">昵称</text>
     <view class="field__value">
       <text class='field__value-input'>{{userInfo.nickName}}</text>
       <image class='field__value-arrow' src='../../../icons/arrow-right-gray.png'></image>
     </view>
   </view>
-  <view class="base-field">
-    <text class="field__label">家乡</text>
-    <view class="field__value">
-      <text>{{userInfo.location}}</text>
-      <image class='field__value-arrow' src='../../../icons/arrow-right-gray.png'></image>
+
+  <picker mode="region" bindchange="bindRegionChange" value="{{region}}">
+    <view class="base-field">
+      <text class="field__label">家乡</text>
+      <view class="field__value">
+        <text>{{userInfo.location}}</text>
+        <image class='field__value-arrow' src='../../../icons/arrow-right-gray.png'></image>
+      </view>
     </view>
-  </view>
-  <view class="field-signature">
+  </picker>
+  <view class="field-signature" data-type="signature" data-value="{{userInfo.signature}}" bindtap="handleToUpdate">
     <text class="field__label">个性签名</text>
     <view class="field__value">
       <text class="field__value--signature">{{userInfo.signature}}</text>

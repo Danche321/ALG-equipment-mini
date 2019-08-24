@@ -1,0 +1,12 @@
+<!-- 修改昵称 -->
+<view wx:if="{{key==='nickName'}}">
+  <input class="field__input" value="{{value}}" bindinput="handleInputChange" focus="{{true}}"></input>
+  <view class="field__tip">好的昵称可以让别人更容易记住。</view>
+</view>
+<!-- 个性签名 -->
+<block wx:if="{{key==='signature'}}">
+  <textarea wx:if="{{key==='signature'}}" class="field__input" value="{{value}}" bindinput="handleInputChange" focus="{{true}}" placeholder="介绍一下自己吧···" maxlength="160" auto-height></textarea>
+  <view class="field__tip">展示你的特点，结交更多同行。</view>
+</block>
+<!-- 保存 -->
+<button class="page-saveBtn" bindtap="handleSave">保存</button>

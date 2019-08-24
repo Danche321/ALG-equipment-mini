@@ -7,7 +7,8 @@ Page({
    * 页面的初始数据
    */
   data: {
-    userInfo: null
+    userInfo: null,
+    userId: app.globalData.userId
   },
 
   // 获取个人信息
@@ -20,8 +21,9 @@ Page({
   },
 
   handleToHome() {
+    const id = this.data.userId
     wx.navigateTo({
-      url: '/pages/my/person-home/person-home',
+      url: `/pages/my/person-home/person-home?id=${id}`,
     })
   },
   handleToPersonInfo() {

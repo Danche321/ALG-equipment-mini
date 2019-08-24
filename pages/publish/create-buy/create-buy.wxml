@@ -1,0 +1,38 @@
+<view class="page-base">
+  <!-- 标题/内容 -->
+  <textarea class="input-desc" placeholder="描述：输入您要购买的机械品牌型号等，能让别人更快搜索到···" maxlength="100"></textarea>
+  <!-- 定位和电话 -->
+  <view class='page-contact'>
+    <view class="location">
+      <image class="contact-icon" src="../../../icons/location--publish.png"></image>
+      <text class='f-ellipsis1 location__text'>福建省福州平潭县福建省福州平潭县</text>
+    </view>
+    <view class="mobile">
+      <image class="contact-icon" src="../../../icons/mobile-publish-gray.png"></image>
+      <text>13328202442</text>
+    </view>
+  </view>
+</view>
+
+<!-- 设备信息 -->
+<view class="page-info">
+  <view class="info__title">基本信息</view>
+  <view class="info-item">
+    <text>新旧程度</text>
+    <input class="info__value-input" placeholder="请选择" type="number"></input>
+  </view>
+  <view class="info-item info-item-year">
+    <text>机型</text>
+    <view class="info__value--year">
+      <view class="tag-year">
+        <text wx:for="{{yearTags}}" class="tag-year-item {{activeYear===item?'active':''}}">{{item}}</text>
+      </view>
+      <view class="other-year">
+        <text>其他机型</text>
+        <image class="info__arrow" src="../../../icons/arrow-right-blue.png"></image>
+      </view>
+    </view>
+  </view>
+</view>
+
+<button class="btn-publish">发布</button>

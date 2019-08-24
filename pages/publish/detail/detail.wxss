@@ -49,6 +49,7 @@ swiper {
 }
 
 .header__user {
+  width: 220rpx;
   background: linear-gradient(to right, #3fa4fe, #3369f8);
   height: 80rpx;
   padding: 0 14rpx;
@@ -66,6 +67,7 @@ swiper {
 .header__user__nickname {
   font-size: 24rpx;
   color: #fff;
+  flex: 1;
 }
 
 .title {
@@ -276,7 +278,7 @@ swiper {
   box-shadow: 0 3rpx 8rpx 0 rgba(54, 106, 248, 0.3);
   border-radius: 33rpx;
   text-align: center;
-  margin-left: 50rpx;
+  margin-right: 50rpx;
   font-size: 32rpx;
 }
 

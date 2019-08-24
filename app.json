@@ -2,8 +2,9 @@
   "pages": [
     "pages/index/home/home",
     "pages/index/category/category",
-    "pages/index/cooperation/cooperation",
-    "pages/publish/create/create",
+    "pages/index/switchcity/switchcity",
+    "pages/publish/create-sale/create-sale",
+    "pages/publish/create-buy/create-buy",
     "pages/publish/list/list",
     "pages/publish/detail/detail",
     "pages/my/index/index",
@@ -13,7 +14,12 @@
     "pages/my/follow/follow",
     "pages/my/person-info/person-info",
     "pages/my/my-publish/my-publish",
-    "pages/my/person-home/person-home"
+    "pages/my/person-home/person-home",
+    "pages/account/login",
+    "pages/publish/wantBug/wantBug",
+    "pages/publish/publish-type/publish-type",
+    "pages/index/search/search",
+    "pages/my/update-info/update-info"
   ],
   "window": {
     "backgroundTextStyle": "light",
@@ -36,14 +42,14 @@
         "selectedIconPath": "icons/device_on.png"
       },
       {
-        "pagePath": "pages/publish/create/create",
+        "pagePath": "pages/publish/publish-type/publish-type",
         "text": "发布",
         "iconPath": "icons/publish_off.png",
         "selectedIconPath": "icons/publish_on.png"
       },
       {
-        "pagePath": "pages/index/cooperation/cooperation",
-        "text": "合作公司",
+        "pagePath": "pages/publish/wantBug/wantBug",
+        "text": "求购信息",
         "iconPath": "icons/cooperation_off.png",
         "selectedIconPath": "icons/cooperation_on.png"
       },

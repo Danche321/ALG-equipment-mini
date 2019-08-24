@@ -3,35 +3,57 @@
   <view class="header__statusBar" style="height:{{statusBarHeight}}px"></view>
   <image class='header__back' src="../../../icons/home_back.png" style="top: {{statusBarHeight}}px" bindtap='handleBack'></image>
   <view class='header__content'>
-    <image class='header__headimg' src='{{whoInfo.headPortrait}}'></image>
-    <view class='header__nickname'>{{whoInfo.nickName}}</view>
-    <view class="header__desc">{{whoInfo.phone}}</view>
+    <image class='header__headimg' src='{{userInfo.headPortrait}}'></image>
+    <view class='header__nickname'>{{userInfo.nickName}}</view>
+    <view class="header__desc">{{userInfo.signature}}</view>
     <view class='header__bottom'>
       <view class="header__num">
-        <text class='header__num-item'>关注 {{whoInfo.followCount}}</text>
-        <text class='header__num-item'>粉丝 {{whoInfo.fansCount}}</text>
-        <text class='header__num-item'>发布 {{whoInfo.publishCount}}</text>
+        <text class='header__num-item'>关注 {{userInfo.followCount}}</text>
+        <text class='header__num-item'>粉丝 {{userInfo.fansCount}}</text>
+        <text class='header__num-item'>发布 {{userInfo.publishCount}}</text>
       </view>
       <view class='header__location'>
         <image class='location__icon' src='../../../icons/location-white.png'></image>
-        <text>{{whoInfo.location}}</text>
+        <text>{{userInfo.location}}</text>
       </view>
     </view>
   </view>
 </view>
 <!-- 发布列表 -->
 <view class='page-publish'>
-  <block wx:if="{{publishList.length}}">
-    <view class='publish-item' wx:for="{{publishList}}" wx:key="{{index}}">
-      <view class='item__day'>{{item.dayText}}</view>
-      <view class='item__child-wrap'>
-        <view class='item__day-child' wx:for="{{item.items}}" wx:for-item="{{cell}}" wx:key="{{index}}">
-          <view class='child__img-wrap'>
-            <image src="{{cell.imageVideos[0]}}" class="child__img--1"></image>
+  <block wx:if="{{listData.length}}">
+    <view class="list-item {{item.isDownShelf?'item--disabled':''}}" wx:for="{{listData}}" wx:key="{{index}}" data-id="{{item.id}}" bindtap="handleToDetail">
+      <view class="item__top f-flex-justBetween-alignStart">
+        <view class="img-box">
+          <image src="{{item.mainMedia}}" class="item__img" mode="aspectFill"></image>
+        </view>
+        <view class='item__right'>
+          <view class="f-ellipsis2 item__title">{{item.title}}</view>
+          <view class="tag-box">
+            <text wx:if="{{item.categoryFirstName}}" class="item__tag">{{item.categoryFirstName}}</text>
+            <text wx:if="{{item.categorySecondName}}" class="item__tag">{{item.categorySecondName}}</text>
+            <text wx:if="{{item.productiveYear}}" class="item__tag">{{item.productiveYear}}年</text>
           </view>
-          <view class='child__title'>{{cell.title}}</view>
+          <view class="price-block">
+            <view wx:if="{{item.outPrice}}" class="item__price">
+              <text class="price__unit">¥</text>{{item.outPrice}}
+            </view>
+            <view wx:else class="item__price">面议</view>
+            <view class='f-flex-justStart-alignCenter'>
+              <text class="item__num ">{{item.viewCount}}浏览</text>
+              <text class="item__num ">{{item.discussCount}}留言</text>
+            </view>
+          </view>
         </view>
       </view>
+      <view class='f-flex-justBetween-alignCenter'>
+        <view class='location'>
+          <image class='location__icon' src="../../../icons/location--publish.png"></image>
+          <text>{{item.location}}</text>
+        </view>
+        <view class="item_time">发布时间：{{item.createTimeFriendly}}</view>
+      </view>
+      <image wx:if="{{item.isDownShelf}}" src="../../../icons/sale--down.png " class="icon-saleDown "></image>
     </view>
   </block>
 

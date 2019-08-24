@@ -18,8 +18,8 @@ export function fetchCooperation(data) {
   })
 }
 
-// 【首页】类目
-export function fetchHomeCategory(data) {
+// 【热门】机型
+export function fetchHotCategory(data) {
   return request({
     url: '/category/indexHot.action',
     method: 'get',
@@ -27,7 +27,7 @@ export function fetchHomeCategory(data) {
   })
 }
 
-// 【分类】所有类别列表
+// 所有机型列表
 export function fetchAllCategory(data) {
   return request({
     url: '/category/categoryForList.action',

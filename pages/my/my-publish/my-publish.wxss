@@ -1,14 +1,15 @@
 page {
-  background-color: #fff;
+  background-color: #f5f5f5;
 }
 
 .list-item {
-  padding: 31rpx 32rpx 25rpx 32rpx;
-  border-bottom: 1rpx solid #f5f5f5;
+  padding: 31rpx 32rpx 0 32rpx;
   position: relative;
+  background: #fff;
+  margin-bottom: 30rpx;
 }
 
-.item__top {
+.item-top {
   margin-bottom: 16rpx;
 }
 
@@ -19,6 +20,7 @@ page {
   position: relative;
   margin-right: 23rpx;
   overflow: hidden;
+  border: 1rpx solid #f5f5f5;
 }
 
 .item__img {
@@ -57,6 +59,12 @@ page {
   color: rgba(51, 51, 51, 0.7);
 }
 
+.price-block{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
 .item__price {
   color: #fb4238;
   font-size: 48rpx;
@@ -66,10 +74,21 @@ page {
   font-size: 32rpx;
 }
 
+.item-middle{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
 .item__num {
   color: rgba(51, 51, 51, 0.5);
   font-size: 24rpx;
   margin-right: 51rpx;
+}
+
+.item__handles{
+  display: flex;
+  align-items: center;
 }
 
 .item__btn {
@@ -78,43 +97,63 @@ page {
   margin-left: 22rpx;
 }
 
+.location {
+  display: flex;
+  align-content: center;
+  justify-content: flex-end;
+  color: #777;
+  text-align: right;
+}
+
+.location .location__icon {
+  width: 30rpx;
+  height: 30rpx;
+  margin-right: 10rpx;
+}
+
+.item_time {
+  color: #888;
+  text-align: right;
+}
+
+.item-bottom{
+  border-top: 1rpx solid #f5f5f5;
+  padding:  20rpx 0;
+  margin-top: 20rpx;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 24rpx;
+}
+
 .icon-saleDown{
   position: absolute;
   width: 102rpx;
   height: 102rpx;
   top: 31rpx;
+  opacity: 1;
 }
 
-/* 下架样式 */
-
-.item--disabled .item__title {
-  color: rgba(51, 51, 51, 0.5);
+.item--disabled .item-top,.item--disabled .item-bottom,.item--disabled .item-middle-num{
+  opacity: 0.6;
 }
 
-.item--disabled .item__tag {
-  background: rgba(249, 249, 249, 0.5);
-  color: rgba(51, 51, 51, 0.5);
-}
-
-.item--disabled .item__price {
-  color: rgba(251, 66, 56, 0.5);
-}
-
-.item--disabled .item__img {
-  opacity: 0.5;
-}
-
-.item--disabled .item__num {
-  color: rgba(51, 51, 51, 0.5);
-}
 
 .btn-publish {
-  width: 129rpx;
-  height: 47rpx;
-  line-height: 47rpx;
+  height: 48rpx;
   text-align: center;
-  background: rgba(54, 105, 248, 1);
+  background: linear-gradient(to right, #5684fd, #366cf8);
   border-radius: 24rpx;
   font-size:22rpx;
   color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 20rpx;
+}
+
+.icon-republish{
+  width: 25rpx;
+  height: 25rpx;
+  margin-right: 16rpx;
 }

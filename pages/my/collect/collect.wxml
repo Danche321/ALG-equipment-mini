@@ -30,11 +30,11 @@
           <view class="item__nickname">{{item.publishUserInfo.nickName}}</view>
         </view>
       </view>
-      <view wx:if="{{!item.isCollect}}" class="btn-collect active f-flex-justCenter-alignCenter" data-id="{{item.id}}" data-index="{{index}}" bindtap="handleCancelCollect">
+      <view wx:if="{{!item.isCollect}}" class="btn-collect active f-flex-justCenter-alignCenter" data-id="{{item.id}}" data-index="{{index}}" catchtap="handleCancelCollect">
         <image class="collect__icon" src="../../../icons/collect--yellow.png"></image>
         <text class="collect__text">取消收藏</text>
       </view>
-      <view wx:else class="btn-collect f-flex-justCenter-alignCenter" data-id="{{item.id}}" data-index="{{index}}" bindtap="handleCollect">
+      <view wx:else class="btn-collect f-flex-justCenter-alignCenter" data-id="{{item.id}}" data-index="{{index}}" catchtap="handleCollect">
         <image class="collect__icon " src="../../../icons/collect--gray.png "></image>
         <text class="collect__text">收藏</text>
       </view>

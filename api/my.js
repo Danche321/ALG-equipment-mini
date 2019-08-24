@@ -1,13 +1,23 @@
 import request from '../utils/request.js'
 const app = getApp()
 
-// 用户信息
+// 获取用户信息
 export function fetchUserInfo({ data, closeLoading } = {}) {
   return request({
     url: '/my/personalData.action',
     method: 'get',
     data: data,
     closeLoading: closeLoading
+  })
+}
+
+// 修改个人资料
+export function handleUpdateInfo(data) {
+  const userId = app.globalData.userId
+  return request({
+    url: `/my/personalData.action?userId=${userId}`,
+    method: 'post',
+    data: data
   })
 }
 
@@ -56,10 +66,10 @@ export function fetchMyFans(data) {
   })
 }
 
-// 个人主页
-export function fetchMyHome(data) {
+// 个人主页的发布列表
+export function fetchMyHomePublish(data) {
   return request({
-    url: '/my/personalHomePage.action',
+    url: '/my/v2/personalHomePagePublish.action',
     method: 'get',
     data: data
   })

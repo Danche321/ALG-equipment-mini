@@ -9,13 +9,6 @@ Page({
   data: {
     interval: 4000,
     duration: 100,
-    statusBarHeight: '',
-    titleBar: {
-      height: '',
-      top: '',
-      width: '',
-      left: ''
-    },
     bannerList: [],
     categoryList: [],
     publishParams: {
@@ -23,45 +16,28 @@ Page({
       pageSize: 10
     },
     publishList: [],
-    hasNextPage: true
+    hasNextPage: true,
+    area: '全国',
+    cityCode: ''
   },
 
   handleToSearch() {
     wx.navigateTo({
-      url: '/pages/publish/list/list',
+      url: '/pages/index/search/search',
     })
   },
-
+  handleSwitchCity() {
+    wx.navigateTo({
+      url: '/pages/index/switchcity/switchcity',
+    })
+  },
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
-    this.setHeaderConfig()
     this.getBanner()
     this.getCategory()
     this.getPublish()
-  },
-
-  // 头部样式
-  setHeaderConfig() {
-    wx.getSystemInfo({
-      success: (res) => {
-        const sys = wx.getSystemInfoSync()
-        const menu = wx.getMenuButtonBoundingClientRect()
-        const statusHeight = sys.statusBarHeight
-        const titleHeight = menu.height
-        const titleRowWidth = sys.right - menu.right
-        const titleColumnHeight = menu.top - sys.statusBarHeight
-        this.setData({
-          statusBarHeight: statusHeight,
-          'titleBar.height': titleHeight,
-          'titleBar.top': titleColumnHeight,
-          'titleBar.left': sys.screenWidth - menu.right,
-          'titleBar.width': sys.screenWidth - (sys.screenWidth - menu.right) * 3 - menu.width
-        })
-      },
-      fail: () => {}
-    })
   },
 
   // banner列表

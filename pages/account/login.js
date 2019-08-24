@@ -1,13 +1,11 @@
-// pages/publish/create/create.js
+// pages/account/login.js
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    uploadList: [{}],
-    activeYear: '2012',
-    yearTags: ['2012', '2013', '2014', '2015', '2016', '2017', '2018', '2019']
+
   },
 
   /**

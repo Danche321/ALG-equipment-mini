@@ -25,6 +25,16 @@ Page({
     isCollect: false
   },
 
+  /**
+   * 生命周期函数--监听页面加载
+   */
+  onLoad: function (options) {
+    this.setData({
+      id: options.id
+    })
+    this.getDetail()
+  },
+
   // 图片预览
   handlePriviewImg(event) {
     let src = event.currentTarget.dataset.src; //获取data-src
@@ -102,14 +112,11 @@ Page({
     }
   },
 
-  /**
-   * 生命周期函数--监听页面加载
-   */
-  onLoad: function(options) {
-    this.setData({
-      id: options.id
+  handleToHome() {
+    const id = this.data.publishInfo.publishUserInfo.id
+    wx.navigateTo({
+      url: `/pages/my/person-home/person-home?id=${id}`,
     })
-    this.getDetail()
   },
 
   /**

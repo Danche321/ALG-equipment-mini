@@ -29,7 +29,6 @@ Page({
 
   //下架
   handleDown(e) {
-    console.log(e)
     const id = e.target.dataset.id
     const index = e.target.dataset.index
     wx.showModal({
@@ -57,8 +56,8 @@ Page({
 
   // 重新发布
   handleRePublish(e) {
-    const id = e.target.dataset.id
-    const index = e.target.dataset.index
+    const id = e.currentTarget.dataset.id
+    const index = e.currentTarget.dataset.index
     wx.showModal({
       title: '重新发布？',
       content: '请确保设备信息真实性，否则平台将进行删除并对您的行为作出限制！',

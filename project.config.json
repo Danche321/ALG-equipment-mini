@@ -15,8 +15,8 @@
 	},
 	"compileType": "miniprogram",
 	"libVersion": "2.7.7",
-	"appid": "wxc2b2ca50a39ad8c0",
-	"projectname": "miniprogram-1",
+	"appid": "wxb64ae6be832c8aeb",
+	"projectname": "%E5%B7%A5%E5%9C%B0%E5%B0%8F%E7%A8%8B%E5%BA%8F",
 	"debugOptions": {
 		"hidedInDevtools": []
 	},
@@ -45,8 +45,8 @@
 			"list": [
 				{
 					"id": 0,
-					"name": "pages/my/collect/collect",
-					"pathName": "pages/my/collect/collect",
+					"name": "pages/my/person-info/person-info",
+					"pathName": "pages/my/person-info/person-info",
 					"query": "",
 					"scene": null
 				}

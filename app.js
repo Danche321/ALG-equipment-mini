@@ -34,7 +34,13 @@ App({
     })
   },
   globalData: {
+    BASE_URL: 'http://116.62.19.123:7004',
     userInfo: null,
-    userId: 1
+    userId: 1,
+    searchText: '', // 搜索关键字
+    searchCategoryFirstId: '', // 搜索一级类别id
+    searchCategoryFirstName: '', // 搜索一级类别名称
+    searchCategorySecondId: '', // 搜索二级类别id
+    searchCategorySecondName: '', // 搜索二级类别名称
   }
 })

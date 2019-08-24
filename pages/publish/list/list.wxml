@@ -1,26 +1,41 @@
-<!-- 头部 -->
-<view class="page-header">
-  <view class="header__statusBar" style="height:{{statusBarHeight}}px"></view>
-  <view class="header__titleBar" style="top:{{statusBarHeight}}px;padding-bottom:{{titleBar.top*2}}px">
-    <view class="search-box" style="height:{{titleBar.height}}px;width:{{titleBar.width}}px;margin-top:{{titleBar.top}}px;margin-left:{{titleBar.left}}px">
-        <image class='icon-search' src='../../../icons/search.png'></image>
-      <input placeholder="搜索机械设备" class="search__input"></input>
+<!-- 搜索 -->
+<view class="page-search" bindtap="handleToSearch">
+  <view class="search-box">
+    <image class='icon-search' src='../../../icons/search.png'></image>
+    <text class="search__input--gray">搜索机械设备</text>
+  </view>
+</view>
+
+<!-- 筛选条件 -->
+<view class="page-filter">
+  <!-- 选择 -->
+  <view class="page-filter-select">
+    <view class="filter-item" bindtap="handleSwitchArea">发货地</view>
+    <view class="filter-split"></view>
+    <view bindtap="handleShowCategory" class="filter-item {{publishParams.categoryFirstId?'active':''}}">机型</view>
+  </view>
+  <!-- 选中的标签 -->
+  <view wx:if="{{publishParams.searchText||publishParams.categoryFirstId||publishParams.categorySecondId}}" class="page-tags">
+    <!-- 关键字 -->
+    <view wx:if="{{publishParams.searchText}}" class="tag-item" bindtap="handleClearSearchText">
+      <text>{{publishParams.searchText}}</text>
+      <image class="icon-clear" src="../../../icons/clear.png"></image>
+    </view>
+    <!-- 一级类别 -->
+    <view wx:if="{{publishParams.categoryFirstId}}" class="tag-item" bindtap="handleClearCategoryFirst">
+      <text>{{searchCategoryFirstName}}</text>
+      <image class="icon-clear" src="../../../icons/clear.png"></image>
+    </view>
+    <!-- 二级类别 -->
+    <view wx:if="{{publishParams.categorySecondId}}" class="tag-item" bindtap="handleClearCategorySecond">
+      <text>{{searchCategorySecondName}}</text>
+      <image class="icon-clear" src="../../../icons/clear.png"></image>
     </view>
   </view>
 </view>
-<!-- 筛选条件 -->
-<view class="page-filter" style="margin-top:{{statusBarHeight+titleBar.height+titleBar.top+titleBar.top*2}}px">
-  <view class="filter-item">
-    <text>区域</text>
-    <image class="filter-item__arow" src="../../../icons/arrow-down.png"></image>
-  </view>
-  <view class="filter-item">
-    <text>分类</text>
-    <image class="filter-item__arow" src="../../../icons/arrow-down.png"></image>
-  </view>
-</view>
+
 <!-- 发布列表 -->
-<view class="publish-box">
+<view wx:if="{{publishList.length}}" class="publish-box">
   <view class="publish-column">
     <view wx:if="{{index%2===0}}" wx:for="{{publishList}}" wx:key="{{index}}" class="publish-item" data-id="{{item.id}}" bindtap="handleToDetail">
       <image class="img" src="{{item.mainMedia}}"></image>
@@ -65,3 +80,12 @@
     </view>
   </view>
 </view>
+
+<!-- 无数据 -->
+<view wx:else class='m-page-empty'>
+  <image class='empty__img' src="../../../icons/empty.png"></image>
+  <text class='empty__text'>没有搜索到符合的设备</text>
+</view>
+
+<!-- 选择机型组件 -->
+<select-category visible="{{selectCategoryVisible}}" firstId="{{publishParams.categoryFirstId}}" secondId="{{publishParams.categorySecondId}}" bind:checked="handleCategoryConfirm"></select-category>

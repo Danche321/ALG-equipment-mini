@@ -1,7 +1,7 @@
 import request from '../utils/request.js'
 const app = getApp()
 
-// 发布列表
+// 搜索发布列表
 export function fetchPublish(data) {
   return request({
     url: '/publish/pageData.action',

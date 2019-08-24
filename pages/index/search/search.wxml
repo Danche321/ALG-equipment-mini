@@ -1,0 +1,25 @@
+<!-- 搜索框 -->
+<view class="page-search">
+  <view class="search-box">
+    <image class='icon-search' src='../../../icons/search.png'></image>
+    <input placeholder="搜索机械设备" class="search__input" confirm-type="search" bindconfirm="handleSearch" value="{{searchText}}" bindinput="handleInputChange" focus="{{true}}"></input>
+  </view>
+  <text class="search__text" bindtap="handleSearch">搜索</text>
+</view>
+<!-- 热门搜索 -->
+<view class="page-tag">
+  <view class="tag__title">热门搜索</view>
+  <view class="tag__list">
+    <text class="tag-item" wx:for="{{hostList}}" wx:key="{{index}}" data-id="{{item.id}}" data-name="{{item.name}}" bindtap="handleSearchCategory">{{item.name}}</text>
+  </view>
+</view>
+<!-- 历史搜索 -->
+<view class="page-tag">
+  <view class="tag__title history__title">
+    <text>历史搜索</text>
+    <image class="icon-delete" src="../../../icons/delete.png"></image>
+  </view>
+  <view class="tag__list">
+    <text class="tag-item" wx:for="{{hostList}}" wx:key="{{index}}">{{item.name}}</text>
+  </view>
+</view>

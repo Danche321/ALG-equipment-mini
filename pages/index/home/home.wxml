@@ -1,17 +1,17 @@
 <!-- 头部 -->
 <view class="page__header">
-  <view class="header__statusBar" style="height:{{statusBarHeight}}px"></view>
-  <view class="header__titleBar" style="top:{{statusBarHeight}}px;padding-bottom:{{titleBar.top}}px">
-    <view class="search-box" style="height:{{titleBar.height}}px;width:{{titleBar.width}}px;margin-top:{{titleBar.top}}px;margin-left:{{titleBar.left}}px">
-      <text class="search__area">全国</text>
-      <text class="search__split"></text>
-      <view class='search__input' bindtap='handleToSearch'>
-        <image class='icon-search' src='../../../icons/search.png'></image>
-        <text>搜索机械设备</text>
-      </view>
-    </view>
+  <view class="header-location">
+    <image class="location__icon" src="../../../icons/location-home.png"></image>
+    <text class="search__area f-ellipsis1" bindtap="handleSwitchCity">{{area}}</text>
   </view>
-  <swiper indicator-dots autoplay circular duration="{{duration}}" class="swiper-box" style="margin-top:{{statusBarHeight+titleBar.height+titleBar.top}}px">
+  <view class='search__input' bindtap='handleToSearch'>
+    <image class='icon-search' src='../../../icons/search.png'></image>
+    <text>搜索机械设备</text>
+  </view>
+</view>
+<!-- 轮播 -->
+<view class="page-swpier">
+  <swiper indicator-dots autoplay circular duration="{{duration}}" class="swiper-box" style="top:{{statusBarHeight+titleBar.height+titleBar.top}}px">
     <block wx:for="{{bannerList}}" wx:key="{{index}}">
       <swiper-item class="swiper-item">
         <image src="{{item.image}}" class="slide-image" />
@@ -23,7 +23,7 @@
 <swiper class="swiper-category" indicator-dots circular>
   <swiper-item class="swiper-item" wx:for="{{categoryList}}" wx:key="{{index}}">
     <view class="category-box f-flex-justStart-wrap">
-      <view wx:for="{{item}}" wx:for-item="cell" class="category-item">
+      <view wx:for="{{item}}" wx:for-item="cell" wx:key="{{index}}" class="category-item">
         <image src="{{cell.icon}}"></image>
         <view>{{cell.name}}</view>
       </view>
