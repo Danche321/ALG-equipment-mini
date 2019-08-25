@@ -42,35 +42,52 @@ Component({
         index
       } = e.target.dataset
       const excludeArea = ['北京', '天津', '上海', '重庆', '台湾', '香港', '澳门']
-      if (!this.data.listData[index].children) {
-        qqmapsdk.getDistrictByCityId({
-          // 传入对应省份ID获得城市数据，传入城市ID获得区县数据,依次类推
-          id: id, //对应接口getCityList返回数据的Id，如：北京是'110000'
-          success: res => {
-            let childCitys = []
-            if (excludeArea.includes(name)) {
-              childCitys = [{
-                id: '',
-                name: '不限制'
-              }]
-            } else {
-              childCitys = [{
-                id: '',
-                name: '不限制'
-              }, ...res.result[0]]
-            }
-            this.data.listData[index].children = childCitys
-            this.setData({
-              listData: [...this.data.listData]
-            })
-          },
-          fail: function(error) {},
-          complete: function(res) {}
+      if (excludeArea.includes(name)) { // 直辖市等
+        this.setData({
+          activeSecondId: '',
+          activeFirstId: e.currentTarget.dataset.id,
+          showFirstId: e.currentTarget.dataset.id
+        })
+        const first = {
+          id: e.currentTarget.dataset.id,
+          name: e.currentTarget.dataset.name
+        }
+        const second = {
+          id: '',
+          name: ''
+        }
+        this.triggerEvent('checked', JSON.stringify({ first, second }))
+      } else {
+        if (!this.data.listData[index].children) {
+          qqmapsdk.getDistrictByCityId({
+            // 传入对应省份ID获得城市数据，传入城市ID获得区县数据,依次类推
+            id: id, //对应接口getCityList返回数据的Id，如：北京是'110000'
+            success: res => {
+              let childCitys = []
+              if (excludeArea.includes(name)) {
+                childCitys = [{
+                  id: '',
+                  name: '不限制'
+                }]
+              } else {
+                childCitys = [{
+                  id: '',
+                  name: '不限制'
+                }, ...res.result[0]]
+              }
+              this.data.listData[index].children = childCitys
+              this.setData({
+                listData: [...this.data.listData]
+              })
+            },
+            fail: function (error) { },
+            complete: function (res) { }
+          })
+        }
+        this.setData({
+          showFirstId: id === this.data.showFirstId ? '' : id
         })
       }
-      this.setData({
-        showFirstId: id === this.data.showFirstId ? '' : id
-      })
     },
     // 选中分类
     handleSelectCategory(e) {
