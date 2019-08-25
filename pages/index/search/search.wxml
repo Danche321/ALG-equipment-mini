@@ -20,6 +20,6 @@
     <image class="icon-delete" src="../../../icons/delete.png"></image>
   </view>
   <view class="tag__list">
-    <text class="tag-item" wx:for="{{hostList}}" wx:key="{{index}}">{{item.name}}</text>
+    <text class="tag-item" wx:for="{{historyList}}" wx:key="{{index}}">{{item}}</text>
   </view>
 </view>

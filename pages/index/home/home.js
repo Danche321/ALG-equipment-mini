@@ -93,6 +93,19 @@ Page({
     })
   },
 
+  // 搜索类目
+  handleSearchCategory(e) {
+    const { id, name } = e.currentTarget.dataset
+    app.globalData.searchCategoryFirstId = id
+    app.globalData.searchCategoryFirstName = name
+    app.globalData.searchCategorySecondId = ''
+    app.globalData.searchCategorySecondName = ''
+    wx.switchTab({
+      url: `/pages/publish/list/list`,
+    })
+  },
+  
+
   /**
    * 生命周期函数--监听页面初次渲染完成
    */

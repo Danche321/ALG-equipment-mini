@@ -1,5 +1,7 @@
-var city = require('../../../utils/city.js');
-var app = getApp()
+const app = getApp()
+const city = require('../../../utils/city.js');
+const QQMapWX = require('../../../libs/qqmap-wx-jssdk.js');
+let qqmapsdk
 Page({
   data: {
     searchLetter: [],
@@ -52,6 +54,10 @@ Page({
     }]
   },
   onLoad: function() {
+    // 实例化API核心类
+    qqmapsdk = new QQMapWX({
+      key: '5FDBZ-CESCD-5XA4F-HQLMD-WJLA7-LDB6W'
+    });
     // 生命周期函数--监听页面加载
     var searchLetter = city.searchLetter;
     var cityList = city.cityList();
@@ -79,7 +85,19 @@ Page({
   },
   onShow: function() {
     // 生命周期函数--监听页面显示
-
+    qqmapsdk.getCityList({
+      success: function (res) {
+        console.log('省份数据：', res.result[0]); //打印省份数据
+        console.log('城市数据：', res.result[1]); //打印城市数据
+        console.log('区县数据：', res.result[2]); //打印区县数据
+      },
+      fail: function (res) {
+        console.log(res);
+      },
+      complete: function (res) {
+        console.log(res);
+      }
+    })
   },
   onHide: function() {
     // 生命周期函数--监听页面隐藏

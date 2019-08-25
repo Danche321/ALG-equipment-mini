@@ -20,28 +20,9 @@ page {
   justify-content: space-between;
   position: fixed;
   top: 0;
-  height: 80rpx;
   z-index: 999;
-  padding: 0 30rpx 20rpx 20rpx;
   box-sizing: border-box;
-}
-
-.header-location{
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
-  margin-right: 20rpx;
-}
-.location__icon{
-  width: 26rpx;
-  height: 26rpx;
-  margin-right: 14rpx;
-}
-.search__area {
-  display: inline-block;
-  color: #fff;
-  font-size: 24rpx;
-  max-width: 120rpx;
+  padding:  20rpx 30rpx;
 }
 
 .search__input{
@@ -50,7 +31,7 @@ page {
   display: flex;
   align-items: center;
   justify-content: left;
-  height: 60rpx;
+  height: 70rpx;
   padding-left: 30rpx;
   background-color: #fff;
   border-radius: 10rpx;
@@ -67,7 +48,7 @@ page {
   height: 175rpx;
   border-radius: 0 0 5% 5%;
   background: #3669F8;
-  padding-top: 80rpx;
+  padding-top: 110rpx;
 }
 .swiper-box {
   width: 686rpx;

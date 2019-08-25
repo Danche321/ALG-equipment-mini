@@ -10,16 +10,13 @@ Component({
   },
   data: {
     listData: [],
-    showFirstId: '',
-    activeFirstId: '',
-    activeSecondId: ''
+    showFirstId: ''
   },
   lifetimes: {
-    attached: function () {
+    attached: function() {
       this.getList()
     },
-    detached: function () {
-    },
+    detached: function() {},
   },
   methods: { // 获取所有列表
     getList() {
@@ -37,9 +34,11 @@ Component({
     },
     // 点击一级分类展开
     handleSelectFirst(e) {
-      const { id } = e.target.dataset
+      const {
+        id
+      } = e.target.dataset
       this.setData({
-        showFirstId: id
+        showFirstId: id === this.data.showFirstId ? '' : id
       })
     },
     // 选中分类
@@ -52,10 +51,6 @@ Component({
       const firstName = first.name
       const secondid = second.id
       const secondName = second.name
-      this.setData({
-        activeSecondId: secondid,
-        activeFirstId: firstid
-      })
       app.globalData.searchCategoryFirstId = firstid
       app.globalData.searchCategoryFirstName = firstName
       app.globalData.searchCategorySecondId = secondid

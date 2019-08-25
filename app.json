@@ -15,16 +15,16 @@
     "pages/my/person-info/person-info",
     "pages/my/my-publish/my-publish",
     "pages/my/person-home/person-home",
-    "pages/account/login",
     "pages/publish/wantBug/wantBug",
     "pages/publish/publish-type/publish-type",
     "pages/index/search/search",
-    "pages/my/update-info/update-info"
+    "pages/my/update-info/update-info",
+    "components/SelectCity/SelectCity"
   ],
   "window": {
     "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#3669F8",
-    "navigationBarTitleText": "WeChat",
+    "navigationBarTitleText": "麒麟二手机",
     "navigationBarTextStyle": "white"
   },
   "tabBar": {

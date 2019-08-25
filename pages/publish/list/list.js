@@ -25,7 +25,11 @@ Page({
     selectCategoryVisible: false,
     // 选中的分类名称
     searchCategoryFirstName: '',
-    searchCategorySecondName: ''
+    searchCategorySecondName: '',
+    // 选择城市组件
+    selectCityVisible: false,
+    provinceName: '',
+    cityName: ''
   },
 
   /**
@@ -101,36 +105,6 @@ Page({
     this.getList(1)
   },
 
-  // 清空关键词
-  handleClearSearchText() {
-    this.setData({
-      'publishParams.searchText': '',
-    })
-    app.globalData.searchText = ''
-    this.getList(1)
-  },
-
-  //清空一级分类
-  handleClearCategoryFirst() {
-    this.setData({
-      'publishParams.categoryFirstId': '',
-      'searchCategoryFirstName': '',
-    })
-    app.globalData.searchCategoryFirstId = ''
-    app.globalData.searchCategoryFirstName = ''
-    this.getList(1)
-  },
-
-  //清空二级分类
-  handleClearCategorySecond() {
-    this.setData({
-      'publishParams.categorySecondId': '',
-      'searchCategorySecondName': '',
-    })
-    app.globalData.searchCategorySecondId = ''
-    app.globalData.searchCategorySecondName = ''
-    this.getList(1)
-  },
   // 发布列表
   getList(isFirst) {
     const {
@@ -168,6 +142,53 @@ Page({
     })
   },
 
+  // 清空关键词
+  handleClearSearchText() {
+    this.setData({
+      'publishParams.searchText': '',
+    })
+    app.globalData.searchText = ''
+    this.getList(1)
+  },
+
+  //清空一级分类
+  handleClearCategoryFirst() {
+    this.setData({
+      'publishParams.categoryFirstId': '',
+      'searchCategoryFirstName': '',
+    })
+    app.globalData.searchCategoryFirstId = ''
+    app.globalData.searchCategoryFirstName = ''
+    this.getList(1)
+  },
+
+  //清空二级分类
+  handleClearCategorySecond() {
+    this.setData({
+      'publishParams.categorySecondId': '',
+      'searchCategorySecondName': '',
+    })
+    app.globalData.searchCategorySecondId = ''
+    app.globalData.searchCategorySecondName = ''
+    this.getList(1)
+  },
+  // 清空省份
+  handleClearProvince() {
+    this.setData({
+      'publishParams.provinceCode': '',
+      'provinceName': ''
+    })
+    this.getList(1)
+  },
+  // 清空城市
+  handleClearCity() {
+    this.setData({
+      'publishParams.cityCode': '',
+      'cityName': ''
+    })
+    this.getList(1)
+  },
+
   // 显示机型选择弹窗
   handleShowCategory() {
     this.setData({
@@ -189,6 +210,36 @@ Page({
       categorySecondId
     } = this.data.publishParams
     if (categoryFirstId !== searchCategoryFirstId || categorySecondId !== searchCategorySecondId) {
+      this.getList(1)
+    }
+  },
+
+  // 显示城市选择弹窗
+  handleShowCity() {
+    this.setData({
+      selectCityVisible: true
+    })
+  },
+
+  // 城市选择确定
+  handleCityConfirm(e) {
+    this.setData({
+      selectCityVisible: false
+    })
+    const provinceId = JSON.parse(e.detail).first.id
+    const provinceName = JSON.parse(e.detail).first.name
+    const cityId = JSON.parse(e.detail).second.id
+    const cityName = JSON.parse(e.detail).second.name
+    const { provinceCode, cityCode } = this.data.publishParams
+    this.setData({
+      provinceName: provinceId ? provinceName : '',
+      cityName: cityId ? cityName : ''
+    })
+    if (provinceId !== provinceCode || cityId !== cityCode) {
+      this.setData({
+        'publishParams.provinceCode': provinceId,
+        'publishParams.cityCode': cityId
+      })
       this.getList(1)
     }
   },
