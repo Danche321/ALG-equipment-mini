@@ -1,15 +1,12 @@
 <view class="page-base">
   <!-- 标题/内容 -->
-  <textarea class="input-desc" placeholder="描述：输入您要购买的机械品牌型号等，能让别人更快搜索到···" maxlength="100"></textarea>
-  <!-- 定位和电话 -->
+  <textarea class="input-desc" value="{{params.title}}" bindinput="handleTitleChange" placeholder="描述：简述你的购机要求···" maxlength="100"></textarea>
+  <!-- 定位 -->
   <view class='page-contact'>
-    <view class="location">
+    <view class="location" bindtap="handleShowCity">
       <image class="contact-icon" src="../../../icons/location--publish.png"></image>
-      <text class='f-ellipsis1 location__text'>福建省福州平潭县福建省福州平潭县</text>
-    </view>
-    <view class="mobile">
-      <image class="contact-icon" src="../../../icons/mobile-publish-gray.png"></image>
-      <text>13328202442</text>
+      <text wx:if="{{params.provinceCode}}" class='f-ellipsis1 location__text'>{{params.provinceName}}{{params.cityName}}</text>
+      <text wx:else class='f-ellipsis1 location__text'>交易城市...</text>
     </view>
   </view>
 </view>
@@ -17,22 +14,28 @@
 <!-- 设备信息 -->
 <view class="page-info">
   <view class="info__title">基本信息</view>
+  <view class="info-item" bindtap="handleShowCategory">
+    <text>机型</text>
+    <input class="info__value-input" value="{{showCategoryName}}" placeholder="请选择" type="number" disabled></input>
+  </view>
+  <view class="info-item">
+    <text>联系电话</text>
+    <input class="info__value-input" value="{{params.contactPhone}}" bindinput="handlePhoneChange" placeholder="" type="number"></input>
+  </view>
   <view class="info-item">
     <text>新旧程度</text>
-    <input class="info__value-input" placeholder="请选择" type="number"></input>
-  </view>
-  <view class="info-item info-item-year">
-    <text>机型</text>
     <view class="info__value--year">
       <view class="tag-year">
-        <text wx:for="{{yearTags}}" class="tag-year-item {{activeYear===item?'active':''}}">{{item}}</text>
-      </view>
-      <view class="other-year">
-        <text>其他机型</text>
-        <image class="info__arrow" src="../../../icons/arrow-right-blue.png"></image>
+        <text data-item="{{item}}" bindtap="handleYearChange" wx:for="{{yearTags}}" wx:key="{{index}}" class="tag-year-item {{params.newOldLevel===item?'active':''}}">{{item}}</text>
       </view>
     </view>
   </view>
 </view>
 
-<button class="btn-publish">发布</button>
+<button class="btn-publish" bindtap="handleSubmit">发布</button>
+
+<!-- 选择机型组件 -->
+<select-category visible="{{selectCategoryVisible}}" firstId="{{params.firstCategoryId}}" secondId="{{params.secondCategoryId}}" bind:checked="handleCategoryConfirm"></select-category>
+
+<!-- 选择城市组件 -->
+<select-city visible="{{selectCityVisible}}" bind:checked="handleCityConfirm"></select-city>

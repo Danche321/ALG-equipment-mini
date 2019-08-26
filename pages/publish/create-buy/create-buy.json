@@ -1,4 +1,7 @@
 {
   "navigationBarTitleText": "发布求购",
-  "usingComponents": {}
+  "usingComponents": {
+    "select-category": "/components/SelectCategory/SelectCategory",
+    "select-city": "/components/SelectCity/SelectCity"
+  }
 }

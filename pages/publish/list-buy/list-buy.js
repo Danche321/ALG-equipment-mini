@@ -1,25 +1,24 @@
 const app = getApp()
 import {
-  fetchPublish
-} from '../../../api/publish.js'
+  fetchBuyList
+} from '../../../api/buy.js'
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    publishList: [],
+    listData: [],
     publishParams: {
       pageNum: 1,
       pageSize: 10,
-      searchText: '',
-      provinceCode: '',
-      cityCode: '',
-      areaCode: '',
-      categoryFirstId: '',
-      categorySecondId: ''
+      keyword: '',
+      // provinceCode: '',
+      // cityCode: '',
+      // areaCode: '',
+      // categoryFirstId: '',
+      // categorySecondId: ''
     },
-    publishList: [],
     hasNextPage: true,
     // 选择机型组件
     selectCategoryVisible: false,
@@ -35,87 +34,66 @@ Page({
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function(options) {
+  onLoad: function (options) {
     this.getList(1)
   },
 
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
-  onReady: function() {
+  onReady: function () {
 
   },
 
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow: function() {
-    const {
-      searchText,
-      searchCategoryFirstId,
-      searchCategoryFirstName
-    } = app.globalData
-    if (this.data.publishParams.searchText !== searchText || this.data.publishParams.categoryFirstId !== searchCategoryFirstId) {
-      this.getList(1)
-    }
+  onShow: function () {
   },
 
   /**
    * 生命周期函数--监听页面隐藏
    */
-  onHide: function() {
+  onHide: function () {
 
   },
 
   /**
    * 生命周期函数--监听页面卸载
    */
-  onUnload: function() {},
+  onUnload: function () { },
 
   /**
    * 页面相关事件处理函数--监听用户下拉动作
    */
-  onPullDownRefresh: function() {},
+  onPullDownRefresh: function () { },
 
   /**
    * 页面上拉触底事件的处理函数
    */
-  onReachBottom: function() {
+  onReachBottom: function () {
     if (this.data.hasNextPage) {
       this.data.publishParams.pageNum++
-        this.getList()
+      this.getList()
     }
   },
 
   /**
    * 用户点击右上角分享
    */
-  onShareAppMessage: function() {
+  onShareAppMessage: function () {
 
-  },
-
-  handleInputChange(e) {
-    this.setData({
-      'publishParams.searchText': e.detail.value
-    })
-  },
-
-  // 搜索
-  handleSearch(e) {
-    this.getList(1)
   },
 
   // 发布列表
   getList(isFirst) {
     const {
-      searchText,
       searchCategoryFirstId,
       searchCategoryFirstName,
       searchCategorySecondId,
       searchCategorySecondName
     } = app.globalData
     this.setData({
-      'publishParams.searchText': searchText,
       'publishParams.categoryFirstId': searchCategoryFirstId,
       'publishParams.categorySecondId': searchCategorySecondId,
       searchCategoryFirstName: searchCategoryFirstName,
@@ -123,32 +101,27 @@ Page({
     })
     const params = this.data.publishParams
     if (isFirst) this.data.publishParams.pageNum = 1
-    fetchPublish(params).then(res => {
+    fetchBuyList(params).then(res => {
       const {
         items,
         hasNextPage
       } = res.data
       let resList = []
       if (isFirst) {
-        resList = items
+        resList = items.map(item => {
+          item.locationText = `${item.locationDetail.provinceName}·${item.locationDetail.cityName}`
+          item.tags = [item.newOldLevel, item.categoryFirstName, item.categorySecondName]
+          return item
+        })
       } else {
-        resList = [...this.data.publishList, ...items]
+        resList = [...this.data.listData, ...items]
       }
       this.setData({
-        publishList: resList,
+        listData: resList,
         hasNextPage
       })
       if (isFirst) wx.stopPullDownRefresh()
     })
-  },
-
-  // 清空关键词
-  handleClearSearchText() {
-    this.setData({
-      'publishParams.searchText': '',
-    })
-    app.globalData.searchText = ''
-    this.getList(1)
   },
 
   //清空一级分类
@@ -197,11 +170,10 @@ Page({
   },
 
   // 选择机型确定
-  handleCategoryConfirm(e) {
+  handleCategoryConfirm() {
     this.setData({
       selectCategoryVisible: false
     })
-    const { firstid, firstName, secondid, secondName } = JSON.parse(e.detail)
     const {
       searchCategoryFirstId,
       searchCategorySecondId
@@ -210,11 +182,7 @@ Page({
       categoryFirstId,
       categorySecondId
     } = this.data.publishParams
-    if (firstid !== searchCategoryFirstId || secondid !== searchCategorySecondId) {
-      app.globalData.searchCategoryFirstId = firstid
-      app.globalData.searchCategoryFirstName = firstName
-      app.globalData.searchCategorySecondId = secondid
-      app.globalData.searchCategorySecondName = secondName
+    if (categoryFirstId !== searchCategoryFirstId || categorySecondId !== searchCategorySecondId) {
       this.getList(1)
     }
   },
@@ -231,11 +199,10 @@ Page({
     this.setData({
       selectCityVisible: false
     })
-    if (!e.detail) return false
     const provinceId = JSON.parse(e.detail).first.id
-    const provinceName = JSON.parse(e.detail).first.fullname
+    const provinceName = JSON.parse(e.detail).first.name
     const cityId = JSON.parse(e.detail).second.id
-    const cityName = JSON.parse(e.detail).second.fullname
+    const cityName = JSON.parse(e.detail).second.name
     const { provinceCode, cityCode } = this.data.publishParams
     this.setData({
       provinceName: provinceId ? provinceName : '',

@@ -1,5 +1,5 @@
 <!-- 搜索 -->
-<view class="page-search" bindtap="handleToSearch">
+<view class="m-page-search" bindtap="handleToSearch">
   <view class="search-box">
     <image class='icon-search' src='../../../icons/search.png'></image>
     <text class="search__input--gray">搜索机械设备</text>
@@ -7,7 +7,7 @@
 </view>
 
 <!-- 筛选条件 -->
-<view class="page-filter">
+<view class="m-page-filter">
   <!-- 选择 -->
   <view class="page-filter-select">
     <view class="filter-item" bindtap="handleShowCity">发货地</view>
@@ -45,57 +45,57 @@
 </view>
 
 <!-- 发布列表 -->
-<view wx:if="{{publishList.length}}" class="publish-box">
-  <view class="publish-column">
-    <view wx:if="{{index%2===0}}" wx:for="{{publishList}}" wx:key="{{index}}" class="publish-item" data-id="{{item.id}}" bindtap="handleToDetail">
-      <image class="img" src="{{item.mainMedia}}"></image>
-      <view class="publish__content">
-        <view class="title f-ellipsis2">{{item.title}}</view>
-        <view wx:if="{{item.voice}}" class="voice" style="width:{{item.voice.width}}">{{item.voice.second}}"</view>
-        <view class="f-flex-justBetween-alignCenter">
-          <view wx:if="{{item.outPrice}}" class="price">
-            <text class="price__unit">￥</text>{{item.outPrice}}
+  <view wx:if="{{publishList.length}}" class="publish-box">
+    <view class="publish-column">
+      <view wx:if="{{index%2===0}}" wx:for="{{publishList}}" wx:key="{{index}}" class="publish-item" data-id="{{item.id}}" bindtap="handleToDetail">
+        <image class="img" src="{{item.mainMedia}}"></image>
+        <view class="publish__content">
+          <view class="title f-ellipsis2">{{item.title}}</view>
+          <view wx:if="{{item.voice}}" class="voice" style="width:{{item.voice.width}}">{{item.voice.second}}"</view>
+          <view class="f-flex-justBetween-alignCenter">
+            <view wx:if="{{item.outPrice}}" class="price">
+              <text class="price__unit">￥</text>{{item.outPrice}}
+            </view>
+            <view wx:else class="price">面议</view>
+            <text class="area">{{item.location}}</text>
           </view>
-          <view wx:else class="price">面议</view>
-          <text class="area">{{item.location}}</text>
+          <view class="user-info f-flex-justStart-alignCenter">
+            <image src="{{item.publishUserInfo.headPortrait}}" class="headimg"></image>
+            <text class="nickname f-ellipsis1">{{item.publishUserInfo.nickName}}</text>
+          </view>
         </view>
-        <view class="user-info f-flex-justStart-alignCenter">
-          <image src="{{item.publishUserInfo.headPortrait}}" class="headimg"></image>
-          <text class="nickname f-ellipsis1">{{item.publishUserInfo.nickName}}</text>
+      </view>
+    </view>
+    <view class="publish-column">
+      <view wx:if="{{index%2!==0}}" wx:for="{{publishList}}" wx:key="{{index}}" class="publish-item" data-id="{{item.id}}" bindtap="handleToDetail">
+        <image class="img" src="{{item.mainMedia}}"></image>
+        <view class="publish__content">
+          <view class="title f-ellipsis2">{{item.title}}</view>
+          <view wx:if="{{item.voiceIntroduce}}" class="voice" style="width:{{item.voice.width}}">
+            <image class='voice__icon' src='../../../icons/voice.png'></image>
+            <text class='voice__text'>{{item.voice.second}}"</text>
+          </view>
+          <view class="f-flex-justBetween-alignCenter">
+            <view wx:if="{{item.outPrice}}" class="price">
+              <text class="price__unit">￥</text>{{item.outPrice}}
+            </view>
+            <view wx:else class="price">面议</view>
+            <text class="area">{{item.location}}</text>
+          </view>
+          <view class="user-info f-flex-justStart-alignCenter">
+            <image src="{{item.publishUserInfo.headPortrait}}" class="headimg"></image>
+            <text class="nickname f-ellipsis1">{{item.publishUserInfo.nickName}}</text>
+          </view>
         </view>
       </view>
     </view>
   </view>
-  <view class="publish-column">
-    <view wx:if="{{index%2!==0}}" wx:for="{{publishList}}" wx:key="{{index}}" class="publish-item" data-id="{{item.id}}" bindtap="handleToDetail">
-      <image class="img" src="{{item.mainMedia}}"></image>
-      <view class="publish__content">
-        <view class="title f-ellipsis2">{{item.title}}</view>
-        <view wx:if="{{item.voiceIntroduce}}" class="voice" style="width:{{item.voice.width}}">
-          <image class='voice__icon' src='../../../icons/voice.png'></image>
-          <text class='voice__text'>{{item.voice.second}}"</text>
-        </view>
-        <view class="f-flex-justBetween-alignCenter">
-          <view wx:if="{{item.outPrice}}" class="price">
-            <text class="price__unit">￥</text>{{item.outPrice}}
-          </view>
-          <view wx:else class="price">面议</view>
-          <text class="area">{{item.location}}</text>
-        </view>
-        <view class="user-info f-flex-justStart-alignCenter">
-          <image src="{{item.publishUserInfo.headPortrait}}" class="headimg"></image>
-          <text class="nickname f-ellipsis1">{{item.publishUserInfo.nickName}}</text>
-        </view>
-      </view>
-    </view>
-  </view>
-</view>
 
-<!-- 无数据 -->
-<view wx:else class='m-page-empty'>
-  <image class='empty__img' src="../../../icons/empty.png"></image>
-  <text class='empty__text'>没有搜索到符合的设备</text>
-</view>
+  <!-- 无数据 -->
+  <view wx:else class='m-page-empty'>
+    <image class='empty__img' src="../../../icons/empty.png"></image>
+    <text class='empty__text'>没有搜索到符合的设备</text>
+  </view>
 
 <!-- 选择机型组件 -->
 <select-category visible="{{selectCategoryVisible}}" firstId="{{publishParams.categoryFirstId}}" secondId="{{publishParams.categorySecondId}}" bind:checked="handleCategoryConfirm"></select-category>

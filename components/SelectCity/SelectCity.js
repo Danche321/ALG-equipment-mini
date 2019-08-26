@@ -25,6 +25,7 @@ Component({
     getList() {
       qqmapsdk.getCityList({
         success: res => {
+          console.log(res)
           const province = res.result[0]
           this.setData({
             listData: province
@@ -38,11 +39,11 @@ Component({
     handleSelectFirst(e) {
       const {
         id,
-        name,
+        fullname,
         index
       } = e.target.dataset
-      const excludeArea = ['北京', '天津', '上海', '重庆', '台湾', '香港', '澳门']
-      if (excludeArea.includes(name)) { // 直辖市等
+      const excludeArea = ['北京市', '天津市', '上海市', '重庆市', '台湾省', '香港特别行政区', '澳门特别行政区']
+      if (excludeArea.includes(fullname)) { // 直辖市等
         this.setData({
           activeSecondId: '',
           activeFirstId: e.currentTarget.dataset.id,
@@ -50,11 +51,11 @@ Component({
         })
         const first = {
           id: e.currentTarget.dataset.id,
-          name: e.currentTarget.dataset.name
+          fullname: e.currentTarget.dataset.fullname
         }
         const second = {
           id: '',
-          name: ''
+          fullname: ''
         }
         this.triggerEvent('checked', JSON.stringify({ first, second }))
       } else {
@@ -64,15 +65,15 @@ Component({
             id: id, //对应接口getCityList返回数据的Id，如：北京是'110000'
             success: res => {
               let childCitys = []
-              if (excludeArea.includes(name)) {
+              if (excludeArea.includes(fullname)) {
                 childCitys = [{
                   id: '',
-                  name: '不限制'
+                  fullname: '不限制'
                 }]
               } else {
                 childCitys = [{
                   id: '',
-                  name: '不限制'
+                  fullname: '不限制'
                 }, ...res.result[0]]
               }
               this.data.listData[index].children = childCitys

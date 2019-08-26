@@ -1,0 +1,85 @@
+page {
+  background-color: #f5f5f5;
+}
+
+/* 发布列表 */
+.publish-box {
+  background-color: #f5f5f5;
+}
+
+.list-item {
+  padding: 31rpx 32rpx 0 32rpx;
+  position: relative;
+  background: #fff;
+  margin-bottom: 30rpx;
+}
+
+.item-top {
+  margin-bottom: 16rpx;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+.item__title {
+  font-size: 32rpx;
+  color: #333;
+  line-height: 40rpx;
+}
+
+.tag-box {
+  font-size: 22rpx;
+  margin: 20rpx 0;
+}
+
+.item__tag {
+  width: 104rpx;
+  height: 37rpx;
+  line-height: 37rpx;
+  text-align: center;
+  background: #f9f9f9;
+  border-radius: 19rpx;
+  margin-right: 20rpx;
+  display: inline-block;
+  color: rgba(51, 51, 51, 0.7);
+}
+.item-middle{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.item__num {
+  color: rgba(51, 51, 51, 0.5);
+  font-size: 24rpx;
+  margin-right: 51rpx;
+}
+
+.location {
+  display: flex;
+  align-content: center;
+  justify-content: flex-end;
+  color: #777;
+  text-align: right;
+}
+
+.location .location__icon {
+  width: 30rpx;
+  height: 30rpx;
+  margin-right: 10rpx;
+}
+
+.item_time {
+  color: #888;
+  text-align: right;
+}
+
+.item-bottom{
+  border-top: 1rpx solid #f5f5f5;
+  padding:  20rpx 0;
+  margin-top: 20rpx;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 24rpx;
+}

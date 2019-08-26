@@ -51,11 +51,13 @@ Component({
       const firstName = first.name
       const secondid = second.id
       const secondName = second.name
-      app.globalData.searchCategoryFirstId = firstid
-      app.globalData.searchCategoryFirstName = firstName
-      app.globalData.searchCategorySecondId = secondid
-      app.globalData.searchCategorySecondName = secondName
-      this.triggerEvent('checked')
+      const params = {
+        firstid,
+        firstName,
+        secondid,
+        secondName
+      }
+      this.triggerEvent('checked', JSON.stringify(params))
     },
     // 关闭
     handleHidden() {
