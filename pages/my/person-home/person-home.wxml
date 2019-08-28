@@ -3,9 +3,13 @@
   <view class="header__statusBar" style="height:{{statusBarHeight}}px"></view>
   <image class='header__back' src="../../../icons/home_back.png" style="top: {{statusBarHeight}}px" bindtap='handleBack'></image>
   <view class='header__content'>
-    <image class='header__headimg' src='{{userInfo.headPortrait}}'></image>
-    <view class='header__nickname'>{{userInfo.nickName}}</view>
-    <view class="header__desc">{{userInfo.signature}}</view>
+    <view class="content-userInfo">
+      <image class='header__headimg' src='{{userInfo.headPortrait}}'></image>
+      <view class="userInfo-right">
+        <view class='header__nickname'>{{userInfo.nickName}}</view>
+        <view class="header__desc">{{userInfo.signature}}</view>
+      </view>
+    </view>
     <view class='header__bottom'>
       <view class="header__num">
         <text class='header__num-item'>关注 {{userInfo.followCount}}</text>
@@ -18,48 +22,99 @@
       </view>
     </view>
   </view>
+  <image class="header-bg" src="../../../icons/bg_geren.png"></image>
 </view>
 <!-- 发布列表 -->
 <view class='page-publish'>
-  <block wx:if="{{listData.length}}">
-    <view class="list-item {{item.isDownShelf?'item--disabled':''}}" wx:for="{{listData}}" wx:key="{{index}}" data-id="{{item.id}}" bindtap="handleToDetail">
-      <view class="item__top f-flex-justBetween-alignStart">
-        <view class="img-box">
-          <image src="{{item.mainMedia}}" class="item__img" mode="aspectFill"></image>
-        </view>
-        <view class='item__right'>
-          <view class="f-ellipsis2 item__title">{{item.title}}</view>
-          <view class="tag-box">
-            <text wx:if="{{item.categoryFirstName}}" class="item__tag">{{item.categoryFirstName}}</text>
-            <text wx:if="{{item.categorySecondName}}" class="item__tag">{{item.categorySecondName}}</text>
-            <text wx:if="{{item.productiveYear}}" class="item__tag">{{item.productiveYear}}年</text>
-          </view>
-          <view class="price-block">
-            <view wx:if="{{item.outPrice}}" class="item__price">
-              <text class="price__unit">¥</text>{{item.outPrice}}
-            </view>
-            <view wx:else class="item__price">面议</view>
-            <view class='f-flex-justStart-alignCenter'>
-              <text class="item__num ">{{item.viewCount}}浏览</text>
-              <text class="item__num ">{{item.discussCount}}留言</text>
-            </view>
-          </view>
-        </view>
-      </view>
-      <view class='f-flex-justBetween-alignCenter'>
-        <view class='location'>
-          <image class='location__icon' src="../../../icons/location--publish.png"></image>
-          <text>{{item.location}}</text>
-        </view>
-        <view class="item_time">发布时间：{{item.createTimeFriendly}}</view>
-      </view>
-      <image wx:if="{{item.isDownShelf}}" src="../../../icons/sale--down.png " class="icon-saleDown "></image>
-    </view>
-  </block>
-
-  <!-- 无数据 -->
-  <view wx:else class="m-page-empty">
-    <image class='empty__img' src="../../../icons/empty.png"></image>
-    <text class='empty__text'>暂无发布内容～</text>
+  <view class="filter">
+    <text data-type="sale" bindtap="handleTabChange" class="filter-item {{activeTab==='sale'?'active':''}}">转让</text>
+    <text data-type="buy" bindtap="handleTabChange" class="filter-item {{activeTab==='buy'?'active':''}}">求购</text>
   </view>
+
+  <swiper class="swiper-box">
+    <!-- 转让信息 -->
+    <swiper-item class="swiper-item">
+      <block wx:if="{{sale.listData.length}}">
+        <view class="list-item {{item.isDownShelf?'item--disabled':''}}" wx:for="{{sale.listData}}" wx:key="{{index}}" data-id="{{item.id}}" bindtap="handleToDetail">
+          <view class="item__top f-flex-justBetween-alignStart">
+            <view class="img-box">
+              <image src="{{item.mainMedia}}" class="item__img" mode="aspectFill"></image>
+            </view>
+            <view class='item__right'>
+              <view class="f-ellipsis2 item__title">{{item.title}}</view>
+              <view class="tag-box">
+                <text wx:if="{{item.categoryFirstName}}" class="item__tag">{{item.categoryFirstName}}</text>
+                <text wx:if="{{item.categorySecondName}}" class="item__tag">{{item.categorySecondName}}</text>
+                <text wx:if="{{item.productiveYear}}" class="item__tag">{{item.productiveYear}}年</text>
+              </view>
+              <view class="price-block">
+                <view wx:if="{{item.outPrice}}" class="item__price">
+                  <text class="price__unit">¥</text>{{item.outPrice}}
+                </view>
+                <view wx:else class="item__price">面议</view>
+                <view class='f-flex-justStart-alignCenter'>
+                  <text class="item__num ">{{item.viewCount}}浏览</text>
+                  <text class="item__num ">{{item.discussCount}}留言</text>
+                </view>
+              </view>
+            </view>
+          </view>
+          <view class='f-flex-justBetween-alignCenter'>
+            <view class='location'>
+              <image class='location__icon' src="../../../icons/location--publish.png"></image>
+              <text>{{item.location}}</text>
+            </view>
+            <view class="item_time">发布时间：{{item.createTimeFriendly}}</view>
+          </view>
+          <image wx:if="{{item.isDownShelf}}" src="../../../icons/sale--down.png " class="icon-saleDown "></image>
+        </view>
+      </block>
+
+      <!-- 无数据 -->
+      <view wx:else class="m-page-empty">
+        <image class='empty__img' src="../../../icons/empty.png"></image>
+        <text class='empty__text'>暂无发布内容～</text>
+      </view>
+    </swiper-item>
+
+    <!-- 求购信息 -->
+    <swiper-item class="swiper-item">
+      <block wx:if="{{buy.listData.length}}">
+        <view class="list-buy-item {{item.isDownShelf?'item--disabled':''}}" wx:for="{{buy.listData}}" wx:key="{{index}}">
+          <view class="item-top">
+            <view class="item__title">{{item.title}}</view>
+            <view class="tag-box">
+              <block wx:for="{{item.tags}}" wx:key="{{index}}">
+                <text wx:if="{{item&&item!=='不限制'}}" class="item__tag">{{item}}</text>
+              </block>
+            </view>
+          </view>
+          <view class='item-middle'>
+            <view class='location'>
+              <image class='location__icon' src="../../../icons/location--publish.png"></image>
+              <text>{{item.locationText}}</text>
+            </view>
+            <view class="item__call">
+              <image class="icon-call" src="../../../icons/call.png" data-id="{{item.id}}" data-index="{{index}}"></image>
+              <text>拨打</text>
+            </view>
+          </view>
+          <view class="item-bottom">
+            <view class="item__creator">
+              <image class="item__headimg" src="{{item.creatorInfo.headPortrait}}"></image>
+              <view>{{item.creatorInfo.name}}</view>
+            </view>
+            <view class="item_time">发布时间：{{item.createTimeFriendly}}</view>
+          </view>
+          <image wx:if="{{item.isDownShelf}}" src="../../../icons/sale--down.png " class="icon-saleDown "></image>
+        </view>
+      </block>
+
+      <!-- 无数据 -->
+      <view wx:else class="m-page-empty">
+        <image class='empty__img' src="../../../icons/empty.png"></image>
+        <text class='empty__text'>暂无发布内容～</text>
+      </view>
+    </swiper-item>
+  </swiper>
 </view>

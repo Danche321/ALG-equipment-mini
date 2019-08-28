@@ -94,3 +94,12 @@ export function handleRePublish(data) {
     method: 'post'
   })
 }
+
+// 我的邀请
+export function fetchMyInvite(data) {
+  return request({
+    url: '/invite/inviteBind.action',
+    method: 'post',
+    data: data
+  })
+}

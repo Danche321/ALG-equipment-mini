@@ -1,7 +1,24 @@
 page {
   background-color: #f5f5f5;
 }
-
+.m-page-filter{
+  margin-top: 0;
+  top: 0;
+  position: fixed;
+  z-index: 2;
+}
+.page-body{
+  height: 100vh;
+  box-sizing: border-box;
+  position: relative;
+}
+.page-body .m-page-empty{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+  height: auto;
+}
 /* 发布列表 */
 .publish-box {
   background-color: #f5f5f5;
@@ -12,17 +29,17 @@ page {
   position: relative;
   background: #fff;
   margin-bottom: 30rpx;
+  margin-top: 20rpx;
 }
 
 .item-top {
-  margin-bottom: 16rpx;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
 }
 
 .item__title {
-  font-size: 32rpx;
+  font-size: 28rpx;
   color: #333;
   line-height: 40rpx;
 }
@@ -37,20 +54,45 @@ page {
   height: 37rpx;
   line-height: 37rpx;
   text-align: center;
-  background: #f9f9f9;
+  background: #D6E1FF;
   border-radius: 19rpx;
-  margin-right: 20rpx;
+  margin-right: 26rpx;
   display: inline-block;
-  color: rgba(51, 51, 51, 0.7);
+  color: #3669F8;
+  font-size: 22rpx;
 }
 .item-middle{
   display: flex;
   align-items: center;
   justify-content: space-between;
 }
-
+.item__call{
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  color: #3979fd;
+  border: 1rpx solid #3979fd;
+  padding: 10rpx 28rpx;
+  border-radius: 50rpx;
+  font-size: 26rpx;
+}
+.icon-call{
+  width: 40rpx;
+  height: 40rpx;
+  margin-right: 20rpx;
+}
+.item-middle-num{
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+.icon-read{
+  width: 36rpx;
+  height: 36rpx;
+  margin-right: 20rpx;
+}
 .item__num {
-  color: rgba(51, 51, 51, 0.5);
+  color: #888;
   font-size: 24rpx;
   margin-right: 51rpx;
 }
@@ -61,6 +103,7 @@ page {
   justify-content: flex-end;
   color: #777;
   text-align: right;
+  font-size: 24rpx;
 }
 
 .location .location__icon {
@@ -82,4 +125,23 @@ page {
   align-items: center;
   justify-content: space-between;
   font-size: 24rpx;
+}
+
+.item__creator{
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  font-size: 26rpx;
+}
+.item__headimg{
+  width: 56rpx;
+  height: 56rpx;
+  margin-right: 20rpx;
+  border-radius: 50%;
+  background-color: #f5f5f5;
+}
+
+.m-page-empty{
+  height: calc(100vh - 500rpx);
+  background: #f5f5f5;
 }

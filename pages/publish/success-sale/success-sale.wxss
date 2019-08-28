@@ -1,0 +1,49 @@
+/* 头部 */
+
+.page-top {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 120rpx;
+  margin-top: 200rpx;
+}
+
+.icon-success {
+  width: 150rpx;
+  height: 150rpx;
+  margin-right: 20rpx;
+}
+
+.top__title {
+  text-align: center;
+  font-size: 38rpx;
+  color: #5288fd;
+}
+
+.top__subTitle {
+  font-size: 28rpx;
+  color: #999;
+  margin-top: 16rpx;
+}
+
+/* 底部 */
+
+.page-bottom {
+  padding: 0 30rpx;
+}
+
+.page-bottom button {
+  font-size: 34rpx;
+  height: 100rpx;
+  line-height: 100rpx;
+}
+
+.btn-share-group {
+  background-color: #5288fd;
+  color: #fff;
+  margin-bottom: 40rpx;
+}
+
+.btn-qrcode{
+  color: #666;
+}

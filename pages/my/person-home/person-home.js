@@ -1,4 +1,5 @@
 import { fetchUserInfo, fetchMyHomePublish } from '../../../api/my.js'
+import { fetchBuyList } from '../../../api/buy.js'
 const app = getApp()
 Page({
 
@@ -8,13 +9,25 @@ Page({
   data: {
     statusBarHeight: '',
     userInfo: null,
-    listData: [],
-    params: {
-      whoId: '',
-      pageNum: 1,
-      pageSize: 10
+    sale: {
+      listData: [],
+      params: {
+        whoId: '',
+        pageNum: 1,
+        pageSize: 10
+      },
+      hasNextPage: false
     },
-    hasNextPage: true
+    buy: {
+      listData: [],
+      params: {
+        whoId: '',
+        pageNum: 1,
+        pageSize: 10
+      },
+      hasNextPage: false
+    },
+    activeTab: 'sale'
   },
 
   /**
@@ -22,10 +35,19 @@ Page({
    */
   onLoad: function (options) {
     const id = options.id
-    this.data.params.whoId = id
+    this.data.sale.params.whoId = id || 1
     this.setHeaderConfig()
     this.getUserInfo()
-    this.getList()
+    this.getSaleList()
+    this.getBuyList()
+  },
+
+  // tab切换
+  handleTabChange(e) {
+    const type = e.currentTarget.dataset.type
+    this.setData({
+      activeTab: type
+    })
   },
 
   handleBack() {
@@ -44,14 +66,38 @@ Page({
   },
 
   // 获取发布列表
-  getList(isFirst) {
-    const params = this.data.params
-    if (isFirst) this.data.params.pageNum = 1
+  getSaleList(isFirst) {
+    const params = this.data.sale.params
+    if (isFirst) this.data.sale.params.pageNum = 1
     fetchMyHomePublish(params).then(res => {
       const { items, hasNextPage } = res.data
       this.setData({
-        listData: items,
-        hasNextPage
+        'sale.listData': items,
+        'sale.hasNextPage': hasNextPage
+      })
+      if (isFirst) wx.stopPullDownRefresh()
+    })
+  },
+
+  // 获取求购列表
+  getBuyList(isFirst) {
+    const params = this.data.buy.params
+    fetchBuyList(params).then(res => {
+      const { items, hasNextPage } = res.data
+      let resList = []
+      items.map(item => {
+        item.locationText = `${item.locationDetail.provinceName}·${item.locationDetail.cityName}`
+        item.tags = [item.newOldLevel, item.categoryFirstName, item.categorySecondName]
+        return item
+      })
+      if (isFirst) {
+        resList = items
+      } else {
+        resList = [...this.data.buy.listData, ...items]
+      }
+      this.setData({
+        'buy.listData': resList,
+        'buy.hasNextPage': hasNextPage
       })
       if (isFirst) wx.stopPullDownRefresh()
     })
@@ -110,16 +156,16 @@ Page({
    * 页面相关事件处理函数--监听用户下拉动作
    */
   onPullDownRefresh: function () {
-    this.getList(1)
+    this.getSaleList(1)
   },
 
   /**
    * 页面上拉触底事件的处理函数
    */
   onReachBottom: function () {
-    if (this.data.hasNextPage) {
-      this.data.params.pageNum++
-      this.getList()
+    if (this.data.sale.hasNextPage) {
+      this.data.sale.params.pageNum++
+      this.getSaleList()
     }
   },
 

@@ -45,8 +45,8 @@
 			"list": [
 				{
 					"id": 0,
-					"name": "pages/publish/list-buy/list-buy",
-					"pathName": "pages/publish/list-buy/list-buy",
+					"name": "pages/my/person-home/person-home",
+					"pathName": "pages/my/person-home/person-home",
 					"query": "",
 					"scene": null
 				}

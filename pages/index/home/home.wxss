@@ -140,7 +140,7 @@ page {
 }
 
 .publish__content {
-  padding: 26rpx 20rpx 20rpx 20rpx;
+  padding: 20rpx;
 }
 
 .publish-item .img {
@@ -149,11 +149,13 @@ page {
   background: #e2eafe;
   border-top-left-radius: 10rpx;
   border-top-right-radius: 10rpx;
+  display: block;
 }
 
 .publish-item .title {
   font-size: 28rpx;
-  color: #000
+  color: #333;
+  margin-bottom: 10rpx;
 }
 
 .publish-item .voice {

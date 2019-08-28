@@ -56,6 +56,11 @@ Page({
       url: '/pages/my/dynamic/dynamic',
     })
   },
+  handleToInvite() {
+    wx.navigateTo({
+      url: '/pages/my/invite/invite',
+    })
+  },
   /**
    * 生命周期函数--监听页面加载
    */

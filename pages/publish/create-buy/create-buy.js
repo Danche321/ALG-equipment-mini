@@ -109,20 +109,22 @@ Page({
         const {
           adcode,
           province,
-          city
+          city,
+          city_code
         } = res.result.ad_info
+        const showArea = province === city ? province : `${province}·${city}`
         this.setData({
           'params.provinceCode': `${adcode.substring(0, 2)}0000`,
           'params.provinceName': province,
-          'params.cityCode': adcode,
-          'params.cityName': city
+          'params.cityCode': city_code.substring(3,9),
+          'params.cityName': city,
+          showAreaName: showArea
         })
       },
       fail: function (res) {
-        console.log(res)
+        console.log(`fail:${red}`)
       },
       complete: function (res) {
-        console.log(res)
       }
     })
   },
@@ -171,12 +173,12 @@ Page({
     const provinceName = JSON.parse(e.detail).first.fullname
     const cityId = JSON.parse(e.detail).second.id
     const cityName = JSON.parse(e.detail).second.fullname
-    let trueCityName = cityId ? `·${cityName}` : ''
     this.setData({
       'params.provinceCode': provinceId,
       'params.provinceName': provinceName,
       'params.cityCode': cityId,
-      'params.cityName': trueCityName
+      'params.cityName': cityId ? cityName : '',
+      showAreaName: cityId ? `${provinceName}·${cityName}` : provinceName
     })
   },
 

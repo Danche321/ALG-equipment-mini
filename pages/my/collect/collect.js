@@ -41,7 +41,7 @@ Page({
       wx.showToast({
         title: '已收藏',
       })
-      this.data.listData[index].isCollect = !
+      this.data.listData[index].isCollect = !this.data.listData[index].isCollect
       this.setData({
         listData: [...this.data.listData]
       })

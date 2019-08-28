@@ -36,7 +36,7 @@
 <!-- 设备描述 -->
 <view class="page-desc">
   <view wx:if="{{publishInfo.voiceIntroduce}}" class="listen">
-    <text class="listen__text">点击听卖家留言</text>
+    <text class="listen__text">点击听卖家介绍</text>
     <text class="listen__voice">{{voice.second}}"</text>
   </view>
   <view class="desc">{{publishInfo.textIntroduce}}</view>
@@ -78,16 +78,22 @@
     <image class="connect__icon" src="../../../icons/mobile.png"></image>联系TA
   </view>
   <view class="f-flex-justBetween-alignCenter footer-handles">
-    <view class="handle__item" bindtap="handleMsg">
+    <view class="handle__item" bindtap="handleMsgShow">
       <image class="item__icon" src="../../../icons/message.png"></image>留言
     </view>
     <view class="handle__item" bindtap="handleCollect">
-      <image wx:if="{{isCollect}}" class="item__icon" src="../../../icons/collect--yellow.png"></image>
+      <image wx:if="{{collectionDown}}" class="item__icon" src="../../../icons/collect--yellow.png"></image>
       <image wx:else class="item__icon" src="../../../icons/collect.png"></image>收藏
     </view>
     <view class="handle__item" bindtap="handleZan">
-      <image wx:if="{{!isZan}}" class="item__icon" src="../../../icons/zan.png"></image>
+      <image wx:if="{{!likeDown}}" class="item__icon" src="../../../icons/zan.png"></image>
       <image wx:else class="item__icon" src="../../../icons/zan_on.png"></image>超赞
     </view>
   </view>
+</view>
+
+<!-- 留言 -->
+<view wx:if="{{msgVisible}}" class="page-takeMsg">
+  <input class="takeMsg__input" value="{{msgValue}}" cursor-spacing="14" focus="{{true}}" placeholder="{{msgValue?'回复xxx':'看对眼就留言，问问更多细节'}}" confirm-type="send" bindinput="handleMsgInput"bindconfirm="handleMsgConfirm" bindblur="handleMsgBlur"></input>
+  <button bindtap="handleMsgConfirm" disabled="{{!msgValue}}" class="takeMsg__send {{msgValue?'takeMsg__send-active':''}}">发送</button>
 </view>

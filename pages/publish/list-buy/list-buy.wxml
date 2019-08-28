@@ -1,83 +1,85 @@
-<!-- 搜索 -->
-<view class="m-page-search" bindtap="handleToSearch">
-  <view class="search-box">
-    <image class='icon-search' src='../../../icons/search.png'></image>
-    <text class="search__input--gray">搜索机械设备</text>
-  </view>
-</view>
-
 <!-- 筛选条件 -->
 <view class="m-page-filter">
   <!-- 选择 -->
   <view class="page-filter-select">
-    <view class="filter-item" bindtap="handleShowCity">发货地</view>
+    <view class="filter-item" bindtap="handleShowCity">交易地点</view>
     <view class="filter-split"></view>
-    <view bindtap="handleShowCategory" class="filter-item {{publishParams.categoryFirstId?'active':''}}">机型</view>
+    <view bindtap="handleShowCategory" class="filter-item {{params.categoryFirstId?'active':''}}">机型</view>
   </view>
   <!-- 选中的标签 -->
-  <view wx:if="{{publishParams.searchText||publishParams.categoryFirstId||publishParams.categorySecondId||publishParams.provinceCode||publishParams.cityCode}}" class="page-tags">
+  <view wx:if="{{params.searchText||params.categoryFirstId||params.categorySecondId||params.provinceCode||params.cityCode}}" class="page-tags">
     <!-- 关键字 -->
-    <view wx:if="{{publishParams.searchText}}" class="tag-item" bindtap="handleClearSearchText">
-      <text>{{publishParams.searchText}}</text>
+    <view wx:if="{{params.searchText}}" class="tag-item" bindtap="handleClearSearchText">
+      <text>{{params.searchText}}</text>
       <image class="icon-clear" src="../../../icons/clear.png"></image>
     </view>
     <!-- 一级类别 -->
-    <view wx:if="{{publishParams.categoryFirstId}}" class="tag-item" bindtap="handleClearCategoryFirst">
+    <view wx:if="{{params.categoryFirstId}}" class="tag-item" bindtap="handleClearCategoryFirst">
       <text>{{searchCategoryFirstName}}</text>
       <image class="icon-clear" src="../../../icons/clear.png"></image>
     </view>
     <!-- 二级类别 -->
-    <view wx:if="{{publishParams.categorySecondId}}" class="tag-item" bindtap="handleClearCategorySecond">
+    <view wx:if="{{params.categorySecondId}}" class="tag-item" bindtap="handleClearCategorySecond">
       <text>{{searchCategorySecondName}}</text>
       <image class="icon-clear" src="../../../icons/clear.png"></image>
     </view>
     <!-- 省份 -->
-    <view wx:if="{{publishParams.provinceCode}}" class="tag-item" bindtap="handleClearProvince">
+    <view wx:if="{{params.provinceCode}}" class="tag-item" bindtap="handleClearProvince">
       <text>{{provinceName}}</text>
       <image class="icon-clear" src="../../../icons/clear.png"></image>
     </view>
     <!-- 城市 -->
-    <view wx:if="{{publishParams.cityCode}}" class="tag-item" bindtap="handleClearCity">
+    <view wx:if="{{params.cityCode}}" class="tag-item" bindtap="handleClearCity">
       <text>{{cityName}}</text>
       <image class="icon-clear" src="../../../icons/clear.png"></image>
     </view>
   </view>
 </view>
 
-<view wx:if="{{listData.length}}" class="publish-box">
-  <view class="list-item {{item.isDownShelf?'item--disabled':''}}" wx:for="{{listData}}" wx:key="{{index}}" data-id="{{item.id}}" bindtap="handleToDetail">
-    <!--头部-->
-    <view class="item-top">
-      <view class="f-ellipsis2 item__title">{{item.title}}</view>
-      <view class="tag-box">
-        <block wx:for="{{item.tags}}" wx:key="{{index}}">
-          <text wx:if="{{item}}" class="item__tag">{{item}}</text>
-        </block>
+<view class="page-body" style="padding-top:{{marginTop}}px">
+  <view wx:if="{{listData.length}}" class="publish-box">
+    <view class="list-item {{item.isDownShelf?'item--disabled':''}}" wx:for="{{listData}}" wx:key="{{index}}">
+      <!--头部-->
+      <view class="item-top">
+        <view class="item__title">{{item.title}}</view>
+        <view class="tag-box">
+          <block wx:for="{{item.tags}}" wx:key="{{index}}">
+            <text wx:if="{{item&&item!=='不限制'}}" class="item__tag">{{item}}</text>
+          </block>
+        </view>
       </view>
+      <!--中部-->
+      <view class='item-middle'>
+        <view class='location'>
+          <image class='location__icon' src="../../../icons/location--publish.png"></image>
+          <text>{{item.locationText}}</text>
+        </view>
+        <view class="item__call">
+          <image class="icon-call" src="../../../icons/call.png" data-id="{{item.id}}" data-index="{{index}}"></image>
+          <text>拨打</text>
+        </view>
+      </view>
+      <!-- 底部 -->
+      <view class="item-bottom">
+        <view class="item__creator">
+          <image class="item__headimg" src="{{item.creatorInfo.headPortrait}}"></image>
+          <view>{{item.creatorInfo.name}}</view>
+        </view>
+        <view class="item_time">发布时间：{{item.createTimeFriendly}}</view>
+      </view>
+      <image wx:if="{{item.isDownShelf}}" src="../../../icons/sale--down.png " class="icon-saleDown "></image>
     </view>
-    <!--中部-->
-    <view class='item-middle'>
-      <view class='item-middle-num'>
-        <text class="item__num ">{{item.viewCount}}浏览</text>
-      </view>
-      <view data-id="{{item.id}}" data-index="{{index}}" class="btn-publish">
-        <text>重新发布</text>
-      </view>
-    </view>
-    <!-- 底部 -->
-    <view class="item-bottom">
-      <view class='location'>
-        <image class='location__icon' src="../../../icons/location--publish.png"></image>
-        <text>{{item.locationText}}</text>
-      </view>
-      <view class="item_time">发布时间：{{item.createTimeFriendly}}</view>
-    </view>
-    <image wx:if="{{item.isDownShelf}}" src="../../../icons/sale--down.png " class="icon-saleDown "></image>
+  </view>
+
+  <!-- 无数据 -->
+  <view wx:else class='m-page-empty' style="margin-top:{{marginTop/2}}px">
+    <image class='empty__img' src="../../../icons/empty.png"></image>
+    <text class='empty__text'>暂无相关数据</text>
   </view>
 </view>
 
-<!-- 无数据 -->
-<view wx:else class='m-page-empty'>
-  <image class='empty__img' src="../../../icons/empty.png"></image>
-  <text class='empty__text'>您还没有发布过内容～</text>
-</view>
+<!-- 选择机型组件 -->
+<select-category visible="{{selectCategoryVisible}}" firstId="{{params.categoryFirstId}}" secondId="{{params.categorySecondId}}" bind:checked="handleCategoryConfirm"></select-category>
+
+<!-- 选择城市组件 -->
+<select-city visible="{{selectCityVisible}}" bind:checked="handleCityConfirm"></select-city>

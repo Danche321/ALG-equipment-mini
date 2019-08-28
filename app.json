@@ -19,7 +19,11 @@
     "pages/publish/publish-type/publish-type",
     "pages/index/search/search",
     "pages/my/update-info/update-info",
-    "components/SelectCity/SelectCity"
+    "components/SelectCity/SelectCity",
+    "pages/my/invite/invite",
+    "pages/my/invite-pic/invite-pic",
+    "pages/publish/success-buy/success-buy",
+    "pages/publish/success-sale/success-sale"
   ],
   "window": {
     "backgroundTextStyle": "light",

@@ -25,7 +25,6 @@ Component({
     getList() {
       qqmapsdk.getCityList({
         success: res => {
-          console.log(res)
           const province = res.result[0]
           this.setData({
             listData: province
@@ -64,6 +63,7 @@ Component({
             // 传入对应省份ID获得城市数据，传入城市ID获得区县数据,依次类推
             id: id, //对应接口getCityList返回数据的Id，如：北京是'110000'
             success: res => {
+              console.log(res)
               let childCitys = []
               if (excludeArea.includes(fullname)) {
                 childCitys = [{

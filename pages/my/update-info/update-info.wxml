@@ -5,7 +5,7 @@
 </view>
 <!-- 个性签名 -->
 <block wx:if="{{key==='signature'}}">
-  <textarea wx:if="{{key==='signature'}}" class="field__input" value="{{value}}" bindinput="handleInputChange" focus="{{true}}" placeholder="介绍一下自己吧···" maxlength="160" auto-height></textarea>
+  <textarea wx:if="{{key==='signature'}}" class="field__input" value="{{value}}" bindinput="handleInputChange" focus="{{true}}" placeholder="介绍一下自己吧···" maxlength="60" auto-height></textarea>
   <view class="field__tip">展示你的特点，结交更多同行。</view>
 </block>
 <!-- 保存 -->

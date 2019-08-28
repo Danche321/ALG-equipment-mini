@@ -5,7 +5,7 @@
   <view class='page-contact'>
     <view class="location" bindtap="handleShowCity">
       <image class="contact-icon" src="../../../icons/location--publish.png"></image>
-      <text wx:if="{{params.provinceCode}}" class='f-ellipsis1 location__text'>{{params.provinceName}}{{params.cityName}}</text>
+      <text wx:if="{{params.provinceCode}}" class='f-ellipsis1 location__text'>{{showAreaName}}</text>
       <text wx:else class='f-ellipsis1 location__text'>交易城市...</text>
     </view>
   </view>

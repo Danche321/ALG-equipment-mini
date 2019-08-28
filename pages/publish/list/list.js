@@ -29,7 +29,8 @@ Page({
     // 选择城市组件
     selectCityVisible: false,
     provinceName: '',
-    cityName: ''
+    cityName: '',
+    marginTop: ''
   },
 
   /**
@@ -107,6 +108,12 @@ Page({
 
   // 发布列表
   getList(isFirst) {
+    const query = wx.createSelectorQuery();
+    query.select('.page-search').boundingClientRect(rect => {
+      this.setData({
+        marginTop: rect.height
+      })
+    }).exec();
     const {
       searchText,
       searchCategoryFirstId,

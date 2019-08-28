@@ -4,7 +4,58 @@ page {
   background-color: #f5f5f5;
 }
 
+
+/* 搜索 */
+.page-search{
+  position: fixed;
+  top: 0;
+  z-index: 2;
+  width: 100%;
+}
+.m-page-filter{
+  margin-top: 0;
+}
+.m-page-search{
+  padding: 20rpx 40rpx;
+  background: #fff;
+  box-sizing: border-box;
+}
+.m-page-search .search-box {
+  background-color: #f5f5f5;
+  border-radius: 50rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-left: 20rpx;
+  width: 100%;
+  height: 70rpx;
+  font-size: 26rpx;
+}
+
+.m-page-search .icon-search{
+  width: 24rpx;
+  height: 22rpx;
+  margin-right: 15rpx;
+}
+.m-page-search .search__input--gray{
+  color: #999;
+  width: calc(100% - 60rpx);
+  text-align: left;
+}
+
 /* 发布列表 */
+.page-body{
+  height: 100vh;
+  box-sizing: border-box;
+  position: relative;
+}
+.page-body .m-page-empty{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+  height: auto;
+}
 .publish-box {
   padding: 0 32rpx 20rpx 32rpx;
   background-color: #f5f5f5;
@@ -35,7 +86,8 @@ page {
 
 .publish-item .title {
   font-size: 28rpx;
-  color: #000
+  color: #333;
+  margin-bottom: 10rpx;
 }
 
 .publish-item .voice {

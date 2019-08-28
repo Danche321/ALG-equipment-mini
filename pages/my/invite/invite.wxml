@@ -1,0 +1,45 @@
+<!-- 背景图 -->
+<view class="page-banner">
+  <image class="banner__bg" src="../../../icons/invite-banner.png"></image>
+  <image class="banner__rule" src="../../../icons/rule.png"></image>
+</view>
+<!-- 内容区 -->
+<view class="page-content">
+  <image class="content__bg" src="../../../icons/invite-total-bg.png"></image>
+  <view class="title">
+    <text class="title__left">我的奖金</text>
+    <view class="title__right">
+      <text>提现</text>
+      <image class="icon-arrow" src="../../../icons/arrow-right--white.png"></image>
+    </view>
+  </view>
+
+  <!-- 统计 -->
+  <view class="total">
+    <view class="total-item">
+      <text class="total-item__label">累计获得</text>
+      <view class="total-item__value">
+        <text class="price__unit">¥</text>{{inviteCount}}
+      </view>
+    </view>
+    <view class="total-split"></view>
+    <view class="total-item">
+      <text class="total-item__label">成功邀请</text>
+      <view class="total-item__value">{{inviteCount}}
+        <text class="person__unit">人</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 按钮 -->
+  <view class="btn">
+    <view class="btn-item">
+      <image class="btn-item__icon" src="../../../icons/weixin.png"></image>
+      <text class="btn-item__text">邀请好友</text>
+    </view>
+    <view class="btn-item" bindtap="handleToInvitePic">
+      <image class="btn-item__icon" src="../../../icons/make-pic.png"></image>
+      <text class="btn-item__text">生成美图</text>
+    </view>
+  </view>
+</view>

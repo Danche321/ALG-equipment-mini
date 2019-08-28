@@ -13,9 +13,9 @@ page {
 }
 
 .header__user {
-  padding: 37rpx 44rpx 0 44rpx;
+  padding: 30rpx 44rpx 0 44rpx;
   color: #fff;
-  padding-bottom: 150rpx;
+  padding-bottom: 100rpx;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -51,7 +51,7 @@ page {
 .header__total {
   background: #fff;
   width: 686rpx;
-  height: 181rpx;
+  height: 160rpx;
   position: absolute;
   bottom: -90rpx;
   left: 50%;
@@ -79,56 +79,58 @@ page {
 
 /* 跳转卡片 */
 
-.page__cards {
-  margin-top: 150rpx;
-  padding: 0 30rpx;
+.page-card-wrap{
+  margin-top: 130rpx;
+  padding: 0 32rpx;
 }
-
+.section-card{
+  background: #fff;
+  border-radius: 16rpx;
+  box-shadow: 0 0 20rpx 0 rgba(197, 197, 197, 0.3);
+  margin-bottom: 50rpx;
+}
+.section-title{
+  font-size: 28rpx;
+  color: #555;
+  padding-left: 30rpx;
+  padding-top: 30rpx;
+}
+.section-cardList{
+  display: flex;
+  justify-content: flex-start;
+  padding: 20rpx 0;
+}
+.card-item {
+  background-color: #fff;
+  border-radius: 20rpx;
+  padding: 10rpx 0;
+  width: 33.333%;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
 .card__icon {
   width: 64rpx;
   height: 64rpx;
-  margin-right: 32rpx;
+  margin-bottom: 20rpx;
 }
-
-.card-item {
-  width: 100%;
-  height: 151rpx;
-  background-color: #fff;
-  box-shadow: 0 0 20rpx 0 rgba(197, 197, 197, 0.3);
-  border-radius: 20rpx;
-  margin-top: 36rpx;
-  padding: 0 33rpx 0 38rpx;
-  box-sizing: border-box;
-}
-
 .card__label {
-  font-size: 30rpx;
-  color: #464646;
+  font-size: 24rpx;
+  color: #888;
 }
 
-.card__label-dynamic {
+.card-item-dynamic{
   position: relative;
 }
-
-.label__add {
+.label__add{
   position: absolute;
-  text-align: center;
   color: rgba(255, 59, 48, 1);
-  font-size: 34rpx;
+  font-size: 30rpx;
   top: -20rpx;
-  right: -70rpx;
+  right: 40rpx;
   font-weight: bold;
-}
-
-.card__btn {
-  width: 133rpx;
-  height: 52rpx;
-  line-height: 52rpx;
-  text-align: center;
-  background: rgba(245, 245, 245, 1);
-  border-radius: 26rpx;
-  font-size: 22rpx;
-  color: #3979fd;
 }
 
 /* 联系客服 */

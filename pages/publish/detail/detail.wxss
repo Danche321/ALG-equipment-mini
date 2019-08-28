@@ -22,7 +22,7 @@ swiper {
   width: 87rpx;
   height: 40prx;
   line-height: 40rpx;
-  background: rgba(0, 0, 0, .5);
+  background: rgba(0, 0, 0, 0.5);
   border-radius: 20rpx;
   right: 35rpx;
   top: 358rpx;
@@ -90,7 +90,7 @@ swiper {
   margin-right: 20rpx;
 }
 
-.header-bottom{
+.header-bottom {
   margin-top: 30rpx;
   font-size: 24rpx;
   color: #777;
@@ -98,19 +98,22 @@ swiper {
   align-items: center;
   justify-content: space-between;
 }
-.location{
+
+.location {
   display: flex;
   align-content: center;
   justify-content: flex-start;
 }
-.location__icon{
+
+.location__icon {
   width: 30rpx;
   height: 30rpx;
   margin-right: 10rpx;
 }
-.publish__time{
 
+.publish__time {
 }
+
 /* 描述 */
 
 .page-desc {
@@ -291,6 +294,7 @@ swiper {
 .handle__item {
   display: flex;
   align-items: center;
+  height: 100rpx;
 }
 
 .footer-handles {
@@ -301,4 +305,43 @@ swiper {
   width: 35rpx;
   height: 35rpx;
   margin-right: 10rpx;
+}
+
+/* 留言 */
+
+.page-takeMsg {
+  position: fixed;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 20rpx;
+  background: #f5f5f5;
+  height: 120rpx;
+  box-sizing: border-box;
+}
+
+.takeMsg__input {
+  flex: 1;
+  background-color: #fff;
+  height: 80rpx;
+  padding: 20rpx;
+  border-radius: 10rpx;
+  font-size: 28rpx;
+  align-self: center;
+  box-sizing: border-box;
+}
+
+.takeMsg__send {
+  width: 140rpx;
+  height: 66rpx;
+  line-height: 66rpx;
+  font-size: 26rpx;
+  margin-left: 20rpx;
+}
+
+.takeMsg__send-active {
+  background: linear-gradient(to bottom, #3fa4fe, #3369f8);
+  color: #fff;
 }

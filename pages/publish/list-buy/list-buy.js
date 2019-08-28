@@ -9,15 +9,14 @@ Page({
    */
   data: {
     listData: [],
-    publishParams: {
+    params: {
       pageNum: 1,
       pageSize: 10,
-      keyword: '',
-      // provinceCode: '',
-      // cityCode: '',
-      // areaCode: '',
-      // categoryFirstId: '',
-      // categorySecondId: ''
+      provinceCode: '',
+      cityCode: '',
+      areaCode: '',
+      categoryFirstId: '',
+      categorySecondId: ''
     },
     hasNextPage: true,
     // 选择机型组件
@@ -28,7 +27,8 @@ Page({
     // 选择城市组件
     selectCityVisible: false,
     provinceName: '',
-    cityName: ''
+    cityName: '',
+    marginTop: ''
   },
 
   /**
@@ -73,7 +73,7 @@ Page({
    */
   onReachBottom: function () {
     if (this.data.hasNextPage) {
-      this.data.publishParams.pageNum++
+      this.data.params.pageNum++
       this.getList()
     }
   },
@@ -87,32 +87,26 @@ Page({
 
   // 发布列表
   getList(isFirst) {
-    const {
-      searchCategoryFirstId,
-      searchCategoryFirstName,
-      searchCategorySecondId,
-      searchCategorySecondName
-    } = app.globalData
-    this.setData({
-      'publishParams.categoryFirstId': searchCategoryFirstId,
-      'publishParams.categorySecondId': searchCategorySecondId,
-      searchCategoryFirstName: searchCategoryFirstName,
-      searchCategorySecondName: searchCategorySecondName
-    })
-    const params = this.data.publishParams
-    if (isFirst) this.data.publishParams.pageNum = 1
+    const params = this.data.params
+    if (isFirst) this.data.params.pageNum = 1
+    const query = wx.createSelectorQuery();
+    query.select('.m-page-filter').boundingClientRect(rect => {
+      this.setData({
+        marginTop: rect.height
+      })
+    }).exec();
     fetchBuyList(params).then(res => {
       const {
         items,
         hasNextPage
       } = res.data
       let resList = []
+      items.map(item => {
+        item.locationText = `${item.locationDetail.provinceName}·${item.locationDetail.cityName}`
+        item.tags = [item.newOldLevel, item.categoryFirstName, item.categorySecondName]
+      })
       if (isFirst) {
-        resList = items.map(item => {
-          item.locationText = `${item.locationDetail.provinceName}·${item.locationDetail.cityName}`
-          item.tags = [item.newOldLevel, item.categoryFirstName, item.categorySecondName]
-          return item
-        })
+        resList = items
       } else {
         resList = [...this.data.listData, ...items]
       }
@@ -127,7 +121,7 @@ Page({
   //清空一级分类
   handleClearCategoryFirst() {
     this.setData({
-      'publishParams.categoryFirstId': '',
+      'params.categoryFirstId': '',
       'searchCategoryFirstName': '',
     })
     app.globalData.searchCategoryFirstId = ''
@@ -138,7 +132,7 @@ Page({
   //清空二级分类
   handleClearCategorySecond() {
     this.setData({
-      'publishParams.categorySecondId': '',
+      'params.categorySecondId': '',
       'searchCategorySecondName': '',
     })
     app.globalData.searchCategorySecondId = ''
@@ -148,7 +142,7 @@ Page({
   // 清空省份
   handleClearProvince() {
     this.setData({
-      'publishParams.provinceCode': '',
+      'params.provinceCode': '',
       'provinceName': ''
     })
     this.getList(1)
@@ -156,7 +150,7 @@ Page({
   // 清空城市
   handleClearCity() {
     this.setData({
-      'publishParams.cityCode': '',
+      'params.cityCode': '',
       'cityName': ''
     })
     this.getList(1)
@@ -170,19 +164,28 @@ Page({
   },
 
   // 选择机型确定
-  handleCategoryConfirm() {
+  handleCategoryConfirm(e) {
     this.setData({
       selectCategoryVisible: false
     })
+    if (!e.detail) return false
     const {
-      searchCategoryFirstId,
-      searchCategorySecondId
-    } = app.globalData
+      firstid,
+      firstName,
+      secondid,
+      secondName
+    } = JSON.parse(e.detail)
     const {
       categoryFirstId,
       categorySecondId
-    } = this.data.publishParams
-    if (categoryFirstId !== searchCategoryFirstId || categorySecondId !== searchCategorySecondId) {
+    } = this.data.params
+    if (firstid !== categoryFirstId || secondid !== categorySecondId) {
+      this.setData({
+        'params.categoryFirstId': firstid,
+        'params.categorySecondId': secondid,
+        searchCategoryFirstName: firstName,
+        searchCategorySecondName: secondName
+      })
       this.getList(1)
     }
   },
@@ -199,42 +202,29 @@ Page({
     this.setData({
       selectCityVisible: false
     })
+    if (!e.detail) return false
     const provinceId = JSON.parse(e.detail).first.id
-    const provinceName = JSON.parse(e.detail).first.name
+    const provinceName = JSON.parse(e.detail).first.fullname
     const cityId = JSON.parse(e.detail).second.id
-    const cityName = JSON.parse(e.detail).second.name
-    const { provinceCode, cityCode } = this.data.publishParams
+    const cityName = JSON.parse(e.detail).second.fullname
+    const { provinceCode, cityCode } = this.data.params
     this.setData({
       provinceName: provinceId ? provinceName : '',
       cityName: cityId ? cityName : ''
     })
     if (provinceId !== provinceCode || cityId !== cityCode) {
       this.setData({
-        'publishParams.provinceCode': provinceId,
-        'publishParams.cityCode': cityId
+        'params.provinceCode': provinceId,
+        'params.cityCode': cityId
       })
       this.getList(1)
     }
-  },
-
-  handleToDetail(e) {
-    const id = e.currentTarget.dataset.id
-    wx.navigateTo({
-      url: `/pages/publish/detail/detail?id=${id}`,
-    })
   },
 
   // 跳转搜索
   handleToSearch() {
     wx.navigateTo({
       url: '/pages/index/search/search',
-    })
-  },
-
-  // 选择区域
-  handleSwitchArea() {
-    wx.navigateTo({
-      url: '/pages/index/switchcity/switchcity',
     })
   }
 })

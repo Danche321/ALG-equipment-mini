@@ -21,8 +21,10 @@ Page({
       second: 30
     },
     messageList: [],
-    isZan: false,
-    isCollect: false
+    likeDown: false,
+    collectionDown: false,
+    msgValue: '',
+    magVisible: false
   },
 
   /**
@@ -30,11 +32,10 @@ Page({
    */
   onLoad: function (options) {
     this.setData({
-      id: options.id
+      id: options.id || 5
     })
     this.getDetail()
   },
-
   // 图片预览
   handlePriviewImg(event) {
     let src = event.currentTarget.dataset.src; //获取data-src
@@ -59,45 +60,71 @@ Page({
     }
     fetchDetail(params).then(res => {
       const {
+        collectionDown,
+        likeDown,
         publish,
         discuss
       } = res.data
       this.setData({
         publishInfo: publish,
-        discussInfo: discuss
+        discussInfo: discuss,
+        collectionDown,
+        likeDown
       })
     })
   },
 
   // 点赞
   handleZan() {
-    if (this.data.isZan) return false
+    if (this.data.likeDown) return false
     const params = {
       publishId: this.data.id
     }
     handleZan(params).then(() => {
       this.setData({
-        isZan: !this.data.isZan
+        likeDown: !this.data.likeDown
       })
     })
   },
 
-  // 留言
-  handleMsg() {},
+  // 弹出留言
+  handleMsgShow() {
+    this.setData({
+      msgVisible: true
+    })
+  },
+
+
+  handleMsgInput(e) {
+    this.setData({
+      msgValue: e.detail.value
+    })
+  },
+
+  handleMsgBlur() {
+    this.setData({
+      msgVisible: false
+    })
+  },
+
+  // 留言提交
+  handleMsgConfirm() {
+    console.log(this.data.msgValue)
+  },
 
   // 收藏
   handleCollect() {
     const params = {
       publishId: this.data.id
     }
-    if (this.data.isCollect) {
+    if (this.data.collectionDown) {
       handleCancelCollect(params).then(() => {
         wx.showToast({
           title: '已取消',
           icon: 'none'
         })
         this.setData({
-          isCollect: !this.data.isCollect
+          collectionDown: !this.data.collectionDown
         })
       })
     } else {
@@ -106,7 +133,7 @@ Page({
           title: '已收藏',
         })
         this.setData({
-          isCollect: !this.data.isCollect
+          collectionDown: !this.data.collectionDown
         })
       })
     }

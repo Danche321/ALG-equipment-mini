@@ -1,0 +1,52 @@
+page{
+  background: linear-gradient(to bottom, #3669F8, #338ef9);
+}
+/* banner */
+.page-banner{
+  position: relative;
+  height: 535rpx;
+  text-align: center;
+  margin-top: 20rpx;
+}
+.banner__title{
+  width: 551rpx;
+  height: 71rpx;
+}
+.banner__subTitle{
+  width: 614rpx;
+  height: 272rpx;
+}
+.banner__bg{
+  width: 750rpx;
+  height: 435rpx;
+  position: absolute;
+  top: 80rpx;
+  left: 0;
+  z-index: -1;
+}
+
+/* 二维码 */
+.page-qrcode{
+  position: relative;
+  text-align: center;
+}
+.qrcode__img{
+  width: 364rpx;
+  height: 364rpx;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+.qrcode__bg{
+  width: 624rpx;
+  height: 443rpx;
+}
+
+/* 保存按钮 */
+.btn-save{
+  width: 627rpx;
+  height: 119rpx;
+  margin: 40rpx auto 0 auto;
+  display: block;
+}
