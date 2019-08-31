@@ -1,3 +1,4 @@
+<wxs src="../../../wxs/utils.wxs" module="tools" />
 <!-- 轮播 -->
 <swiper autoplay circular duration="{{duration}}" class="swiper-box" bindchange="handleSwiperChange">
   <block wx:for="{{publishInfo.imageVideos}}" wx:key="{{index}}">
@@ -57,17 +58,17 @@
       <text class="message__time">{{item.createTimeFriendly}}</text>
     </view>
     <view class="message-bottom">
-      <view class="message__content">{{item.content}}</view>
-      <view wx:for="{{item.children}}" wx:key="{{index}}" class="message-child">
+      <view class="message__content" data-info="{{item}}" bindtap="handleReply">{{item.content}}</view>
+      <view wx:for="{{item.secondLevel}}" wx:key="{{index}}" wx:for-item="childItem" class="message-child">
         <view class="f-flex-justBetween-alignCenter">
           <view class="f-flex-justStart-alignCenter">
             <image class="child__headimg" src="{{item.userInfo.headPortrait}}"></image>
-            <text class="child__nickname">{{item.userInfo.nickName}}</text>
+            <text class="child__nickname">{{childItem.userInfo.nickName}}</text>
           </view>
-          <text class="child__time">{{item.createTimeFriendly}}</text>
+          <text class="child__time">{{childItem.createTimeFriendly}}</text>
         </view>
-        <view class="child__content">回复
-          <text class="child__toName">{{item.contentPrefix}}:</text> {{item.content}}</view>
+        <view class="child__content" data-floorId="{{item.id}}" data-info="{{childItem}}" bindtap="handleReplyChild">回复
+          <text class="child__toName">{{tools.sub(childItem.contentPrefix,2)}}</text> {{childItem.content}}</view>
       </view>
     </view>
   </view>
@@ -78,7 +79,7 @@
     <image class="connect__icon" src="../../../icons/mobile.png"></image>联系TA
   </view>
   <view class="f-flex-justBetween-alignCenter footer-handles">
-    <view class="handle__item" bindtap="handleMsgShow">
+    <view class="handle__item" bindtap="handleNewMsg">
       <image class="item__icon" src="../../../icons/message.png"></image>留言
     </view>
     <view class="handle__item" bindtap="handleCollect">
@@ -93,7 +94,7 @@
 </view>
 
 <!-- 留言 -->
-<view wx:if="{{msgVisible}}" class="page-takeMsg">
-  <input class="takeMsg__input" value="{{msgValue}}" cursor-spacing="14" focus="{{true}}" placeholder="{{msgValue?'回复xxx':'看对眼就留言，问问更多细节'}}" confirm-type="send" bindinput="handleMsgInput"bindconfirm="handleMsgConfirm" bindblur="handleMsgBlur"></input>
-  <button bindtap="handleMsgConfirm" disabled="{{!msgValue}}" class="takeMsg__send {{msgValue?'takeMsg__send-active':''}}">发送</button>
+<view wx:if="{{message.visible}}" class="page-takeMsg">
+  <input class="takeMsg__input" value="{{message.params.content}}" cursor-spacing="14" focus="{{true}}" placeholder="{{message.placeholder}}" confirm-type="send" bindinput="handleMsgInput" bindconfirm="handleMsgConfirm" bindblur="handleMsgBlur"></input>
+  <button bindtap="handleMsgConfirm" disabled="{{!message.params.content}}" class="takeMsg__send {{message.params.content?'takeMsg__send-active':''}}">发送</button>
 </view>

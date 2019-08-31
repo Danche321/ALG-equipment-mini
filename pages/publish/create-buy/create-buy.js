@@ -122,7 +122,7 @@ Page({
         })
       },
       fail: function (res) {
-        console.log(`fail:${red}`)
+        console.log(res)
       },
       complete: function (res) {
       }

@@ -19,8 +19,14 @@ Page({
     if (isFirst) this.data.params.pageNum = 1
     fetchMyDynamic(params).then(res => {
       const { items, hasNextPage } = res.data
+      let resList = []
+      if (isFirst) {
+        resList = items
+      } else {
+        resList = [...this.data.listData, ...items]
+      }
       this.setData({
-        listData: items,
+        listData: resList,
         hasNextPage
       })
       if (isFirst) wx.stopPullDownRefresh()

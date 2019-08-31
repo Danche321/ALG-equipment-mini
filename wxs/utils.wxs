@@ -1,0 +1,4 @@
+var sub = function(val, start, end) {
+  return val.substring(start, end)
+}
+module.exports.sub = sub;

@@ -19,8 +19,14 @@ Page({
     if (isFirst) this.data.params.pageNum = 1
     fetchMyPublish(params).then(res => {
       const { items, hasNextPage } = res.data
+      let resList = []
+      if (isFirst) {
+        resList = items
+      } else {
+        resList = [...this.data.listData, ...items]
+      }
       this.setData({
-        listData: items,
+        listData: resList,
         hasNextPage
       })
       if (isFirst) wx.stopPullDownRefresh()
@@ -32,7 +38,7 @@ Page({
     const id = e.target.dataset.id
     const index = e.target.dataset.index
     wx.showModal({
-      title: '下架商品？',
+      title: '下架信息？',
       content: '下架后平台将不再进行展示',
       success: res => {
         if (res.confirm) {

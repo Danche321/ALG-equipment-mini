@@ -23,7 +23,9 @@
     "pages/my/invite/invite",
     "pages/my/invite-pic/invite-pic",
     "pages/publish/success-buy/success-buy",
-    "pages/publish/success-sale/success-sale"
+    "pages/publish/success-sale/success-sale",
+    "pages/my/my-buy/my-buy",
+    "pages/index/login/login"
   ],
   "window": {
     "backgroundTextStyle": "light",

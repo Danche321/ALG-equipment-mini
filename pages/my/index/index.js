@@ -61,6 +61,11 @@ Page({
       url: '/pages/my/invite/invite',
     })
   },
+  handleToBuy() {
+    wx.navigateTo({
+      url: '/pages/my/my-buy/my-buy',
+    })
+  },
   /**
    * 生命周期函数--监听页面加载
    */

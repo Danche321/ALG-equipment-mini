@@ -3,6 +3,5 @@
   "navigationBarTextStyle": "white",
   "navigationBarTitleText": "",
   "usingComponents": {},
-  "onReachBottomDistance": 50,
   "enablePullDownRefresh": true
 }

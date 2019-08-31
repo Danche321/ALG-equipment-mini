@@ -48,3 +48,12 @@ export function handleCancelCollect(data) {
     method: 'post'
   })
 }
+
+// 评论
+export function handleMsg(data) {
+  return request({
+    url: '/discuss/sendDiscuss.action',
+    method: 'post',
+    data: data
+  })
+}

@@ -1,0 +1,38 @@
+<view class="filter">
+  <text data-type="1" bindtap="handleTabChange" class="filter-item {{params.shelfStatus==1?'active':''}}">发布中</text>
+  <text data-type="0" bindtap="handleTabChange" class="filter-item {{params.shelfStatus==0?'active':''}}">已下架</text>
+</view>
+
+<view class="publish-box">
+  <block wx:if="{{listData.length}}">
+    <view class="list-item {{!item.shelfStatus?'item--disabled':''}}" wx:for="{{listData}}" wx:key="{{index}}">
+      <!--头部-->
+      <view class="item-top">
+        <view class="item__title">{{item.title}}</view>
+      </view>
+      <!--中部-->
+      <view class='item-middle'>
+        <view class="tag-box">
+          <block wx:for="{{item.tags}}" wx:key="{{index}}">
+            <text wx:if="{{item&&item!=='不限制'}}" class="item__tag">{{item}}</text>
+          </block>
+        </view>
+        <image wx:if="{{item.shelfStatus}}" catchtap='handleDown' data-id="{{item.id}}" data-index="{{index}}" class="item__btn " src="../../../icons/btn_shelves.png "></image>
+      </view>
+      <!-- 底部 -->
+      <view class="item-bottom">
+        <view class='location'>
+          <image class='location__icon' src="../../../icons/location--publish.png"></image>
+          <text>{{item.locationText}}</text>
+        </view>
+        <view class="item_time">发布时间：{{item.createTimeFriendly}}</view>
+      </view>
+    </view>
+  </block>
+
+  <!-- 无数据 -->
+  <view wx:else class='m-page-empty' style="margin-top:{{marginTop/2}}px">
+    <image class='empty__img' src="../../../icons/empty.png"></image>
+    <text class='empty__text'>暂无相关数据</text>
+  </view>
+</view>

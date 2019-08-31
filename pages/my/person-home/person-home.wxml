@@ -31,10 +31,10 @@
     <text data-type="buy" bindtap="handleTabChange" class="filter-item {{activeTab==='buy'?'active':''}}">求购</text>
   </view>
 
-  <swiper class="swiper-box">
+  <swiper class="swiper-box" bindchange="handleSwiperChange" current="{{activeTab==='sale'?0:1}}">
     <!-- 转让信息 -->
     <swiper-item class="swiper-item">
-      <block wx:if="{{sale.listData.length}}">
+      <scroll-view wx:if="{{sale.listData.length}}" scroll-y style="height:100%" bindscrolltolower="saleReachBottom">
         <view class="list-item {{item.isDownShelf?'item--disabled':''}}" wx:for="{{sale.listData}}" wx:key="{{index}}" data-id="{{item.id}}" bindtap="handleToDetail">
           <view class="item__top f-flex-justBetween-alignStart">
             <view class="img-box">
@@ -68,7 +68,7 @@
           </view>
           <image wx:if="{{item.isDownShelf}}" src="../../../icons/sale--down.png " class="icon-saleDown "></image>
         </view>
-      </block>
+      </scroll-view>
 
       <!-- 无数据 -->
       <view wx:else class="m-page-empty">
@@ -78,37 +78,33 @@
     </swiper-item>
 
     <!-- 求购信息 -->
-    <swiper-item class="swiper-item">
-      <block wx:if="{{buy.listData.length}}">
+    <swiper-item class="swiper-item swiper-item-buy">
+      <scroll-view wx:if="{{buy.listData.length}}" scroll-y style="height:100%" bindscrolltolower="buyReachBottom">
         <view class="list-buy-item {{item.isDownShelf?'item--disabled':''}}" wx:for="{{buy.listData}}" wx:key="{{index}}">
           <view class="item-top">
             <view class="item__title">{{item.title}}</view>
+          </view>
+          <view class='item-middle'>
             <view class="tag-box">
               <block wx:for="{{item.tags}}" wx:key="{{index}}">
                 <text wx:if="{{item&&item!=='不限制'}}" class="item__tag">{{item}}</text>
               </block>
             </view>
-          </view>
-          <view class='item-middle'>
-            <view class='location'>
-              <image class='location__icon' src="../../../icons/location--publish.png"></image>
-              <text>{{item.locationText}}</text>
-            </view>
-            <view class="item__call">
+            <view class="item__call" data-phone="{{item.creatorInfo.phone}}" bindtap="handleCall">
               <image class="icon-call" src="../../../icons/call.png" data-id="{{item.id}}" data-index="{{index}}"></image>
               <text>拨打</text>
             </view>
           </view>
           <view class="item-bottom">
-            <view class="item__creator">
-              <image class="item__headimg" src="{{item.creatorInfo.headPortrait}}"></image>
-              <view>{{item.creatorInfo.name}}</view>
+            <view class='location'>
+              <image class='location__icon' src="../../../icons/location--publish.png"></image>
+              <text>{{item.locationText}}</text>
             </view>
             <view class="item_time">发布时间：{{item.createTimeFriendly}}</view>
           </view>
           <image wx:if="{{item.isDownShelf}}" src="../../../icons/sale--down.png " class="icon-saleDown "></image>
         </view>
-      </block>
+      </scroll-view>
 
       <!-- 无数据 -->
       <view wx:else class="m-page-empty">

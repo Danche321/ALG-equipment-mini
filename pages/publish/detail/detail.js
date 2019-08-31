@@ -2,7 +2,8 @@ import {
   fetchDetail,
   handleZan,
   handleCollect,
-  handleCancelCollect
+  handleCancelCollect,
+  handleMsg
 } from '../../../api/publish.js'
 Page({
 
@@ -23,8 +24,17 @@ Page({
     messageList: [],
     likeDown: false,
     collectionDown: false,
-    msgValue: '',
-    magVisible: false
+    message: {
+      visible: false,
+      params: {
+        content: '',
+        publishId: '',
+        beDiscussId: '', // 回复的动态的ID
+        floorDiscussId: '', // 主楼id
+        floorDiscussUserId: '', // 主楼发布者id
+      },
+      placeholder: ''
+    }
   },
 
   /**
@@ -88,28 +98,67 @@ Page({
   },
 
   // 弹出留言
-  handleMsgShow() {
+  handleNewMsg() {
     this.setData({
-      msgVisible: true
+      'message.visible': true,
+      'message.params.publishId': this.data.id,
+      'message.params.beDiscussId': '', // 回复的动态的ID
+      'message.params.floorDiscussId': '', // 主楼id
+      'message.params.floorDiscussUserId': '', // 主楼发布者id
+      'message.placeholder': '看对眼就留言，问问更多细节' // 被回复者昵称
     })
   },
 
+  // 回复
+  handleReply(e) {
+    const { beReplyDiscussId, id, userId, userInfo } = e.currentTarget.dataset.info
+    this.setData({
+      'message.visible': true,
+      'message.params.publishId': this.data.id,
+      'message.params.beDiscussId': id, // 回复的动态的ID
+      'message.params.floorDiscussId': id, // 主楼id
+      'message.params.floorDiscussUserId': userId, // 主楼发布者id
+      'message.placeholder': `回复：${userInfo.nickName}`
+    })
+  },
 
+  // 回复评论
+  handleReplyChild(e) {
+    const { beReplyDiscussId, id, userId, userInfo } = e.currentTarget.dataset.info
+    const { floorid } = e.currentTarget.dataset
+    this.setData({
+      'message.visible': true,
+      'message.params.publishId': this.data.id,
+      'message.params.beDiscussId': id, // 回复的动态的ID
+      'message.params.floorDiscussId': floorid, // 主楼id
+      'message.params.floorDiscussUserId': userId, // 主楼发布者id
+      'message.placeholder': `回复：${userInfo.nickName}`
+    })
+  },
+
+  // 输入留言
   handleMsgInput(e) {
     this.setData({
-      msgValue: e.detail.value
-    })
-  },
-
-  handleMsgBlur() {
-    this.setData({
-      msgVisible: false
+      'message.params.content': e.detail.value
     })
   },
 
   // 留言提交
   handleMsgConfirm() {
-    console.log(this.data.msgValue)
+    const params = this.data.message.params
+    handleMsg(params).then(() => {
+      this.setData({
+        'message.visible': false,
+        'message.params.content': ''
+      })
+      this.getDetail()
+    })
+  },
+
+  handleMsgBlur() {
+    this.setData({
+      'message.visible': false
+    })
   },
 
   // 收藏

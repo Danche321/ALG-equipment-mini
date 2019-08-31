@@ -200,6 +200,7 @@ swiper {
   height: 70rpx;
   border-radius: 50%;
   margin-right: 26rpx;
+  background: #f5f5f5;
 }
 
 .message__nickname {
@@ -216,13 +217,13 @@ swiper {
 }
 
 .message__content {
-  margin: 12rpx 0 30rpx 0;
+  padding: 12rpx 0 30rpx 0;
   font-size: 26rpx;
 }
 
 .message-child {
   background: #f5f5f5;
-  padding: 20rpx;
+  padding: 20rpx 20rpx 0 20rpx;
   border-radius: 4rpx;
   position: relative;
   border-bottom: 1rpx solid #f1f2f7;
@@ -233,6 +234,7 @@ swiper {
   height: 70rpx;
   border-radius: 50%;
   margin-right: 26rpx;
+  background: #fff;
 }
 
 .child__nickname {
@@ -256,6 +258,7 @@ swiper {
   font-size: 26rpx;
   color: #666;
   line-height: 33rpx;
+  padding-bottom: 20rpx;
 }
 
 /* 底部 */

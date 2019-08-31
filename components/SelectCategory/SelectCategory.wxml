@@ -3,13 +3,17 @@
     <view class="content__title">选择机型</view>
     <scroll-view class="content__scroll" scroll-y>
       <view wx:for="{{listData}}" class="categoty-item" wx:key="{{index}}">
+        <!-- 一级分类 -->
         <view catchtap="handleSelectFirst" class="item__first {{firstId==item.id?'active':''}}" data-id="{{item.id}}" data-name="{{item.name}}">{{item.name}}</view>
+
+        <!-- 二级分类 -->
         <view class="item__children" hidden="{{showFirstId!==item.id}}">
           <view class="children__item {{firstId==item.id&&secondId==cell.id?'active':''}}" data-first="{{item}}" data-second="{{cell}}" wx:for="{{item.children}}" wx:for-item="cell" wx:key="{{index}}" catchtap="handleSelectCategory">
             <view>{{cell.name}}</view>
             <image class="icon-checked" src="../../icons/checked.png"></image>
           </view>
         </view>
+        
       </view>
     </scroll-view>
   </view>

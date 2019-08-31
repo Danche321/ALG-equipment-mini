@@ -119,7 +119,7 @@ page {
 
 .swiper-item, .swiper-box {
   height: calc(100vh - 520rpx);
-  overflow-y: scroll;
+  background: #f5f5f5;
 }
 
 .filter {
@@ -160,8 +160,9 @@ page {
 
 .list-item {
   padding: 31rpx 32rpx 25rpx 32rpx;
-  border-bottom: 1rpx solid #f5f5f5;
   position: relative;
+  background: #fff;
+  margin: 20rpx 0;
 }
 
 .item__top {
@@ -228,12 +229,6 @@ page {
   font-size: 32rpx;
 }
 
-.item__num {
-  color: rgba(51, 51, 51, 0.5);
-  font-size: 24rpx;
-  margin-left: 51rpx;
-}
-
 .location {
   display: flex;
   align-content: center;
@@ -278,8 +273,7 @@ page {
   padding: 31rpx 32rpx 0 32rpx;
   position: relative;
   background: #fff;
-  margin-bottom: 30rpx;
-  margin-top: 20rpx;
+  margin: 20rpx 0;
 }
 
 .item-top {
@@ -348,9 +342,9 @@ page {
 }
 
 .item__num {
-  color: #888;
+  color: rgba(51, 51, 51, 0.5);
   font-size: 24rpx;
-  margin-right: 51rpx;
+  margin-left: 30rpx;
 }
 
 .location {

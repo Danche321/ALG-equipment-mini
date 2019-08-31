@@ -50,17 +50,17 @@
   <view class="section-card">
     <view class="section-title">其他服务</view>
     <view class="section-cardList">
-      <view class="card-item" bindtap='handleToPublish'>
-        <image src="../../../icons/my_publish.png" class="card__icon"></image>
-        <text class='card__label'>求购信息</text>
-      </view>
-      <view class="card-item" bindtap='handleToPublish'>
-        <image src="../../../icons/kefu.png" class="card__icon"></image>
-        <text class='card__label'>联系平台</text>
+      <view class="card-item" bindtap='handleToBuy'>
+        <image src="../../../icons/my_buy.png" class="card__icon icon-buy"></image>
+        <text class='card__label'>我的求购</text>
       </view>
       <view class="card-item" bindtap='handleToInvite'>
-        <image src="../../../icons/invite.png" class="card__icon"></image>
+        <image src="../../../icons/my_invite.png" class="card__icon"></image>
         <text class='card__label'>邀请有奖</text>
+      </view>
+      <view class="card-item" bindtap='handleToPublish'>
+        <image src="../../../icons/my_kefu.png" class="card__icon"></image>
+        <text class='card__label'>联系平台</text>
       </view>
     </view>
   </view>

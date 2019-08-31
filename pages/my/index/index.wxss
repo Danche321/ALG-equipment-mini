@@ -116,6 +116,10 @@ page {
   height: 64rpx;
   margin-bottom: 20rpx;
 }
+.icon-buy{
+  width: 74rpx;
+  height: 74rpx;
+}
 .card__label {
   font-size: 24rpx;
   color: #888;

@@ -1,14 +1,14 @@
-<view class="item" bindtap="handleToSale">
-  <image class="item__icon" src="../../../icons/sale.png"></image>
+<view class="item item-sale" bindtap="handleToSale">
+  <image class="item__icon" src="../../../icons/publish_sale.png"></image>
   <view class="item__text">
-    <text class="item__title">转让</text>
-    <text class="item__desc">我有设备要卖，海量买家来围观</text>
+    <text class="item__title">发布转让</text>
+    <text class="item__desc">我有设备出售，让老板主动找上你</text>
   </view>
 </view>
-<view class="item" bindtap="handleToBug">
-  <image class="item__icon" src="../../../icons/sale.png"></image>
+<view class="item item-buy" bindtap="handleToBug">
+  <image class="item__icon" src="../../../icons/publish_buy.png"></image>
   <view class="item__text">
-    <text class="item__title">求购</text>
-    <text class="item__desc">我要购买设备</text>
+    <text class="item__title">发布求购</text>
+    <text class="item__desc">我要购买设备，极速解决购机需求</text>
   </view>
 </view>
