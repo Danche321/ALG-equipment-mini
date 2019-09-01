@@ -8,6 +8,8 @@ Page({
    * 页面的初始数据
    */
   data: {
+    authVisible: false,
+    isBindMobile: app.globalData.userInfo && app.globalData.userInfo.phone, // 是否绑定手机号
     listData: [],
     params: {
       pageNum: 1,
@@ -39,34 +41,11 @@ Page({
   },
 
   /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function () {
-
-  },
-
-  /**
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
+    this.checkAuthStatus()
   },
-
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide: function () {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload: function () { },
-
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh: function () { },
 
   /**
    * 页面上拉触底事件的处理函数
@@ -83,6 +62,50 @@ Page({
    */
   onShareAppMessage: function () {
 
+  },
+
+  // 授权用户手机号
+  handleGetPhone(e) {
+    console.log(e)
+    if (!e.detail.encryptedData) {
+      wx.showModal({
+        title: '温馨提示',
+        content: '为了避免恶意骚扰，首次在平台进行电话咨询，需要绑定手机号码，平台将对你的隐私进行保护！',
+        showCancel: false,
+        success(res) {
+          if (res.confirm) {
+          }
+        }
+      })
+    } else {
+      const { phone } = e.currentTarget.dataset
+      wx.showModal({
+        title: '温馨提示',
+        content: '信息由用户自行发布，平台无法杜绝可能存在的风险和瑕疵；电话洽谈时，请仔细核实，谨防诈骗！',
+        confirmText: '呼叫',
+        success: res => {
+          if (res.confirm) {
+            wx.makePhoneCall({
+              phoneNumber: phone
+            })
+          } else if (res.cancel) {
+          }
+        }
+      })
+    }
+  },
+
+  // 是否授权
+  checkAuthStatus() {
+    this.setData({
+      authVisible: !app.globalData.userInfo
+    })
+  },
+
+  authHide() {
+    this.setData({
+      authVisible: false
+    })
   },
 
   // 发布列表
@@ -116,6 +139,26 @@ Page({
       })
       if (isFirst) wx.stopPullDownRefresh()
     })
+  },
+
+  // 拨打电话
+  handleCall(e) {
+    wx.showModal({
+      title: '温馨提示',
+      content: '信息由用户自行发布，平台无法杜绝可能存在的风险和瑕疵；电话洽谈时，请仔细核实，谨防诈骗！',
+      confirmText: '呼叫',
+      success: res => {
+        if (res.confirm) {
+          const phone = e.currentTarget.dataset.phone
+          wx.makePhoneCall({
+            phoneNumber: phone
+          })
+        } else if (res.cancel) {
+        }
+      }
+    })
+    // const currentUserPhone = app.globalData.userInfo.phone
+    // console.log(currentUserPhone)
   },
 
   //清空一级分类
@@ -219,12 +262,5 @@ Page({
       })
       this.getList(1)
     }
-  },
-
-  // 跳转搜索
-  handleToSearch() {
-    wx.navigateTo({
-      url: '/pages/index/search/search',
-    })
   }
 })

@@ -30,8 +30,12 @@ Component({
             listData: province
           })
         },
-        fail: function(res) {},
-        complete: function(res) {}
+        fail: function(res) {
+          console.log(res)
+        },
+        complete: function(res) {
+          console.log(res)
+        }
       })
     },
     // 点击一级分类展开
@@ -56,7 +60,10 @@ Component({
           id: '',
           fullname: ''
         }
-        this.triggerEvent('checked', JSON.stringify({ first, second }))
+        this.triggerEvent('checked', JSON.stringify({
+          first,
+          second
+        }))
       } else {
         if (!this.data.listData[index].children) {
           qqmapsdk.getDistrictByCityId({
@@ -81,8 +88,8 @@ Component({
                 listData: [...this.data.listData]
               })
             },
-            fail: function (error) { },
-            complete: function (res) { }
+            fail: function(error) {},
+            complete: function(res) {}
           })
         }
         this.setData({
@@ -100,7 +107,10 @@ Component({
         activeSecondId: second.id,
         activeFirstId: first.id
       })
-      this.triggerEvent('checked', JSON.stringify({ first, second}))
+      this.triggerEvent('checked', JSON.stringify({
+        first,
+        second
+      }))
     },
     // 关闭
     handleHidden() {

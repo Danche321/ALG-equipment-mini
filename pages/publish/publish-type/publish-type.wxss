@@ -10,11 +10,14 @@ page {
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 700rpx;
+  width: 680rpx;
   color: #fff;
   padding: 30rpx;
   border-radius: 10rpx;
-  margin: 50rpx 0;
+  margin: 50rpx auto;
+  box-sizing: border-box;
+  box-shadow: 0 0 20rpx 0 rgba(197, 197, 197, 0.3);
+  background: #fff;
 }
 
 .item__icon {
@@ -38,6 +41,10 @@ page {
   font-size: 28rpx;
 }
 
+.item-sale{
+  border: 1rpx solid #6d85c9;
+}
+
 .item-sale .item__title{
   color: #3369f8;
 }
@@ -46,6 +53,9 @@ page {
   color: #6d85c9;
 }
 
+.item-buy{
+  border: 1rpx solid #fabe56;
+}
 
 .item-buy .item__title{
   color: #f99733;

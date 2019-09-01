@@ -12,3 +12,6 @@
     <text class="item__desc">我要购买设备，极速解决购机需求</text>
   </view>
 </view>
+
+<!-- 授权弹窗 -->
+<auth-dialog visible="{{authVisible}}" bind:hideModal="authHide"></auth-dialog>

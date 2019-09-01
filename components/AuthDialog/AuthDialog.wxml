@@ -1,0 +1,10 @@
+
+<view class="dialog" wx:if="{{visible}}">
+  <view class="dialog-shadow"></view>
+  <view class='dialog-box'>
+    <image src="../../images/login1.png" class="dialog-logo"></image>
+    <text>岚麒麟二手机械</text> 
+    <view class="dialog-tishi">授权提示：登录岚麒麟二手机械需要获取您的公开信息（昵称、头像）</view>
+    <button open-type='getUserInfo' bindgetuserinfo='getUserInfo' hover-class="btn-hover"	 class="dialog-btn btn-item">授权登录</button>
+  </view>
+</view>

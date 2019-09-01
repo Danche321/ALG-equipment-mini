@@ -2,6 +2,52 @@ page {
   background-color: #f5f5f5;
 }
 
+
+/* tab */
+
+.filter {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 3rpx 8rpx 0 rgba(189, 193, 202, 0.3);
+  position: fixed;
+  width: 100%;
+  top: 0;
+  background: #fff;
+  z-index: 2;
+  font-size: 28rpx;
+}
+
+.filter-item {
+  width: 50%;
+  text-align: center;
+  height: 80rpx;
+  line-height: 80rpx;
+  color: #888;
+}
+
+.filter-item.active {
+  position: relative;
+  color: hsl(224, 48%, 60%);
+}
+
+.filter-item.active::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 38%;
+  height: 4rpx;
+  background-color: hsl(224, 48%, 60%);
+}
+
+/* 发布列表 */
+
+.publish-box {
+  background-color: #f5f5f5;
+  padding-top: 100rpx;
+}
 .list-item {
   padding: 31rpx 32rpx 0 32rpx;
   position: relative;

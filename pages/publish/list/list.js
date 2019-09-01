@@ -1,7 +1,8 @@
-const app = getApp()
 import {
   fetchPublish
 } from '../../../api/publish.js'
+const innerAudioContext = wx.createInnerAudioContext()
+const app = getApp()
 Page({
 
   /**
@@ -30,13 +31,15 @@ Page({
     selectCityVisible: false,
     provinceName: '',
     cityName: '',
-    marginTop: ''
+    marginTop: '',
+    activePlayingId: ''
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function(options) {
+  onLoad: function (options) {
+    this.audioConfig() // 监听录音状态
     this.getList(1)
   },
 
@@ -254,6 +257,42 @@ Page({
         'publishParams.cityCode': cityId
       })
       this.getList(1)
+    }
+  },
+
+  // 录音配置
+  audioConfig() {
+    // 停止
+    innerAudioContext.onStop(() => {
+      this.setData({
+        activePlayingId: ''
+      })
+    });
+    // 结束
+    innerAudioContext.onEnded(() => {
+      this.setData({
+        activePlayingId: ''
+      })
+    });
+    // 错误
+    innerAudioContext.onError((res) => {
+      console.log(res.errMsg)
+      console.log(res.errCode)
+    })
+  },
+
+  // 播放录音
+  handleAudioPlay(e) {
+    const { src, id } = e.currentTarget.dataset
+    const { activePlayingId } = this.data
+    if (activePlayingId === id) {
+      innerAudioContext.stop()
+    } else {
+      innerAudioContext.src = src
+      innerAudioContext.play()
+      this.setData({
+        activePlayingId: id
+      })
     }
   },
 

@@ -10,6 +10,25 @@ export function fetchPublish(data) {
   })
 }
 
+// 创建发布
+export function handleCreatePublish(data) {
+  return request({
+    url: '/publish/publish.action',
+    method: 'post',
+    data: data
+  })
+}
+
+// 编辑发布
+export function handleUpdatePublish(data) {
+  return request({
+    url: '/publish/modifyPublish.action',
+    method: 'post',
+    data: data
+  })
+}
+
+
 // 获取发布详情
 export function fetchDetail(data) {
   return request({

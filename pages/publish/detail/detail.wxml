@@ -29,16 +29,21 @@
   <view class='header-bottom'>
     <view class='location'>
       <image class='location__icon' src="../../../icons/location--publish.png"></image>
-      <text>发货地：{{publishInfo.location}}</text>
+      <text>发货地：{{publishInfo.locationDetail.provinceName}}·{{publishInfo.locationDetail.cityName}}</text>
     </view>
     <view class='publish__time'>发布时间：{{publishInfo.createTimeFriendly}}</view>
   </view>
 </view>
 <!-- 设备描述 -->
 <view class="page-desc">
-  <view wx:if="{{publishInfo.voiceIntroduce}}" class="listen">
+  <view wx:if="{{publishInfo.voiceIntroduce}}" class="page-listen">
     <text class="listen__text">点击听卖家介绍</text>
-    <text class="listen__voice">{{voice.second}}"</text>
+    <view id="audio{{item.id}}" catchtap="handleAudioPlay" class="listen__voice">
+      <image wx:if="{{isPlaying}}" class='voice__icon' src='../../../icons/audio-playing.gif'></image>
+      <image wx:else class='voice__icon' src='../../../icons/voice.png'></image>
+      <text class='voice__text'>{{item.voiceWidth}}</text>
+    </view>
+    <!-- <text class="listen__voice" bindtap="handleAudioPlay">{{voice.second}}"</text> -->
   </view>
   <view class="desc">{{publishInfo.textIntroduce}}</view>
   <view class="num">

@@ -3,6 +3,7 @@
   "navigationBarTextStyle": "white",
   "usingComponents": {
     "select-category": "/components/SelectCategory/SelectCategory",
-    "select-city": "/components/SelectCity/SelectCity"
+    "select-city": "/components/SelectCity/SelectCity",
+    "auth-dialog": "/components/AuthDialog/AuthDialog"
   }
 }

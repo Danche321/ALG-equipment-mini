@@ -78,12 +78,13 @@ Page({
       prevPage.setData({
         'userInfo.nickName': this.data.value
       })
+      prevPage.handleUpdateSubmit('nickName')
     } else if (this.data.key === 'signature') {
       prevPage.setData({
         'userInfo.signature': this.data.value
       })
+      prevPage.handleUpdateSubmit('signature')
     }
-    prevPage.handleUpdateSubmit()
     wx.navigateBack({
       delta: 1,
     })

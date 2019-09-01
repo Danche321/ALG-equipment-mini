@@ -1,4 +1,9 @@
 {
   "navigationBarTitleText": "发布转让信息",
-  "usingComponents": {}
+  "usingComponents": {
+    "bind-record": "/components/record/record",
+    "select-category": "/components/SelectCategory/SelectCategory",
+    "select-city": "/components/SelectCity/SelectCity",
+    "select-year": "/components/SelectYear/SelectYear"
+  }
 }

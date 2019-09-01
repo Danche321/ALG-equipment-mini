@@ -1,6 +1,7 @@
 <view class="page-base">
   <!-- 标题/内容 -->
-  <textarea class="input-desc" value="{{params.title}}" bindinput="handleTitleChange" placeholder="描述：简述你的购机要求···" maxlength="100"></textarea>
+  <view wx:if="{{selectCategoryVisible||selectCityVisible||selectYearVisible}}" class="input-desc">{{params.title||'描述：简述你的购机要求···'}}</view>
+  <textarea wx:else show-confirm-bar="{{false}}" class="input-desc" value="{{params.title}}" bindinput="handleTitleChange" placeholder="描述：简述你的购机要求···" maxlength="-1"></textarea>
   <!-- 定位 -->
   <view class='page-contact'>
     <view class="location" bindtap="handleShowCity">
@@ -32,7 +33,9 @@
   </view>
 </view>
 
-<button class="btn-publish" bindtap="handleSubmit">发布</button>
+<button wx:if="{{!isBindMobile}}" open-type="getPhoneNumber" bindgetphonenumber="handleGetPhone" class="btn-publish">发布</button>
+
+<button wx:else class="btn-publish" bindtap="handleSubmit">发布</button>
 
 <!-- 选择机型组件 -->
 <select-category visible="{{selectCategoryVisible}}" firstId="{{params.firstCategoryId}}" secondId="{{params.secondCategoryId}}" bind:checked="handleCategoryConfirm"></select-category>

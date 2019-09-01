@@ -132,7 +132,7 @@ swiper {
   margin-right: 18rpx;
 }
 
-.listen__voice {
+/* .listen__voice {
   width: 187rpx;
   height: 57rpx;
   line-height: 55rpx;
@@ -144,6 +144,35 @@ swiper {
   color: rgba(51, 51, 51, 0.7);
   box-sizing: border-box;
   display: inline-block;
+} */
+.page-listen{
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+.listen__voice {
+  margin: 19rpx 0 24rpx 0;
+  height: 57rpx;
+  line-height: 55rpx;
+  background: #F9F9F9;
+  border: 1rpx solid #f1f1f1;
+  border-radius: 50rpx;
+  font-size: 28rpx;
+  padding-left: 20rpx;
+  color: rgba(51, 51, 51, 0.7);
+  box-sizing: border-box;
+  min-width: 130rpx;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  width: 300rpx;
+}
+.voice__icon{
+  width: 22rpx;
+  height: 31rpx;
+}
+.voice__text{
+  margin-left: 20rpx;
 }
 
 .desc {

@@ -1,11 +1,12 @@
-const BASE_URL = 'http://116.62.19.123:7004'
 const app = getApp()
+const BASE_URL = app.globalData.BASE_URL
 
 export default function request({
   url,
   method,
   data,
-  closeLoading
+  closeLoading,
+  closeToast
 }) {
   return new Promise((resolve, reject) => {
     if (!closeLoading) {
@@ -14,30 +15,36 @@ export default function request({
         mask: true
       })
     }
+    const userId = app.globalData.userInfo ? app.globalData.userInfo.id : ''
     wx.request({
       url: `${BASE_URL}${url}`,
-      data: Object.assign({}, data, { userId: app.globalData.userId }),
+      data: Object.assign({}, data, { userId }),
       method,
       success: res => {
         const { code, data, msg } = res.data
         if (code !== '111111') {
-          wx.showToast({
-            title: msg,
-            icon: 'none'
-          })
+          wx.hideLoading()
+          if (!closeToast) {
+            wx.showToast({
+              title: msg || '连接失败，请检查网络状态',
+              icon: 'none'
+            })
+          }
           reject(msg)
         } else {
+          wx.hideLoading()
           resolve(res.data)
         }
-        wx.hideLoading()
       },
       fail: err => {
-        wx.showToast({
-          title: err.errMsg,
-          icon: 'none'
-        })
-        reject(err.errMsg)
         wx.hideLoading()
+        if (!closeToast) {
+          wx.showToast({
+            title: err,
+            icon: 'none'
+          })
+        }
+        reject(err.errMsg)
       }
     })
   });

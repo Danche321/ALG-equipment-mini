@@ -8,7 +8,34 @@ Page({
    */
   data: {
     userInfo: null,
-    userId: app.globalData.userId
+    userId: app.globalData.userId,
+    authVisible: false
+  },
+
+  /**
+   * 生命周期函数--监听页面加载
+   */
+  onLoad: function (options) {
+    this.checkAuthStatus()
+    wx.showLoading({
+      title: '加载中',
+      mask: true
+    })
+  },
+
+  /**
+   * 生命周期函数--监听页面显示
+   */
+  onShow: function () {
+    this.checkAuthStatus()
+    this.getUserInfo()
+  },
+
+  /**
+   * 用户点击右上角分享
+   */
+  onShareAppMessage: function () {
+
   },
 
   // 获取个人信息
@@ -17,6 +44,19 @@ Page({
       this.setData({
         userInfo: res.data
       })
+    })
+  },
+
+  // 是否授权
+  checkAuthStatus() {
+    this.setData({
+      authVisible: !app.globalData.userInfo
+    })
+  },
+
+  authHide() {
+    this.setData({
+      authVisible: false
     })
   },
 
@@ -65,63 +105,5 @@ Page({
     wx.navigateTo({
       url: '/pages/my/my-buy/my-buy',
     })
-  },
-  /**
-   * 生命周期函数--监听页面加载
-   */
-  onLoad: function(options) {
-    wx.showLoading({
-      title: '加载中',
-      mask: true
-    })
-  },
-
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function() {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow: function() {
-    this.getUserInfo()
-  },
-
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide: function() {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload: function() {
-
-  },
-
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh: function() {
-
-  },
-
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom: function() {
-
-  },
-
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage: function() {
-
   }
 })

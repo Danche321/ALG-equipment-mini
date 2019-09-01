@@ -5,6 +5,7 @@ import {
   handleCancelCollect,
   handleMsg
 } from '../../../api/publish.js'
+const innerAudioContext = wx.createInnerAudioContext()
 Page({
 
   /**
@@ -34,7 +35,8 @@ Page({
         floorDiscussUserId: '', // 主楼发布者id
       },
       placeholder: ''
-    }
+    },
+    isPlaying: false // 播放状态
   },
 
   /**
@@ -45,7 +47,9 @@ Page({
       id: options.id || 5
     })
     this.getDetail()
+    this.audioConfig()
   },
+
   // 图片预览
   handlePriviewImg(event) {
     let src = event.currentTarget.dataset.src; //获取data-src
@@ -195,46 +199,40 @@ Page({
     })
   },
 
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function() {
-
+  // 录音配置
+  audioConfig() {
+    // 停止
+    innerAudioContext.onStop(() => {
+      this.setData({
+        isPlaying: false
+      })
+    });
+    // 结束
+    innerAudioContext.onEnded(() => {
+      this.setData({
+        isPlaying: false
+      })
+    });
+    // 错误
+    innerAudioContext.onError((res) => {
+      console.log(res.errMsg)
+      console.log(res.errCode)
+    })
   },
 
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow: function() {
 
-  },
-
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide: function() {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload: function() {
-
-  },
-
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh: function() {
-
-  },
-
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom: function() {
-
+  // 录音播放
+  handleAudioPlay() {
+    const { isPlaying, publishInfo } = this.data
+    if (isPlaying) {
+      innerAudioContext.stop()
+    } else {
+      innerAudioContext.src = publishInfo.voiceIntroduce
+      innerAudioContext.play()
+      this.setData({
+        isPlaying: true
+      })
+    }
   },
 
   /**

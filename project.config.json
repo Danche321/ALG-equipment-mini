@@ -41,10 +41,17 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 0,
+			"current": 1,
 			"list": [
 				{
 					"id": 0,
+					"name": "pages/publish/create-sale/create-sale",
+					"pathName": "pages/publish/create-sale/create-sale",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": 1,
 					"name": "pages/publish/list-buy/list-buy",
 					"pathName": "pages/publish/list-buy/list-buy",
 					"query": "",

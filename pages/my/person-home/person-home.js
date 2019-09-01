@@ -87,8 +87,14 @@ Page({
         items,
         hasNextPage
       } = res.data
+      let resList = []
+      if (isFirst) {
+        resList = items
+      } else {
+        resList = [...this.data.sale.listData, ...items]
+      }
       this.setData({
-        'sale.listData': items,
+        'sale.listData': resList,
         'sale.hasNextPage': hasNextPage
       })
       if (isFirst) wx.stopPullDownRefresh()
@@ -162,12 +168,22 @@ Page({
 
   // 拨打电话
   handleCall(e) {
-    const phone = e.currentTarget.dataset.phone
-    const currentUserPhone = app.globalData.userInfo.phone
-    console.log(currentUserPhone)
-    wx.makePhoneCall({
-      phoneNumber: phone
+    wx.showModal({
+      title: '温馨提示',
+      content: '信息由用户自行发布，平台无法杜绝可能存在的风险和瑕疵；电话洽谈时，请仔细核实，谨防诈骗！',
+      confirmText: '呼叫',
+      success: res => {
+        if (res.confirm) {
+          const phone = e.currentTarget.dataset.phone
+          wx.makePhoneCall({
+            phoneNumber: phone
+          })
+        } else if (res.cancel) {
+        }
+      }
     })
+    // const currentUserPhone = app.globalData.userInfo.phone
+    // console.log(currentUserPhone)
   },
 
   /**

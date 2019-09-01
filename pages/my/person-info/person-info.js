@@ -11,7 +11,8 @@ Page({
    */
   data: {
     userInfo: null,
-    region: []
+    region: [],
+    headImgShow: ''
   },
 
   /**
@@ -28,48 +29,14 @@ Page({
 
   },
 
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow: function() {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide: function() {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload: function() {
-
-  },
-
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh: function() {
-
-  },
-
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom: function() {
-
-  },
-
   // 获取个人信息
   getUserInfo() {
     fetchUserInfo().then(res => {
       const { provinceCode, provinceName, cityCode, cityName, areaCode, areaName } = res.data
       this.setData({
         userInfo: res.data,
-        region: [provinceCode, cityCode, areaCode]
+        region: [provinceCode, cityCode, areaCode],
+        headImgShow: res.data.headPortrait
       })
     })
   },
@@ -86,25 +53,41 @@ Page({
   },
 
   // 修改个人资料确定
-  handleUpdateSubmit() {
+  handleUpdateSubmit(type) {
+    console.log(type)
     const {
       headPortrait,
       nickName,
       provinceCode,
       cityCode,
       areaCode,
-      signature
+      signature,
+      provinceName,
+      cityName,
+      areaName
     } = this.data.userInfo
-    const params = {
-      headPortrait,
-      nickName,
-      provinceCode,
-      cityCode,
-      areaCode,
-      signature
+    const userId = app.globalData.userInfo.id
+    let params = `userId=${userId}&`
+    switch (type) {
+      case 'headPortrait' :
+        params += `headPortrait=${headPortrait}`
+        break
+      case 'area':
+        params += `provinceCode=${provinceCode}&cityCode=${cityCode}&areaCode=${areaCode}&provinceName=${provinceName}&cityName=${cityName}&areaName=${areaName}`
+        break
+      case 'signature':
+        params += `signature=${signature}`
+        break
+      case 'nickName':
+      console.log(111)
+        console.log(nickName)
+        params += `nickName=${nickName}`
+        break
     }
     handleUpdateInfo(params).then(() => {
-
+      wx.showToast({
+        title: '修改成功',
+      })
     })
   },
 
@@ -121,7 +104,7 @@ Page({
       'userInfo.areaName': data.value[2],
       'userInfo.location': `${data.value[0]}·${data.value[1]}·${data.value[2]}`
     })
-    this.handleUpdateSubmit()
+    this.handleUpdateSubmit('area')
   },
 
   // 上传头像
@@ -151,18 +134,13 @@ Page({
       url: `${app.globalData.BASE_URL}/global/upload`, //开发者服务器
       filePath: filePath,
       name: 'file', //文件对应的 key , 开发者在服务器端通过这个 key 可以获取到文件二进制内容
-      formData: {
-        'type': 1
-      },
-      header: {
-        'Content-Type': 'multipart/form-data'
-      },
       success: res => {
-        const { domainUrl } = JSON.parse(res.data).data
+        const { url, domainUrl } = JSON.parse(res.data).data
         this.setData({
-          'userInfo.headPortrait': domainUrl
+          'userInfo.headPortrait': url,
+          headImgShow: domainUrl
         })
-        this.handleUpdateSubmit()
+        this.handleUpdateSubmit('headPortrait')
         wx.hideLoading();
       },
       fail: function(res) {

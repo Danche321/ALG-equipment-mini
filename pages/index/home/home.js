@@ -1,6 +1,7 @@
-const app = getApp()
 import { fetchBanner, fetchAllCategory } from '../../../api/index.js'
 import { fetchPublish } from '../../../api/publish.js'
+const innerAudioContext = wx.createInnerAudioContext()
+const app = getApp()
 Page({
 
   /**
@@ -17,20 +18,9 @@ Page({
     },
     publishList: [],
     hasNextPage: true,
-    area: '全国',
-    cityCode: ''
+    activePlayingId: ''
   },
 
-  handleToSearch() {
-    wx.navigateTo({
-      url: '/pages/index/search/search',
-    })
-  },
-  handleSwitchCity() {
-    wx.navigateTo({
-      url: '/pages/index/switchcity/switchcity',
-    })
-  },
   /**
    * 生命周期函数--监听页面加载
    */
@@ -38,6 +28,33 @@ Page({
     this.getBanner()
     this.getCategory()
     this.getPublish()
+    this.audioConfig() // 监听录音状态
+  },
+
+  /**
+   * 页面相关事件处理函数--监听用户下拉动作
+   */
+  onPullDownRefresh: function () {
+    this.getBanner()
+    this.getCategory()
+    this.getPublish(1)
+  },
+
+  /**
+   * 页面上拉触底事件的处理函数
+   */
+  onReachBottom: function () {
+    if (this.data.hasNextPage) {
+      this.data.publishParams.pageNum++
+      this.getPublish()
+    }
+  },
+
+  /**
+   * 用户点击右上角分享
+   */
+  onShareAppMessage: function () {
+
   },
 
   // banner列表
@@ -85,6 +102,7 @@ Page({
       if (isFirst) wx.stopPullDownRefresh()
     })
   },
+  
 
   handleToDetail(e) {
     const id = e.currentTarget.dataset.id
@@ -104,59 +122,51 @@ Page({
       url: `/pages/publish/list/list`,
     })
   },
-  
 
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function() {
-
+  // 录音配置
+  audioConfig() {
+    // 停止
+    innerAudioContext.onStop(() => {
+      this.setData({
+        activePlayingId: ''
+      })
+    });
+    // 结束
+    innerAudioContext.onEnded(() => {
+      this.setData({
+        activePlayingId: ''
+      })
+    });
+    // 错误
+    innerAudioContext.onError((res) => {
+      console.log(res.errMsg)
+      console.log(res.errCode)
+    })
   },
 
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow: function() {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide: function() {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload: function() {
-    this.getPublish()
-  },
-
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh: function () {
-    this.getBanner()
-    this.getCategory()
-    this.getPublish(1)
-  },
-
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom: function () {
-    if (this.data.hasNextPage) {
-      this.data.publishParams.pageNum++
-      this.getPublish()
+  // 播放录音
+  handleAudioPlay(e) {
+    const { src, id } = e.currentTarget.dataset
+    const { activePlayingId } = this.data
+    if (activePlayingId === id) {
+      innerAudioContext.stop()
+    } else {
+      innerAudioContext.src = src
+      innerAudioContext.play()
+      this.setData({
+        activePlayingId: id
+      })
     }
   },
 
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage: function() {
-
-  }
+  handleToSearch() {
+    wx.navigateTo({
+      url: '/pages/index/search/search',
+    })
+  },
+  handleSwitchCity() {
+    wx.navigateTo({
+      url: '/pages/index/switchcity/switchcity',
+    })
+  },
 })

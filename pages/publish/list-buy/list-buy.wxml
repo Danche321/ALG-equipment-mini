@@ -54,7 +54,11 @@
           <image class='location__icon' src="../../../icons/location--publish.png"></image>
           <text>{{item.locationText}}</text>
         </view>
-        <view class="item__call">
+        <button wx:if="{{!isBindMobile}}" class="item__call" data-phone="{{item.creatorInfo.phone}}" open-type="getPhoneNumber" bindgetphonenumber="handleGetPhone">
+          <image class="icon-call" src="../../../icons/call.png" data-id="{{item.id}}" data-index="{{index}}"></image>
+          <text>拨打</text>
+        </button>
+        <view wx:else class="item__call" data-phone="{{item.creatorInfo.phone}}" bindtap="handleCall">
           <image class="icon-call" src="../../../icons/call.png" data-id="{{item.id}}" data-index="{{index}}"></image>
           <text>拨打</text>
         </view>
@@ -83,3 +87,6 @@
 
 <!-- 选择城市组件 -->
 <select-city visible="{{selectCityVisible}}" bind:checked="handleCityConfirm"></select-city>
+
+<!-- 授权弹窗 -->
+<auth-dialog visible="{{authVisible}}" bind:hideModal="authHide"></auth-dialog>

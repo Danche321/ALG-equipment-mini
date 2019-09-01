@@ -17,7 +17,7 @@
 </view>
 <!-- 分类 -->
 <swiper class="swiper-category" indicator-dots circular>
-  <swiper-item  class="swiper-item" wx:for="{{categoryList}}" wx:key="{{index}}">
+  <swiper-item class="swiper-item" wx:for="{{categoryList}}" wx:key="{{index}}">
     <view class="category-box f-flex-justStart-wrap">
       <view wx:for="{{item}}" wx:for-item="cell" wx:key="{{index}}" class="category-item" data-id="{{cell.id}}" data-name="{{cell.name}}" bindtap="handleSearchCategory">
         <image src="{{cell.icon}}"></image>
@@ -33,13 +33,17 @@
       <image class="img" src="{{item.mainMedia}}"></image>
       <view class="publish__content">
         <view class="title f-ellipsis2">{{item.title}}</view>
-        <view wx:if="{{item.voice}}" class="voice" style="width:{{item.voice.width}}">{{item.voice.second}}"</view>
-        <view class="f-flex-justBetween-alignCenter">
+        <view wx:if="{{item.voiceIntroduce}}" id="audio{{item.id}}" data-src="{{item.voiceIntroduce}}" data-id="{{item.id}}" catchtap="handleAudioPlay" class="voice">
+          <image wx:if="{{activePlayingId===item.id}}" class='voice__icon' src='../../../icons/audio-playing.gif'></image>
+          <image wx:else class='voice__icon' src='../../../icons/voice.png'></image>
+          <text class='voice__text'>{{item.voiceWidth}}</text>
+        </view>
+        <view class="item-priceArea">
           <view wx:if="{{item.outPrice}}" class="price">
             <text class="price__unit">￥</text>{{item.outPrice}}
           </view>
           <view wx:else class="price">面议</view>
-          <text class="area">{{item.location}}</text>
+          <text class="area f-ellipsis1">{{item.locationDetail.provinceName}}·{{item.locationDetail.cityName}}</text>
         </view>
         <view class="user-info f-flex-justStart-alignCenter">
           <image src="{{item.publishUserInfo.headPortrait}}" class="headimg"></image>
@@ -53,16 +57,16 @@
       <image class="img" src="{{item.mainMedia}}"></image>
       <view class="publish__content">
         <view class="title f-ellipsis2">{{item.title}}</view>
-        <view wx:if="{{item.voiceIntroduce}}" class="voice" style="width:{{item.voice.width}}">
+        <view wx:if="{{item.voiceIntroduce}}" id="audio{{item.id}}" data-src="{{item.voiceIntroduce}}" data-id="{{item.id}}" catchtap="handleAudioPlay" class="voice">
           <image class='voice__icon' src='../../../icons/voice.png'></image>
-          <text class='voice__text'>{{item.voice.second}}"</text>
+          <text class='voice__text'>{{item.voiceWidth}}</text>
         </view>
-        <view class="f-flex-justBetween-alignCenter">
+        <view class="item-priceArea">
           <view wx:if="{{item.outPrice}}" class="price">
             <text class="price__unit">￥</text>{{item.outPrice}}
           </view>
           <view wx:else class="price">面议</view>
-          <text class="area">{{item.location}}</text>
+          <text class="area f-ellipsis1">{{item.locationDetail.provinceName}}·{{item.locationDetail.cityName}}</text>
         </view>
         <view class="user-info f-flex-justStart-alignCenter">
           <image src="{{item.publishUserInfo.headPortrait}}" class="headimg"></image>

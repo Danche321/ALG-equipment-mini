@@ -3,13 +3,14 @@ import {
 } from '../../../api/buy.js'
 const QQMapWX = require('../../../libs/qqmap-wx-jssdk.js');
 let qqmapsdk
-
+const app = getApp()
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
+    isBindMobile: app.globalData.userInfo&&app.globalData.userInfo.phone, // 是否绑定手机号
     params: {
       title: '',
       provinceCode: '',
@@ -19,12 +20,7 @@ Page({
       contactPhone: '',
       newOldLevel: '不限制',
       firstCategoryId: '',
-      secondCategoryId: '',
-      creator: 1,
-      // 不需要的
-      content: '11',
-      areaCode: '11',
-      areaName: '11'
+      secondCategoryId: ''
     },
     yearTags: ['1年内', '1～3年', '3~5年', '不限制'],
     selectCategoryVisible: false, // 选择机型组件
@@ -69,6 +65,24 @@ Page({
    */
   onUnload: function() {
 
+  },
+
+  // 授权用户手机号
+  handleGetPhone(e) {
+    console.log(e)
+    if (!e.detail.encryptedData) {
+      wx.showModal({
+        title: '温馨提示',
+        content: '为了保证信息的真实性，首次在平台进行信息发布，需要绑定手机号码',
+        showCancel: false,
+        success(res) {
+          if (res.confirm) {
+          }
+        }
+      })
+    } else {
+      this.handleSubmit()
+    }
   },
 
   // 发布

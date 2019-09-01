@@ -2,5 +2,7 @@
   "navigationBarTitleText": "我的",
   "navigationBarBackgroundColor": "#3669F8",
   "navigationBarTextStyle": "white",
-  "usingComponents": {}
+  "usingComponents": {
+    "auth-dialog": "/components/AuthDialog/AuthDialog"
+  }
 }

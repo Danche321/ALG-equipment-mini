@@ -1,7 +1,7 @@
 <!-- 头像 -->
 <view class="page-avatar">
   <view class="avatar__content" bindtap="handleUpload">
-    <image mode="aspectFill" class="avatar__photo" src="{{userInfo.headPortrait}}"></image>
+    <image mode="aspectFill" class="avatar__photo" src="{{headImgShow}}"></image>
     <view class="avatar__upload">
       <image src="../../../icons/camera.png" class="upload__icon"></image>
     </view>

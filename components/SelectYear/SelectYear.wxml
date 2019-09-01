@@ -1,0 +1,14 @@
+<view hidden="{{!visible}}">
+  <view class="page-content">
+    <view class="content__title">出厂年份</view>
+    <scroll-view class="content__scroll" scroll-y>
+      <view class="item__children">
+        <view class="children__item {{activeYear==item?'active':''}}" wx:for="{{listData}}" wx:key="{{index}}" data-year="{{item}}" catchtap="handleSelectCategory">
+          <view>{{item}}</view>
+          <image class="icon-checked" src="../../icons/checked.png"></image>
+        </view>
+      </view>
+    </scroll-view>
+  </view>
+  <view bindtap="handleHidden" class="page-bg"></view>
+</view>

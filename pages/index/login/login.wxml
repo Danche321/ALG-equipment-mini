@@ -1,2 +1,0 @@
-<image class="page-logo" src="../../../icons/demo/demo1.jpeg"></image>
-<button class="page-btn" type="primary" open-type="getUserInfo" bindgetuserinfo="bindgetuserinfo">微信一键登录</button>

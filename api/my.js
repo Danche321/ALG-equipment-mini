@@ -7,17 +7,16 @@ export function fetchUserInfo({ data, closeLoading } = {}) {
     url: '/my/personalData.action',
     method: 'get',
     data: data,
-    closeLoading: closeLoading
+    closeLoading: closeLoading,
+    closeToast: true
   })
 }
 
 // 修改个人资料
 export function handleUpdateInfo(data) {
-  const userId = app.globalData.userId
   return request({
-    url: `/my/personalData.action?userId=${userId}`,
-    method: 'post',
-    data: data
+    url: `/my/personalData.action?${data}`,
+    method: 'post'
   })
 }
 

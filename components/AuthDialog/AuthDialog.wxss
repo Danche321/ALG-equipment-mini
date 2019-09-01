@@ -1,0 +1,58 @@
+/* components/dialog/dialog.wxss */
+.dialog{
+  position:fixed;
+  top:0;
+  bottom:0;
+  right:0;
+  left:0;
+  width:100vw;
+  height:100vh;
+  z-index: 99998;
+}
+.dialog-shadow{
+  position:absolute;
+  top:0;
+  right:0;
+  left:0;
+  bottom:0;
+  background: rgba(0,0,0,0.4);
+  display: flex;
+}
+.dialog-box{
+  position:absolute;
+  top:50%;
+  right:0;
+  left:0;
+  width:80%;
+  min-height: 100rpx;
+  margin:0 auto;
+  transform: translate3d(0,-50%,0);
+  background:#fff;
+  z-index:99999;
+  box-sizing: border-box;
+  padding:30rpx;
+  border-radius: 10rpx;
+  text-align: center;
+}
+.dialog-logo{
+  display: block;
+  width:100rpx;
+  height:100rpx;
+  margin:20rpx auto;
+}
+.dialog-tishi{
+  margin:30rpx 0 100rpx 0;
+  font-size:24rpx;
+  color:#999;
+}
+.dialog-btn{
+  height:80rpx;
+  line-height:80rpx;
+  margin-bottom:30rpx;
+  background: #2fba7e;
+  color:#fff;
+  font-size:28rpx;
+}
+.btn-hover{
+  background:#30A271;
+}

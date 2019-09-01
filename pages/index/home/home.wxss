@@ -173,6 +173,7 @@ page {
   display: flex;
   align-items: center;
   justify-content: flex-start;
+  width: 100%;
 }
 .voice__icon{
   width: 22rpx;
@@ -182,6 +183,11 @@ page {
   margin-left: 20rpx;
 }
 
+.item-priceArea{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
 .publish-item .price {
   color: #fb4238;
   font-size: 38rpx;
@@ -192,8 +198,11 @@ page {
 }
 
 .publish-item .area {
-  font-size: 22rpx;
+  font-size: 24rpx;
   color: rgba(51, 51, 51, 0.7);
+  flex: 1;
+  margin-left: 10rpx;
+  text-align: right;
 }
 
 .publish-item .user-info {

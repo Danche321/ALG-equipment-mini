@@ -65,30 +65,6 @@
     </view>
   </view>
 </view>
-<!-- 跳转卡片 -->
-<!-- <view class="page__cards">
-  <view bindtap='handleToPublish' class="card-item f-flex-justBetween-alignCenter">
-    <view class='f-flex-justStart-alignCenter'>
-      <image src="../../../icons/my_publish.png" class="card__icon"></image>
-      <text class='card__label'>我发布的</text>
-    </view>
-    <text class="card__btn">去查看</text>
-  </view>
-  <view bindtap='handleToCollect' class="card-item f-flex-justBetween-alignCenter">
-    <view class='f-flex-justStart-alignCenter'>
-      <image src="../../../icons/my_collect.png" class="card__icon"></image>
-      <text class='card__label'>我的收藏</text>
-    </view>
-    <text class="card__btn">去查看</text>
-  </view>
-  <view bindtap='handleToDynamic' class="card-item f-flex-justBetween-alignCenter">
-    <view class='f-flex-justStart-alignCenter'>
-      <image src="../../../icons/my_dynamic.png" class="card__icon"></image>
-      <view class='card__label card__label-dynamic'>
-        <text>我的动态</text>
-        <text wx:if="{{userInfo.unreadCommentCount}}" class="label__add">+{{userInfo.unreadCommentCount}}</text>
-      </view>
-    </view>
-    <text class="card__btn">去查看</text>
-  </view>
-</view> -->
+
+<!-- 授权弹窗 -->
+<auth-dialog visible="{{authVisible}}" bind:hideModal="authHide"></auth-dialog>

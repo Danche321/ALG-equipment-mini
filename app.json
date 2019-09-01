@@ -22,10 +22,9 @@
     "components/SelectCity/SelectCity",
     "pages/my/invite/invite",
     "pages/my/invite-pic/invite-pic",
-    "pages/publish/success-buy/success-buy",
-    "pages/publish/success-sale/success-sale",
+    "pages/publish/publish-success/publish-success",
     "pages/my/my-buy/my-buy",
-    "pages/index/login/login"
+    "components/SelectYear/SelectYear"
   ],
   "window": {
     "backgroundTextStyle": "light",
