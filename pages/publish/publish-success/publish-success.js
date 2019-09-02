@@ -38,5 +38,9 @@ Page({
         console.log(res)
       }
     }
+  },
+
+  //生成二维码
+  handleCreateQrcode() {
   }
 })

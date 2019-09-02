@@ -6,8 +6,19 @@
     <view class="content-userInfo">
       <image class='header__headimg' src='{{userInfo.headPortrait}}'></image>
       <view class="userInfo-right">
-        <view class='header__nickname'>{{userInfo.nickName}}</view>
-        <view class="header__desc">{{userInfo.signature}}</view>
+        <view class="nickName__wrap">
+          <view class='header__nickname'>{{userInfo.nickName}}</view>
+          <block wx:if="{{whoId!=userId}}">
+            <view wx:if="{{followed}}" class="item__btn btn--gray" bindtap="handleCancleFocus">
+              <text class="focus__text">已关注</text>
+            </view>
+            <view wx:else class="item__btn btn--blue" bindtap="handleFocus">
+              <text class="focus__add ">+</text>
+              <text class="focus__text ">关注</text>
+            </view>
+          </block>
+        </view>
+        <view class="header__desc f-ellipsis3">{{userInfo.signature}}</view>
       </view>
     </view>
     <view class='header__bottom'>
@@ -16,7 +27,7 @@
         <text class='header__num-item'>粉丝 {{userInfo.fansCount}}</text>
         <text class='header__num-item'>发布 {{userInfo.publishCount}}</text>
       </view>
-      <view class='header__location'>
+      <view wx:if="{{userInfo.provinceName}}" class='header__location'>
         <image class='location__icon' src='../../../icons/location-white.png'></image>
         <text>{{userInfo.location}}</text>
       </view>

@@ -4,7 +4,7 @@ page {
 /* 头部 */
 
 .page__header {
-  height: 440rpx;
+  height: 480rpx;
   background: rgba(0, 0, 0, 0.3);
   color: #fff;
   position: fixed;
@@ -17,7 +17,7 @@ page {
   position: fixed;
   top: 0;
   left: 0;
-  height: 440rpx;
+  height: 480rpx;
   width: 100%;
   z-index: -1;
 }
@@ -46,20 +46,27 @@ page {
   flex: 1;
   display: flex;
   flex-direction: column;
+  min-height: 200rpx;
+  justify-content: center;
 }
-
 .header__headimg {
   width: 146rpx;
   height: 146rpx;
   border-radius: 50%;
-  background-color: #f5f5f5;
+  /* background-color: #f5f5f5; */
   margin-right: 30rpx;
+}
+
+.nickName__wrap{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20rpx;
 }
 
 .header__nickname {
   font-size: 34rpx;
   font-weight: 500;
-  margin-bottom: 14rpx;
 }
 
 .header__desc {
@@ -112,13 +119,13 @@ page {
 /* 发布列表 */
 
 .page-publish {
-  padding-top: 520rpx;
-  height: calc(100vh - 520rpx);
+  padding-top: 560rpx;
+  height: calc(100vh - 560rpx);
   overflow-y: scroll;
 }
 
 .swiper-item, .swiper-box {
-  height: calc(100vh - 520rpx);
+  height: calc(100vh - 560rpx);
   background: #f5f5f5;
 }
 
@@ -129,7 +136,7 @@ page {
   box-shadow: 0 3rpx 8rpx 0 rgba(189, 193, 202, 0.3);
   position: fixed;
   width: 100%;
-  top: 440rpx;
+  top: 480rpx;
   z-index: 2;
   background: #fff;
 }
@@ -390,4 +397,31 @@ page {
   margin-right: 20rpx;
   border-radius: 50%;
   background-color: #f5f5f5;
+}
+
+.item__btn {
+  font-size: 24rpx;
+  height: 60rpx;
+  padding: 0 40rpx;
+  border-radius: 40rpx;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.focus__add {
+  font-size: 34rpx;
+  margin-right: 10rpx;
+}
+
+.btn--blue {
+  background: linear-gradient(to right, #6d7a9e, #455c86);
+  color: #fff;
+  border: 1rpx solid #6d7a9e;
+}
+
+.btn--gray {
+  border: 1rpx solid #D9D9D9;
+  color: #D9D9D9;
 }

@@ -12,6 +12,7 @@ Page({
   data: {
     isBindMobile: app.globalData.userInfo&&app.globalData.userInfo.phone, // 是否绑定手机号
     params: {
+      creator: app.globalData.userInfo && app.globalData.userInfo.id,
       title: '',
       provinceCode: '',
       provinceName: '',
@@ -39,34 +40,6 @@ Page({
     this.getLocation()
   },
 
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function() {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow: function() {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide: function() {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload: function() {
-
-  },
-
   // 授权用户手机号
   handleGetPhone(e) {
     console.log(e)
@@ -74,11 +47,7 @@ Page({
       wx.showModal({
         title: '温馨提示',
         content: '为了保证信息的真实性，首次在平台进行信息发布，需要绑定手机号码',
-        showCancel: false,
-        success(res) {
-          if (res.confirm) {
-          }
-        }
+        showCancel: false
       })
     } else {
       this.handleSubmit()
@@ -110,8 +79,9 @@ Page({
       icon: 'none'
     })
     handleCreateBuy(this.data.params).then(() => {
-      wx.showModal({
-        title: '发布成功'
+      const title = `【求购】${this.data.params.title}`
+      wx.redirectTo({
+        url: `/pages/publish/success-buy/success-buy?title=${title}`,
       })
     })
   },

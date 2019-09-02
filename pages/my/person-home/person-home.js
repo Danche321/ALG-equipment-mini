@@ -1,10 +1,14 @@
 import {
-  fetchUserInfo,
+  fetchPersonHome,
   fetchMyHomePublish
 } from '../../../api/my.js'
 import {
   fetchMyBuyList
 } from '../../../api/buy.js'
+import {
+  handleFocus,
+  handleCancleFocus
+} from '../../../api/common.js'
 const app = getApp()
 Page({
 
@@ -13,7 +17,10 @@ Page({
    */
   data: {
     statusBarHeight: '',
+    whoId: '', // 主页者id
+    userId: '', // 当前用户id
     userInfo: null,
+    followed: false, // 是否关注
     sale: {
       listData: [],
       params: {
@@ -26,6 +33,7 @@ Page({
     buy: {
       listData: [],
       params: {
+        userId: '',
         shelfStatus: 1,
         pageNum: 1,
         pageSize: 10
@@ -39,10 +47,15 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
-    const id = options.id
-    this.data.sale.params.whoId = id || 1
+    const whoId = options.id || 1
+    this.setData({
+      whoId: whoId,
+      userId: app.globalData.userInfo && app.globalData.userInfo.id,
+      'sale.params.whoId': whoId,
+      'buy.params.userId': whoId
+    })
     this.setHeaderConfig()
-    this.getUserInfo()
+    this.getHomeInfo()
     this.getSaleList()
     this.getBuyList()
   },
@@ -69,11 +82,21 @@ Page({
     })
   },
 
-  // 获取个人资料
-  getUserInfo() {
-    fetchUserInfo().then(res => {
+  // 获取个人主页信息
+  getHomeInfo() {
+    const params = {
+      userId: this.data.userId, // 当前用户id
+      whoId: this.data.whoId, // 主页者id
+      baseSize: 1
+    }
+    fetchPersonHome(params).then(res => {
+      const {
+        whoInfo,
+        followed
+      } = res.data
       this.setData({
-        userInfo: res.data
+        userInfo: whoInfo,
+        followed: followed
       })
     })
   },
@@ -154,7 +177,7 @@ Page({
   saleReachBottom() {
     if (this.data.sale.hasNextPage) {
       this.data.sale.params.pageNum++
-      this.getSaleList()
+        this.getSaleList()
     }
   },
 
@@ -162,7 +185,7 @@ Page({
   buyReachBottom() {
     if (this.data.buy.hasNextPage) {
       this.data.buy.params.pageNum++
-      this.getBuyList()
+        this.getBuyList()
     }
   },
 
@@ -178,39 +201,41 @@ Page({
           wx.makePhoneCall({
             phoneNumber: phone
           })
-        } else if (res.cancel) {
-        }
+        } else if (res.cancel) {}
       }
     })
     // const currentUserPhone = app.globalData.userInfo.phone
     // console.log(currentUserPhone)
   },
 
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function() {
-
+  // 关注
+  handleFocus() {
+    const { userId, whoId } = this.data
+    const params = `?userId=${userId}&objectId=${whoId}`
+    handleFocus(params).then(() => {
+      wx.showToast({
+        title: '已关注',
+      })
+      this.setData({
+        followed: true
+      })
+    })
   },
 
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow: function() {
-
+  // 取消关注
+  handleCancleFocus() {
+    const { userId, whoId } = this.data
+    const params = `?userId=${userId}&objectId=${whoId}`
+    handleCancleFocus(params).then(() => {
+      wx.showToast({
+        title: '已取消',
+        icon: 'none'
+      })
+      this.setData({
+        followed: false
+      })
+    })
   },
-
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide: function() {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload: function() {},
 
   /**
    * 页面相关事件处理函数--监听用户下拉动作

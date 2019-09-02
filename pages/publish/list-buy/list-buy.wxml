@@ -67,7 +67,7 @@
       <view class="item-bottom">
         <view class="item__creator">
           <image class="item__headimg" src="{{item.creatorInfo.headPortrait}}"></image>
-          <view>{{item.creatorInfo.name}}</view>
+          <view>{{item.creatorInfo.nickName}}</view>
         </view>
         <view class="item_time">发布时间：{{item.createTimeFriendly}}</view>
       </view>

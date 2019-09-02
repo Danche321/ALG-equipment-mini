@@ -111,6 +111,13 @@ page {
   justify-content: center;
   align-items: center;
 }
+.card-item--contact{
+  border: none;
+  line-height: 1;
+}
+.card-item--contact::after{
+  display: none;
+}
 .card__icon {
   width: 64rpx;
   height: 64rpx;

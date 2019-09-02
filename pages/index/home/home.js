@@ -14,7 +14,8 @@ Page({
     categoryList: [],
     publishParams: {
       pageNum: 1,
-      pageSize: 10
+      pageSize: 10,
+      isDownShelf: 1
     },
     publishList: [],
     hasNextPage: true,
@@ -169,4 +170,10 @@ Page({
       url: '/pages/index/switchcity/switchcity',
     })
   },
+  handleToUserHome(e) {
+    const id = e.currentTarget.dataset.userid
+    wx.navigateTo({
+      url: `/pages/my/person-home/person-home?id=${id}`,
+    })
+  }
 })

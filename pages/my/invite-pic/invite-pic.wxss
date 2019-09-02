@@ -29,6 +29,7 @@ page{
 .page-qrcode{
   position: relative;
   text-align: center;
+  margin-top: -60rpx;
 }
 .qrcode__img{
   width: 364rpx;

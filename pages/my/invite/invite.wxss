@@ -22,16 +22,19 @@
 .page-content {
   margin: 0 12rpx;
   width: 726rpx;
-  height: 598rpx;
-  padding: 0 20rpx;
+  height: calc(100vh - 604rpx);
+  padding: 30rpx 20rpx 40rpx 20rpx;
   box-sizing: border-box;
   border-radius: 9px;
   position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
 .content__bg {
   width: 726rpx;
-  height: 598rpx;
+  height: calc(100vh - 604rpx);
   position: absolute;
   top: 0;
   left: 0;
@@ -42,7 +45,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 36rpx 0;
+  margin-bottom: 30rpx;
 }
 
 .title__left {
@@ -68,14 +71,14 @@
 
 .total {
   width: 686rpx;
-  height: 187rpx;
+  height: 167rpx;
   background: #fff;
   display: flex;
   align-items: center;
   justify-content: center;
   box-shadow: 0px 5px 16px 0px rgba(67, 98, 255, 1);
   border-radius: 10px;
-  margin-bottom: 76rpx;
+  margin-bottom: 56rpx;
   box-sizing: border-box;
   position: relative;
 }
@@ -129,8 +132,14 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  background: none;
+  padding: 0;
+  margin: 0;
+  line-height: 1;
 }
-
+.btn-item::after{
+  display: none;
+}
 .btn-item__icon {
   width: 92rpx;
   height: 92rpx;

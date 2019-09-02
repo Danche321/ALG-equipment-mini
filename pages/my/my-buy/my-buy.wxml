@@ -1,6 +1,10 @@
 <view class="filter">
-  <text data-type="1" bindtap="handleTabChange" class="filter-item {{params.shelfStatus==1?'active':''}}">发布中</text>
-  <text data-type="0" bindtap="handleTabChange" class="filter-item {{params.shelfStatus==0?'active':''}}">已下架</text>
+  <view data-type="1" bindtap="handleTabChange" class="filter-item {{params.shelfStatus==1?'active':''}}">发布中
+    <text wx:if="{{params.shelfStatus==1}}">（{{totalCount}}）</text>
+  </view>
+  <view data-type="0" bindtap="handleTabChange" class="filter-item {{params.shelfStatus==0?'active':''}}">已下架
+    <text wx:if="{{params.shelfStatus==0}}">（{{totalCount}}）</text>
+  </view>
 </view>
 
 <view class="publish-box">
@@ -31,8 +35,8 @@
   </block>
 
   <!-- 无数据 -->
-  <view wx:else class='m-page-empty' style="margin-top:{{marginTop/2}}px">
+  <view wx:else class='m-page-empty'>
     <image class='empty__img' src="../../../icons/empty.png"></image>
-    <text class='empty__text'>暂无相关数据</text>
+    <text class='empty__text'>发布求购信息，极速解决你的购机需求</text>
   </view>
 </view>

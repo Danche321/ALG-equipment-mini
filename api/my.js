@@ -65,6 +65,15 @@ export function fetchMyFans(data) {
   })
 }
 
+// 获取个人主页
+export function fetchPersonHome(data) {
+  return request({
+    url: '/my/personalHomePage.action',
+    method: 'get',
+    data: data
+  })
+}
+
 // 个人主页的发布列表
 export function fetchMyHomePublish(data) {
   return request({
@@ -76,7 +85,7 @@ export function fetchMyHomePublish(data) {
 
 //下架商品
 export function handleDown(data) {
-  const userId = app.globalData.userId
+  const userId = app.globalData.userInfo && app.globalData.userInfo.id
   const publishId = data.publishId
   return request({
     url: `/publish/downPublish.action?userId=${userId}&publishId=${publishId}`,
@@ -86,7 +95,7 @@ export function handleDown(data) {
 
 // 重新上架
 export function handleRePublish(data) {
-  const userId = app.globalData.userId
+  const userId = app.globalData.userInfo && app.globalData.userInfo.id
   const publishId = data.publishId
   return request({
     url: `/publish/upPublish.action?userId=${userId}&publishId=${publishId}`,

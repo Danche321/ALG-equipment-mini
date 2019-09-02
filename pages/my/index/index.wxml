@@ -58,10 +58,10 @@
         <image src="../../../icons/my_invite.png" class="card__icon"></image>
         <text class='card__label'>邀请有奖</text>
       </view>
-      <view class="card-item" bindtap='handleToPublish'>
+      <button open-type="contact" class="card-item card-item--contact">
         <image src="../../../icons/my_kefu.png" class="card__icon"></image>
         <text class='card__label'>联系平台</text>
-      </view>
+      </button>
     </view>
   </view>
 </view>

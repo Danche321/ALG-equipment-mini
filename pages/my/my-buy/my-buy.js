@@ -10,6 +10,7 @@ Page({
    */
   data: {
     listData: [],
+    totalCount: 0,
     params: {
       pageNum: 1,
       pageSize: 10,
@@ -24,30 +25,6 @@ Page({
   onLoad: function(options) {
     this.getList(1)
   },
-
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function() {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow: function() {},
-
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide: function() {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload: function() {},
 
   /**
    * 页面相关事件处理函数--监听用户下拉动作
@@ -74,13 +51,15 @@ Page({
   },
 
   // 发布列表
-  getList(isFirst) {
+  getList(isFirst, activeTab) {
     const params = this.data.params
     if (isFirst) this.data.params.pageNum = 1
+    if (activeTab) this.data.params.shelfStatus = activeTab
     fetchMyBuyList(params).then(res => {
       const {
         items,
-        hasNextPage
+        hasNextPage,
+        totalCount
       } = res.data
       let resList = []
       items.map(item => {
@@ -94,18 +73,22 @@ Page({
       }
       this.setData({
         listData: resList,
-        hasNextPage
+        hasNextPage,
+        totalCount
       })
       if (isFirst) wx.stopPullDownRefresh()
+      if (activeTab) {
+        this.setData({
+          'params.shelfStatus': activeTab
+        })
+      }
     })
   },
   
   // tab切换
   handleTabChange(e) {
-    this.setData({
-      'params.shelfStatus': e.currentTarget.dataset.type
-    })
-    this.getList(1)
+    const type = e.currentTarget.dataset.type
+    this.getList(1, type)
   },
 
   //下架

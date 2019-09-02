@@ -41,19 +41,26 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 1,
+			"current": 2,
 			"list": [
 				{
 					"id": 0,
-					"name": "pages/publish/create-sale/create-sale",
-					"pathName": "pages/publish/create-sale/create-sale",
+					"name": "pages/publish/publish-success/publish-success",
+					"pathName": "pages/publish/publish-success/publish-success",
 					"query": "",
 					"scene": null
 				},
 				{
 					"id": 1,
-					"name": "pages/publish/list-buy/list-buy",
-					"pathName": "pages/publish/list-buy/list-buy",
+					"name": "pages/index/share-bind/share-bind",
+					"pathName": "pages/index/share-bind/share-bind",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": 2,
+					"name": "pages/publish/publish-success/publish-success",
+					"pathName": "pages/publish/publish-success/publish-success",
 					"query": "",
 					"scene": null
 				}

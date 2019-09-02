@@ -52,13 +52,13 @@
   <view wx:if="{{publishList.length}}" class="publish-box">
     <view class="publish-column">
       <view wx:if="{{index%2===0}}" wx:for="{{publishList}}" wx:key="{{index}}" class="publish-item" data-id="{{item.id}}" bindtap="handleToDetail">
-        <image class="img" src="{{item.mainMedia}}"></image>
+        <image class="img" src="{{item.mainMedia}}" mode='aspectFit'></image>
         <view class="publish__content">
           <view class="title f-ellipsis2">{{item.title}}</view>
         <view wx:if="{{item.voiceIntroduce}}" id="audio{{item.id}}" data-src="{{item.voiceIntroduce}}" data-id="{{item.id}}" catchtap="handleAudioPlay" class="voice">
           <image wx:if="{{activePlayingId===item.id}}" class='voice__icon' src='../../../icons/audio-playing.gif'></image>
           <image wx:else class='voice__icon' src='../../../icons/voice.png'></image>
-          <text class='voice__text'>{{item.voiceWidth}}</text>
+          <text class='voice__text'>{{item.voiceIntroduceTime}}s"</text>
         </view>
           <view class="item-priceArea">
             <view wx:if="{{item.outPrice}}" class="price">
@@ -76,13 +76,13 @@
     </view>
     <view class="publish-column">
       <view wx:if="{{index%2!==0}}" wx:for="{{publishList}}" wx:key="{{index}}" class="publish-item" data-id="{{item.id}}" bindtap="handleToDetail">
-        <image class="img" src="{{item.mainMedia}}"></image>
+        <image class="img" src="{{item.mainMedia}}" mode='aspectFit'></image>
         <view class="publish__content">
           <view class="title f-ellipsis2">{{item.title}}</view>
         <view wx:if="{{item.voiceIntroduce}}" id="audio{{item.id}}" data-src="{{item.voiceIntroduce}}" data-id="{{item.id}}" catchtap="handleAudioPlay" class="voice">
           <image wx:if="{{activePlayingId===item.id}}" class='voice__icon' src='../../../icons/audio-playing.gif'></image>
           <image wx:else class='voice__icon' src='../../../icons/voice.png'></image>
-          <text class='voice__text'>{{item.voiceWidth}}</text>
+          <text class='voice__text'>{{item.voiceIntroduceTime}}s"</text>
         </view>
           <view class="item-priceArea">
             <view wx:if="{{item.outPrice}}" class="price">

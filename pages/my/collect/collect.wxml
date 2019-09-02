@@ -2,7 +2,7 @@
   <view class="list-item {{item.isDownShelf?'item--disabled':''}}" wx:for="{{listData}}" wx:key="{{index}}" data-id="{{item.id}}" bindtap="handleToDetail">
     <view class="item__top f-flex-justBetween-alignStart">
       <view class="img-box">
-        <image src="{{item.mainMedia}}" class="item__img" mode="aspectFill"></image>
+        <image src="{{item.mainMedia}}" class="item__img" mode="aspectFill" mode='aspectFit'></image>
       </view>
       <view class='item__right'>
         <view class="f-ellipsis2 item__title">{{item.title}}</view>

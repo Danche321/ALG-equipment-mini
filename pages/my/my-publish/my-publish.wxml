@@ -1,6 +1,10 @@
 <view class="filter">
-  <text data-type="1" bindtap="handleTabChange" class="filter-item {{params.isDownShelf==1?'active':''}}">发布中<block wx:if="{{params.isDownShelf==1}}">（{{totalCount}}）</block></text>
-  <text data-type="0" bindtap="handleTabChange" class="filter-item {{params.isDownShelf==0?'active':''}}">已下架<block wx:if="{{params.isDownShelf==0}}">（{{totalCount}}）</block></text>
+  <view data-type="1" bindtap="handleTabChange" class="filter-item {{params.downShelf==1?'active':''}}">发布中
+    <text hidden="{{params.downShelf==0}}">（{{totalCount}}）</text>
+  </view>
+  <view data-type="0" bindtap="handleTabChange" class="filter-item {{params.downShelf==0?'active':''}}">已下架
+    <text hidden="{{params.downShelf==1}}">（{{totalCount}}）</text>
+  </view>
 </view>
 
 <view class="publish-box">
@@ -34,7 +38,7 @@
         </view>
         <view class="item__handles" wx:if="{{!item.isDownShelf}}">
           <image catchtap='handleDown' data-id="{{item.id}}" data-index="{{index}}" class="item__btn " src="../../../icons/btn_shelves.png "></image>
-          <image catchtap="handleUpdate" data-id="{{item.id}}" data-index="{{index}}"  class="item__btn " src="../../../icons/btn_modify.png "></image>
+          <image catchtap="handleUpdate" data-id="{{item.id}}" data-index="{{index}}" class="item__btn " src="../../../icons/btn_modify.png "></image>
         </view>
         <view wx:else data-id="{{item.id}}" data-index="{{index}}" catchtap="handleRePublish" class="btn-publish">
           <image class="icon-republish" src="../../../icons/republish.png"></image>
@@ -56,6 +60,6 @@
   <!-- 无数据 -->
   <view wx:else class='m-page-empty'>
     <image class='empty__img' src="../../../icons/empty.png"></image>
-    <text class='empty__text'>您还没有发布过内容～</text>
+    <text class='empty__text'>发布闲置设备，让老板主动找上你</text>
   </view>
 </view>

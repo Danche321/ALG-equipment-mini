@@ -40,7 +40,7 @@ export function fetchDetail(data) {
 
 // 点赞
 export function handleZan(data) {
-  const userId = app.globalData.userId
+  const userId = app.globalData.userInfo && app.globalData.userInfo.id
   const publishId = data.publishId
   return request({
     url: `/publish/like.action?userId=${userId}&publishId=${publishId}`,
@@ -50,7 +50,7 @@ export function handleZan(data) {
 
 // 收藏
 export function handleCollect(data) {
-  const userId = app.globalData.userId
+  const userId = app.globalData.userInfo && app.globalData.userInfo.id
   const publishId = data.publishId
   return request({
     url: `/collection/toCollect.action?userId=${userId}&publishId=${publishId}`,
@@ -60,7 +60,7 @@ export function handleCollect(data) {
 
 // 取消收藏
 export function handleCancelCollect(data) {
-  const userId = app.globalData.userId
+  const userId = app.globalData.userInfo && app.globalData.userInfo.id
   const publishId = data.publishId
   return request({
     url: `/collection/unCollect.action?userId=${userId}&publishId=${publishId}`,

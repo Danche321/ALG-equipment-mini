@@ -146,7 +146,7 @@ page {
 .publish-item .img {
   width: 100%;
   height: 236rpx;
-  background: #e2eafe;
+  /* background: #e2eafe; */
   border-top-left-radius: 10rpx;
   border-top-right-radius: 10rpx;
   display: block;

@@ -24,7 +24,9 @@
     "pages/my/invite-pic/invite-pic",
     "pages/publish/publish-success/publish-success",
     "pages/my/my-buy/my-buy",
-    "components/SelectYear/SelectYear"
+    "components/SelectYear/SelectYear",
+    "pages/index/share-bind/share-bind",
+    "pages/publish/success-buy/success-buy"
   ],
   "window": {
     "backgroundTextStyle": "light",

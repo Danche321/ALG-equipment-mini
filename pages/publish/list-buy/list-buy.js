@@ -67,7 +67,7 @@ Page({
   // 授权用户手机号
   handleGetPhone(e) {
     console.log(e)
-    if (!e.detail.encryptedData) {
+    if (!e.detail.encryptedData) { // 拒绝授权
       wx.showModal({
         title: '温馨提示',
         content: '为了避免恶意骚扰，首次在平台进行电话咨询，需要绑定手机号码，平台将对你的隐私进行保护！',
@@ -77,8 +77,16 @@ Page({
           }
         }
       })
-    } else {
+    } else { // 同意
       const { phone } = e.currentTarget.dataset
+      wx.login({
+        success: res => {
+          const params = {
+            code: res.code
+          }
+          console.log(res.code)
+        }
+      })
       wx.showModal({
         title: '温馨提示',
         content: '信息由用户自行发布，平台无法杜绝可能存在的风险和瑕疵；电话洽谈时，请仔细核实，谨防诈骗！',

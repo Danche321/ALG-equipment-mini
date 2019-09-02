@@ -30,7 +30,7 @@ export function fetchMyBuyList(data) {
 
 // 下架求购信息
 export function handleDownBuy(data) {
-  const userId = app.globalData.userId
+  const userId = app.globalData.userInfo && app.globalData.userInfo.id
   const purchaseInformationId = data.purchaseInformationId
   return request({
     url: `/purchaseInformation/down.action?userId=${userId}&purchaseInformationId=${purchaseInformationId}`,

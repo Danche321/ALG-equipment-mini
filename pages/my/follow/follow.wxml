@@ -1,5 +1,5 @@
 <block wx:if="{{listData.length}}">
-  <view wx:for="{{listData}}" class="f-flex-justBetween-alignCenter list-item">
+  <view wx:for="{{listData}}" data-id="{{item.personInfo.id}}" bindtap="handleToUserHome" class="f-flex-justBetween-alignCenter list-item">
     <view class="f-flex-justStart-alignCenter">
       <image class="item__img" src="{{item.personInfo.headPortrait}}"></image>
       <view>
@@ -10,10 +10,10 @@
         </view>
       </view>
     </view>
-    <view wx:if="{{item.followed}}" class="item__btn btn--gray">
+    <view wx:if="{{item.followed}}" class="item__btn btn--gray" data-id="{{item.personInfo.id}}" data-index="{{index}}" catchtap="handleCancleFocus">
       <text class="focus__text">已关注</text>
     </view>
-    <view wx:else class="item__btn btn--blue ">
+    <view wx:else class="item__btn btn--blue" data-id="{{item.personInfo.id}}" data-index="{{index}}" catchtap="handleFocus">
       <text class="focus__add ">+</text>
       <text class="focus__text ">关注</text>
     </view>

@@ -1,0 +1,26 @@
+<!-- banner -->
+<view class="page-banner">
+  <image class="banner__title" src="../../../icons/invite-title.png"></image>
+  <image class="banner__subTitle" src="../../../icons/invite-subTitle.png"></image>
+  <image class="banner__bg" src="../../../icons/invite-bg.png"></image>
+</view>
+
+<!-- 表单：绑定手机号、选择身份 -->
+<view class="page-form">
+  <view class="form-content">
+    <view class="theme-text">信息共享，携手推进行业进步</view>
+    <picker bindchange="bindPickerChange" value="{{activePickerIndex}}" range="{{identList}}">
+      <view class="form-item {{identity?'active':''}}">
+      <image class="item-icon" src="../../../icons/reg-ident.png"></image>
+        <text class="item__text">{{identity||'选择身份'}}</text>
+        <image class="icon-pass" src="../../../icons/pass.png"></image>
+      </view>
+    </picker>
+    <button class="form-item {{phone?'active':''}}" disabled="{{phone}}" open-type="getPhoneNumber" bindgetphonenumber="handleGetPhone">
+      <image class="item-icon" src="../../../icons/reg-phone.png"></image>
+      <text class="item__text">{{phone||'验证手机号'}}</text>
+      <image class="icon-pass" src="../../../icons/pass.png"></image>
+    </button>
+    <button open-type='getUserInfo' bindgetuserinfo='getUserInfo' class="btn-save">完成</button>
+  </view>
+</view>

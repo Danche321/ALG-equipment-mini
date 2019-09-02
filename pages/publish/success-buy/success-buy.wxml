@@ -2,13 +2,13 @@
 <view class="page-top">
   <image class="icon-success" src="../../../icons/success.png"></image>
   <view class="top__content">
-    <view class="top__title">发布转让信息成功！</view>
-    <view class="top__subTitle">分享到微信群能让你的设备更快售出。</view>
+    <view class="top__title">发布求购信息成功！</view>
+    <view class="top__subTitle">分享到微信群能更快解决你的购机需求。</view>
   </view>
 </view>
+
 
 <!-- 邀请好友 -->
 <view class="page-bottom">
   <button class="btn-share-group" open-type='share'>分享到微信群</button>
-  <button class="btn-qrcode" bindtap='handleCreateQrcode'>生成二维码图片</button>
 </view>

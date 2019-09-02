@@ -16,9 +16,11 @@ export default function request({
       })
     }
     const userId = app.globalData.userInfo ? app.globalData.userInfo.id : ''
+    let resData = data || {}
+    if (resData && !resData.userId) resData.userId = userId
     wx.request({
       url: `${BASE_URL}${url}`,
-      data: Object.assign({}, data, { userId }),
+      data: resData,
       method,
       success: res => {
         const { code, data, msg } = res.data

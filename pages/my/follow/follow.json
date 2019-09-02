@@ -1,5 +1,5 @@
 {
-  "navigationBarTitleText": "关注我的人",
+  "navigationBarTitleText": "我的关注",
   "usingComponents": {},
   "onReachBottomDistance": 50,
   "enablePullDownRefresh": true

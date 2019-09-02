@@ -11,8 +11,7 @@ Page({
    */
   data: {
     userInfo: null,
-    region: [],
-    headImgShow: ''
+    region: []
   },
 
   /**
@@ -35,8 +34,7 @@ Page({
       const { provinceCode, provinceName, cityCode, cityName, areaCode, areaName } = res.data
       this.setData({
         userInfo: res.data,
-        region: [provinceCode, cityCode, areaCode],
-        headImgShow: res.data.headPortrait
+        region: [provinceCode, cityCode, areaCode]
       })
     })
   },
@@ -135,10 +133,9 @@ Page({
       filePath: filePath,
       name: 'file', //文件对应的 key , 开发者在服务器端通过这个 key 可以获取到文件二进制内容
       success: res => {
-        const { url, domainUrl } = JSON.parse(res.data).data
+        const { domainUrl } = JSON.parse(res.data).data
         this.setData({
-          'userInfo.headPortrait': url,
-          headImgShow: domainUrl
+          'userInfo.headPortrait': domainUrl
         })
         this.handleUpdateSubmit('headPortrait')
         wx.hideLoading();

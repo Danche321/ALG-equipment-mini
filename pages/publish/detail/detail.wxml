@@ -3,7 +3,7 @@
 <swiper autoplay circular duration="{{duration}}" class="swiper-box" bindchange="handleSwiperChange">
   <block wx:for="{{publishInfo.imageVideos}}" wx:key="{{index}}">
     <swiper-item class="swiper-item">
-      <image src="{{item.file}}" mode='aspectFill' class='swiper-item' data-list="{{publishInfo.imageVideos}}" data-src="{{item.file}}" bindtap='handlePriviewImg'></image>
+      <image src="{{item.file}}" mode='aspectFit' class='swiper-item' data-list="{{publishInfo.imageVideos}}" data-src="{{item.file}}" bindtap='handlePriviewImg'></image>
     </swiper-item>
   </block>
 </swiper>
@@ -80,9 +80,12 @@
 </view>
 <!-- 底部 -->
 <view class="page-footer f-flex-justBetween-alignCenter">
-  <view class="footer-connect">
+  <button wx:if="{{isBindMobile}}" class="footer-connect" bindtap="handleCall">
     <image class="connect__icon" src="../../../icons/mobile.png"></image>联系TA
-  </view>
+  </button>
+  <button wx:else class="footer-connect" open-type="getPhoneNumber" bindgetphonenumber="handleGetPhone">
+    <image class="connect__icon" src="../../../icons/mobile.png"></image>联系TA
+  </button>
   <view class="f-flex-justBetween-alignCenter footer-handles">
     <view class="handle__item" bindtap="handleNewMsg">
       <image class="item__icon" src="../../../icons/message.png"></image>留言

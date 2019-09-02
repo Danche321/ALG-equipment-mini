@@ -8,7 +8,6 @@ Page({
    */
   data: {
     userInfo: null,
-    userId: app.globalData.userId,
     authVisible: false
   },
 
@@ -58,10 +57,11 @@ Page({
     this.setData({
       authVisible: false
     })
+    this.getUserInfo()
   },
 
   handleToHome() {
-    const id = this.data.userId
+    const id = app.globalData.userInfo && app.globalData.userInfo.id
     wx.navigateTo({
       url: `/pages/my/person-home/person-home?id=${id}`,
     })

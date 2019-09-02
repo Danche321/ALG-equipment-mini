@@ -32,9 +32,9 @@ Component({
               if (res.data.newBind) { // 首次授权
                 userInfo.headPortrait = avatarUrl
                 userInfo.nickName = nickName
-                app.globalData.userInfo = userInfo
                 this.handleRegister(userInfo.id, nickName, avatarUrl)
               }
+              app.globalData.userInfo = userInfo
               wx.setStorage({
                 key: "userInfo",
                 data: JSON.stringify(userInfo)

@@ -1,12 +1,13 @@
 import { fetchMyInvite, fetchUserInfo } from '../../../api/my.js'
-
+const app = getApp()
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    inviteCount: 0
+    inviteCount: 0,
+    isOverShare: true
   },
 
   /**
@@ -48,7 +49,19 @@ Page({
    * 用户点击右上角分享
    */
   onShareAppMessage: function () {
-
+    const userId = app.globalData.userInfo && app.globalData.userInfo.id
+    console.log(userId)
+    return {
+      title: '海量工程机械信息，邀您共享',
+      path: `pages/index/share-bind/share-bind?inviteUserId=${userId}`,
+      imageUrl: '', //自定义图片路径 支持PNG及JPG。显示图片长宽比是 5:4。
+      success: function (res) {
+        console.log(res)
+      },
+      fail: function (res) {
+        console.log(res)
+      }
+    }
   },
 
   // 获取我的邀请数据

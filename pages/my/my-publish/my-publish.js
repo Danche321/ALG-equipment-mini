@@ -12,7 +12,7 @@ Page({
     params: {
       pageNum: 1,
       pageSize: 10,
-      isDownShelf: 1
+      downShelf: 1
     },
     hasNextPage: true
   },
@@ -48,9 +48,10 @@ Page({
 
   },
 
-  getList(isFirst) {
+  getList(isFirst, activeTab) {
     const params = this.data.params
     if (isFirst) this.data.params.pageNum = 1
+    if (activeTab) this.data.params.downShelf = activeTab
     fetchMyPublish(params).then(res => {
       const { items, hasNextPage, totalCount } = res.data
       let resList = []
@@ -65,6 +66,11 @@ Page({
         totalCount
       })
       if (isFirst) wx.stopPullDownRefresh()
+      if (activeTab) {
+        this.setData({
+          'params.downShelf': activeTab
+        })
+      }
     })
   },
 
@@ -149,9 +155,7 @@ Page({
 
   // tab切换
   handleTabChange(e) {
-    this.setData({
-      'params.isDownShelf': e.currentTarget.dataset.type
-    })
-    this.getList(1)
+    const type = e.currentTarget.dataset.type
+    this.getList(1, type)
   }
 })

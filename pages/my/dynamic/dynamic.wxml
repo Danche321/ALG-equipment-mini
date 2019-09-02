@@ -1,7 +1,7 @@
 <block wx:if="{{listData.length}}">
   <view wx:for="{{listData}}" wx:key="{{index}}" class="list-item">
     <image class="item__headimg" src="{{item.headPortrait}}"></image>
-    <view class="item__right">
+    <view class="item__right" data-publishId="{{item.publishId}}" bindtap="handleToDetail">
       <view class="item__top">
         <view class="item_top__base">
           <view class="item__nickname">{{item.nickName}}</view>
@@ -12,7 +12,7 @@
             <text>》</text>
           </view>
         </view>
-        <image class="item-origin__img" src="{{item.mainMedia}}"></image>
+        <image class="item-origin__img" src="{{item.mainMedia}}" mode='aspectFit'></image>
       </view>
       <view class="item__message">{{item.content}}</view>
     </view>

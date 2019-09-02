@@ -1,7 +1,7 @@
 <!-- 背景图 -->
 <view class="page-banner">
   <image class="banner__bg" src="../../../icons/invite-banner.png"></image>
-  <image class="banner__rule" src="../../../icons/rule.png"></image>
+  <!-- <image class="banner__rule" src="../../../icons/rule.png"></image> -->
 </view>
 <!-- 内容区 -->
 <view class="page-content">
@@ -33,10 +33,10 @@
 
   <!-- 按钮 -->
   <view class="btn">
-    <view class="btn-item">
+    <button class="btn-item" open-type='share'>
       <image class="btn-item__icon" src="../../../icons/weixin.png"></image>
       <text class="btn-item__text">邀请好友</text>
-    </view>
+    </button>
     <view class="btn-item" bindtap="handleToInvitePic">
       <image class="btn-item__icon" src="../../../icons/make-pic.png"></image>
       <text class="btn-item__text">生成美图</text>

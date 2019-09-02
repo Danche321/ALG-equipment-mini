@@ -47,6 +47,9 @@ page {
   background-color: #f5f5f5;
   padding-top: 100rpx;
 }
+.m-page-empty{
+  height: calc(100vh - 100rpx);
+}
 
 .list-item {
   padding: 31rpx 32rpx 0 32rpx;
@@ -158,10 +161,6 @@ page {
   background-color: #f5f5f5;
 }
 
-.m-page-empty {
-  height: calc(100vh - 500rpx);
-  background: #f5f5f5;
-}
 
 .item--disabled {
   opacity: 0.9;
