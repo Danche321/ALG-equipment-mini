@@ -135,6 +135,7 @@ page {
   width: 334rpx;
   background-color: #fff;
   margin-top: 20rpx;
+  padding-top: 20rpx;
   font-weight: 500;
   border-radius: 10rpx;
 }
@@ -214,7 +215,7 @@ page {
 .publish-item .headimg {
   width: 60rpx;
   height: 60rpx;
-  background: rgba(226, 226, 226, 1);
+  /* background: rgba(226, 226, 226, 1); */
   border-radius: 50%;
   margin-right: 22rpx;
 }
