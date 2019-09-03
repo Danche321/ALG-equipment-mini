@@ -61,6 +61,7 @@ page {
   vertical-align: middle;
   font-size: 26rpx;
   max-width: 280rpx;
+  height: 36rpx;
 }
 
 .item-origin__img {

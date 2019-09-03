@@ -17,6 +17,7 @@ page {
   margin: 50rpx auto;
   box-sizing: border-box;
   box-shadow: 0 0 20rpx 0 rgba(197, 197, 197, 0.3);
+  -webkit-box-shadow: 0 0 20rpx 0 rgba(197, 197, 197, 0.3);
   background: #fff;
 }
 
@@ -42,7 +43,7 @@ page {
 }
 
 .item-sale{
-  border: 1rpx solid #6d85c9;
+  border: 1px solid #6d85c9;
 }
 
 .item-sale .item__title{
@@ -54,7 +55,7 @@ page {
 }
 
 .item-buy{
-  border: 1rpx solid #fabe56;
+  border: 1px solid #fabe56;
 }
 
 .item-buy .item__title{

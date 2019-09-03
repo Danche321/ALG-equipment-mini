@@ -8,7 +8,7 @@
   <image class="content__bg" src="../../../icons/invite-total-bg.png"></image>
   <view class="title">
     <text class="title__left">我的奖金</text>
-    <view class="title__right">
+    <view class="title__right" bindtap="handleCash">
       <text>提现</text>
       <image class="icon-arrow" src="../../../icons/arrow-right--white.png"></image>
     </view>

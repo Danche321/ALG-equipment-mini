@@ -79,11 +79,11 @@ page {
 
 .item__price {
   color: #fb4238;
-  font-size: 48rpx;
+  font-size: 32rpx;
 }
 
-.price__unit {
-  font-size: 32rpx;
+.price__value {
+  font-size: 48rpx;
 }
 
 .item-bottom {

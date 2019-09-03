@@ -41,8 +41,12 @@ Page({
     })
   },
 
-  handleToUserHome() {
-
+  handleToUserHome(e) {
+    console.log(e)
+    const { userid } = e.currentTarget.dataset
+    wx.navigateTo({
+      url: `/pages/my/person-home/person-home?id=${userid}`,
+    })
   },
  
   /**

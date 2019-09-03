@@ -5,6 +5,7 @@ import {
   handleCancelCollect,
   handleMsg
 } from '../../../api/publish.js'
+import { handleBindPhone, fetchWxPhone } from '../../../api/common.js'
 const innerAudioContext = wx.createInnerAudioContext()
 const app = getApp()
 Page({
@@ -14,7 +15,8 @@ Page({
    */
   data: {
     id: '',
-    isBindMobile: app.globalData.userInfo && app.globalData.userInfo.phone, // 是否绑定手机号
+    authVisible: false, // 是否授权
+    bindPhone: '', // 是否绑定手机号
     publishInfo: null, // 发布信息
     discussInfo: null, // 留言信息
     headimgTest: '../../../icons/headimg.png',
@@ -46,10 +48,26 @@ Page({
    */
   onLoad: function (options) {
     this.setData({
-      id: options.id || 3
+      id: options.id || 6
     })
+    this.checkAuthStatus()
     this.getDetail()
     this.audioConfig()
+  },
+
+  // 是否授权
+  checkAuthStatus() {
+    this.setData({
+      authVisible: !app.globalData.userInfo,
+      bindPhone: app.globalData.userInfo && app.globalData.userInfo.phone
+    })
+  },
+
+  authHide() {
+    this.setData({
+      authVisible: false,
+      bindPhone: app.globalData.userInfo && app.globalData.userInfo.phone
+    })
   },
 
   // 图片预览
@@ -87,6 +105,22 @@ Page({
         collectionDown,
         likeDown
       })
+    }).catch(err => {
+      console.log(err)
+      if (err === '发布不存在') {
+        wx.showModal({
+          title: '提示',
+          content: '该信息已被删除',
+          showCancel: false,
+          success: res => {
+            if (res.confirm) {
+              wx.navigateBack({
+                delta: 1,
+              })
+            }
+          }
+        })
+      }
     })
   },
 
@@ -239,19 +273,43 @@ Page({
 
   // 授权用户手机号
   handleGetPhone(e) {
-    console.log(e)
-    if (!e.detail.encryptedData) {
+    if (!e.detail.encryptedData) { // 拒绝授权
       wx.showModal({
         title: '温馨提示',
         content: '为了避免恶意骚扰，首次在平台进行电话咨询，需要绑定手机号码，平台将对你的隐私进行保护！',
-        showCancel: false,
-        success(res) {
-          if (res.confirm) {
-          }
-        }
+        showCancel: false
       })
     } else {
-      const { phone } = e.currentTarget.dataset
+      // 登录获取code
+      wx.login({
+        success: res => {
+          const params = {
+            code: res.code,
+            encryptedData: e.detail.encryptedData,
+            iv: e.detail.iv
+          }
+          fetchWxPhone(params).then(res2 => {
+            const phone = 13328202442
+            this.handleBindPhone(phone)
+          })
+        }
+      })
+    }
+  },
+
+  // 绑定手机号
+  handleBindPhone(phone) {
+    const userId = app.globalData.userInfo.id
+    const params = `?userId=${userId}&phone=${phone}`
+    handleBindPhone(params).then(() => {
+      this.setData({
+        bindPhone: phone
+      })
+      app.globalData.userInfo.phone = phone
+      wx.setStorage({
+        key: "userInfo",
+        data: JSON.stringify(app.globalData.userInfo)
+      })
       wx.showModal({
         title: '温馨提示',
         content: '信息由用户自行发布，平台无法杜绝可能存在的风险和瑕疵；电话洽谈时，请仔细核实，谨防诈骗！',
@@ -261,11 +319,10 @@ Page({
             wx.makePhoneCall({
               phoneNumber: phone
             })
-          } else if (res.cancel) {
           }
         }
       })
-    }
+    })
   },
 
   // 拨打电话
@@ -276,7 +333,7 @@ Page({
       confirmText: '呼叫',
       success: res => {
         if (res.confirm) {
-          const phone = this.data.publishInfo.publishUserInfo.phone
+          const phone = this.data.publishInfo.contactPhone
           wx.makePhoneCall({
             phoneNumber: phone
           })

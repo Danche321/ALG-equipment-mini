@@ -4,7 +4,7 @@
   <image class='header__back' src="../../../icons/home_back.png" style="top: {{statusBarHeight}}px" bindtap='handleBack'></image>
   <view class='header__content'>
     <view class="content-userInfo">
-      <image class='header__headimg' src='{{userInfo.headPortrait}}'></image>
+      <image class='header__headimg' src='{{userInfo.headPortrait}}' mode='aspectFill'></image>
       <view class="userInfo-right">
         <view class="nickName__wrap">
           <view class='header__nickname'>{{userInfo.nickName}}</view>
@@ -59,10 +59,10 @@
                 <text wx:if="{{item.productiveYear}}" class="item__tag">{{item.productiveYear}}年</text>
               </view>
               <view class="price-block">
-                <view wx:if="{{item.outPrice}}" class="item__price">
-                  <text class="price__unit">¥</text>{{item.outPrice}}
+                <view wx:if="{{item.outPrice!=='未知'}}" class="item__price">
+                  ¥<text class="price__value">{{item.outPrice}}</text>万
                 </view>
-                <view wx:else class="item__price">面议</view>
+                <view wx:else class="item__price"><text class="price__value">面议</text></view>
                 <view class='f-flex-justStart-alignCenter'>
                   <text class="item__num ">{{item.viewCount}}浏览</text>
                   <text class="item__num ">{{item.discussCount}}留言</text>
@@ -73,7 +73,8 @@
           <view class='f-flex-justBetween-alignCenter'>
             <view class='location'>
               <image class='location__icon' src="../../../icons/location--publish.png"></image>
-              <text>{{item.location}}</text>
+              <text wx:if="{{!item.locationDetail.cityName}}">{{item.locationDetail.provinceName}}</text>
+              <text wx:else>{{item.locationDetail.provinceName}}·{{item.locationDetail.cityName}}</text>
             </view>
             <view class="item_time">发布时间：{{item.createTimeFriendly}}</view>
           </view>

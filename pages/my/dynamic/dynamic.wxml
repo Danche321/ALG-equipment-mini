@@ -1,6 +1,6 @@
 <block wx:if="{{listData.length}}">
   <view wx:for="{{listData}}" wx:key="{{index}}" class="list-item">
-    <image class="item__headimg" src="{{item.headPortrait}}"></image>
+    <image class="item__headimg" src="{{item.headPortrait}}" data-userId="{{item.sendUserId}}" mode='aspectFill' catchtap="handleToUserHome"></image>
     <view class="item__right" data-publishId="{{item.publishId}}" bindtap="handleToDetail">
       <view class="item__top">
         <view class="item_top__base">
@@ -8,11 +8,11 @@
           <view class="item__time">{{item.createdTime}}</view>
           <view class="item-origin__title">
             <text>评论了《</text>
-            <text class="title__content f-ellipsis1">{{item.title}}</text>
+            <text class="title__content f-ellipsis1">{{item.publishTitle}}</text>
             <text>》</text>
           </view>
         </view>
-        <image class="item-origin__img" src="{{item.mainMedia}}" mode='aspectFit'></image>
+        <image class="item-origin__img" src="{{item.mainMedia}}" mode='aspectFill'></image>
       </view>
       <view class="item__message">{{item.content}}</view>
     </view>

@@ -61,6 +61,7 @@ swiper {
 .header__user__headimg {
   width: 62rpx;
   height: 62rpx;
+  border-radius: 50%;
   margin-right: 18rpx;
 }
 

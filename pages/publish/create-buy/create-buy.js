@@ -1,6 +1,8 @@
 import {
   handleCreateBuy
 } from '../../../api/buy.js'
+import { handleBindPhone, fetchWxPhone } from '../../../api/common.js'
+import { checkPhone } from '../../../utils/rules.js'
 const QQMapWX = require('../../../libs/qqmap-wx-jssdk.js');
 let qqmapsdk
 const app = getApp()
@@ -10,7 +12,7 @@ Page({
    * 页面的初始数据
    */
   data: {
-    isBindMobile: app.globalData.userInfo&&app.globalData.userInfo.phone, // 是否绑定手机号
+    bindMobile: '', // 是否绑定手机号
     params: {
       creator: app.globalData.userInfo && app.globalData.userInfo.id,
       title: '',
@@ -26,7 +28,11 @@ Page({
     yearTags: ['1年内', '1～3年', '3~5年', '不限制'],
     selectCategoryVisible: false, // 选择机型组件
     showCategoryName: '', // 分类名称
-    selectCityVisible: false // 选择城市组件
+    selectCityVisible: false, // 选择城市组件
+    updatePhoneDialog: { // 修改手机号弹窗
+      visible: false,
+      value: '', // 修改联系方式的值
+    }
   },
 
   /**
@@ -37,21 +43,56 @@ Page({
     qqmapsdk = new QQMapWX({
       key: '5FDBZ-CESCD-5XA4F-HQLMD-WJLA7-LDB6W'
     })
+    const phone = app.globalData.userInfo && app.globalData.userInfo.phone
+    this.setData({
+      bindMobile: phone,
+      'params.contactPhone': phone
+    })
     this.getLocation()
   },
 
   // 授权用户手机号
   handleGetPhone(e) {
-    console.log(e)
-    if (!e.detail.encryptedData) {
+    if (!e.detail.encryptedData) { // 拒绝授权
       wx.showModal({
         title: '温馨提示',
         content: '为了保证信息的真实性，首次在平台进行信息发布，需要绑定手机号码',
         showCancel: false
       })
     } else {
-      this.handleSubmit()
+      // 登录获取code
+      wx.login({
+        success: res => {
+          const params = {
+            code: res.code,
+            encryptedData: e.detail.encryptedData,
+            iv: e.detail.iv
+          }
+          fetchWxPhone(params).then(res2 => {
+            const phone = 13328202442
+            this.handleBindPhone(phone)
+          })
+        }
+      })
     }
+  },
+
+  // 绑定手机号
+  handleBindPhone(phone) {
+    const userId = app.globalData.userInfo && app.globalData.userInfo.id
+    this.setData({
+      bindMobile: phone,
+      'params.contactPhone': phone
+    })
+    const params = `?userId=${userId}&phone=${phone}`
+    handleBindPhone(params).then(() => {
+      app.globalData.userInfo.phone = phone
+      wx.setStorage({
+        key: "userInfo",
+        data: JSON.stringify(app.globalData.userInfo)
+      })
+      this.handleSubmit()
+    })
   },
 
   // 发布
@@ -78,11 +119,22 @@ Page({
       title: '请选择机型',
       icon: 'none'
     })
-    handleCreateBuy(this.data.params).then(() => {
-      const title = `【求购】${this.data.params.title}`
-      wx.redirectTo({
-        url: `/pages/publish/success-buy/success-buy?title=${title}`,
-      })
+    wx.showModal({
+      title: '温馨提示',
+      content: '请确保信息真实性，否则平台将进行删除并冻结您的账号！',
+      confirmText: '确定发布',
+      cancelColor: '#999',
+      success: res => {
+        if (res.confirm) {
+          handleCreateBuy(this.data.params).then(() => {
+            app.globalData.refreshBuy = true
+            const title = `【求购】${this.data.params.title}`
+            wx.redirectTo({
+              url: `/pages/publish/success-buy/success-buy?title=${title}`,
+            })
+          })
+        }
+      }
     })
   },
 
@@ -172,6 +224,49 @@ Page({
     this.setData({
       'params.newOldLevel': data
     })
+  },
+
+  // 修改手机号弹窗显示
+  handleUpdatePhone() {
+    this.setData({
+      'updatePhoneDialog.visible': true
+    })
+  },
+
+  // 修改手机号输入
+  handlePhoneInput(e) {
+    const phone = e.detail.value
+    this.setData({
+      'updatePhoneDialog.value': phone
+    })
+  },
+
+  // 修改手机号取消
+  updatePhoneCancle() {
+    this.setData({
+      'updatePhoneDialog.visible': false
+    })
+  },
+
+  // 修改手机号确认
+  updatePhoneConfirm() {
+    const value = this.data.updatePhoneDialog.value
+    if (!value) {
+      this.setData({
+        'updatePhoneDialog.visible': false
+      })
+    } else {
+      if (!checkPhone(value)) {
+        return wx.showToast({
+          title: '手机号码格式错误',
+          icon: 'none'
+        })
+      }
+      this.setData({
+        'params.contactPhone': value,
+        'updatePhoneDialog.visible': false
+      })
+    }
   },
 
   handleTitleChange(e) {

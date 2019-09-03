@@ -44,13 +44,6 @@ Page({
   },
 
   /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function() {
-
-  },
-
-  /**
    * 生命周期函数--监听页面显示
    */
   onShow: function() {
@@ -60,6 +53,9 @@ Page({
       searchCategoryFirstName
     } = app.globalData
     if (this.data.publishParams.searchText !== searchText || this.data.publishParams.categoryFirstId !== searchCategoryFirstId) {
+      this.getList(1)
+    } else if (app.globalData.refreshSearch) {
+      app.globalData.refreshSearch = false
       this.getList(1)
     }
   },
@@ -111,12 +107,6 @@ Page({
 
   // 发布列表
   getList(isFirst) {
-    const query = wx.createSelectorQuery();
-    query.select('.page-search').boundingClientRect(rect => {
-      this.setData({
-        marginTop: rect.height
-      })
-    }).exec();
     const {
       searchText,
       searchCategoryFirstId,
@@ -133,6 +123,12 @@ Page({
     })
     const params = this.data.publishParams
     if (isFirst) this.data.publishParams.pageNum = 1
+    const query = wx.createSelectorQuery();
+    query.select('.page-search').boundingClientRect(rect => {
+      this.setData({
+        marginTop: rect.height
+      })
+    }).exec();
     fetchPublish(params).then(res => {
       const {
         items,

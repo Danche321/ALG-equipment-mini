@@ -3,7 +3,7 @@
 <swiper autoplay circular duration="{{duration}}" class="swiper-box" bindchange="handleSwiperChange">
   <block wx:for="{{publishInfo.imageVideos}}" wx:key="{{index}}">
     <swiper-item class="swiper-item">
-      <image src="{{item.file}}" mode='aspectFit' class='swiper-item' data-list="{{publishInfo.imageVideos}}" data-src="{{item.file}}" bindtap='handlePriviewImg'></image>
+      <image src="{{item.file}}" mode='aspectFill' class='swiper-item' data-list="{{publishInfo.imageVideos}}" data-src="{{item.file}}" bindtap='handlePriviewImg'></image>
     </swiper-item>
   </block>
 </swiper>
@@ -11,12 +11,14 @@
 <!-- 头部信息 -->
 <view class="page-header">
   <view class="f-flex-justBetween-alignCenter">
-    <view class="price">
-      <text wx:if="{{publishInfo.outPrice}}">￥</text>
-      <text class="price__num">{{publishInfo.outPrice}}</text>
+    <view wx:if="{{publishInfo.outPrice!='未知'}}" class="price">
+      ￥<text class="price__num">{{publishInfo.outPrice}}</text>万
+    </view>
+    <view wx:else class="price">
+      <text class="price__num">面议</text>
     </view>
     <view class="f-flex-justStart-alignCenter header__user" bindtap="handleToHome">
-      <image class="header__user__headimg" src="{{publishInfo.publishUserInfo.headPortrait||'../../../icons/headimg.png'}}"></image>
+      <image class="header__user__headimg" src="{{publishInfo.publishUserInfo.headPortrait||'../../../icons/headimg.png'}}" mode='aspectFill'></image>
       <text class="header__user__nickname f-ellipsis1">{{publishInfo.publishUserInfo.nickName}}</text>
     </view>
   </view>
@@ -29,7 +31,8 @@
   <view class='header-bottom'>
     <view class='location'>
       <image class='location__icon' src="../../../icons/location--publish.png"></image>
-      <text>发货地：{{publishInfo.locationDetail.provinceName}}·{{publishInfo.locationDetail.cityName}}</text>
+      <text wx:if="{{publishInfo.locationDetail.cityName}}">发货地：{{publishInfo.locationDetail.provinceName}}·{{publishInfo.locationDetail.cityName}}</text>
+      <text wx:else>发货地：{{publishInfo.locationDetail.provinceName}}</text>
     </view>
     <view class='publish__time'>发布时间：{{publishInfo.createTimeFriendly}}</view>
   </view>
@@ -57,7 +60,7 @@
   <view wx:for="{{discussInfo}}" wx:key="{{index}}" class="message-item">
     <view class="f-flex-justBetween-alignCenter">
       <view class="f-flex-justStart-alignCenter">
-        <image class="message__headimg" src="{{item.userInfo.headPortrait}}"></image>
+        <image class="message__headimg" src="{{item.userInfo.headPortrait}}" mode='aspectFill'></image>
         <text class="message__nickname">{{item.userInfo.nickName}}</text>
       </view>
       <text class="message__time">{{item.createTimeFriendly}}</text>
@@ -67,7 +70,7 @@
       <view wx:for="{{item.secondLevel}}" wx:key="{{index}}" wx:for-item="childItem" class="message-child">
         <view class="f-flex-justBetween-alignCenter">
           <view class="f-flex-justStart-alignCenter">
-            <image class="child__headimg" src="{{item.userInfo.headPortrait}}"></image>
+            <image class="child__headimg" src="{{childItem.userInfo.headPortrait}}" mode='aspectFill'></image>
             <text class="child__nickname">{{childItem.userInfo.nickName}}</text>
           </view>
           <text class="child__time">{{childItem.createTimeFriendly}}</text>
@@ -80,7 +83,7 @@
 </view>
 <!-- 底部 -->
 <view class="page-footer f-flex-justBetween-alignCenter">
-  <button wx:if="{{isBindMobile}}" class="footer-connect" bindtap="handleCall">
+  <button wx:if="{{bindPhone}}" class="footer-connect" bindtap="handleCall">
     <image class="connect__icon" src="../../../icons/mobile.png"></image>联系TA
   </button>
   <button wx:else class="footer-connect" open-type="getPhoneNumber" bindgetphonenumber="handleGetPhone">
@@ -106,3 +109,6 @@
   <input class="takeMsg__input" value="{{message.params.content}}" cursor-spacing="14" focus="{{true}}" placeholder="{{message.placeholder}}" confirm-type="send" bindinput="handleMsgInput" bindconfirm="handleMsgConfirm" bindblur="handleMsgBlur"></input>
   <button bindtap="handleMsgConfirm" disabled="{{!message.params.content}}" class="takeMsg__send {{message.params.content?'takeMsg__send-active':''}}">发送</button>
 </view>
+
+<!-- 授权弹窗 -->
+<auth-dialog visible="{{authVisible}}" bind:hideModal="authHide"></auth-dialog>

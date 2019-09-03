@@ -97,7 +97,9 @@ page {
 }
 
 .item__tag {
-  width: 104rpx;
+  min-width: 104rpx;
+  padding: 0 20rpx;
+  box-sizing: border-box;
   height: 37rpx;
   line-height: 37rpx;
   text-align: center;
@@ -116,11 +118,11 @@ page {
 
 .item__price {
   color: #fb4238;
-  font-size: 48rpx;
+  font-size: 32rpx;
 }
 
-.price__unit {
-  font-size: 32rpx;
+.price__value {
+  font-size: 48rpx;
 }
 
 .item-middle{

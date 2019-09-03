@@ -41,6 +41,9 @@ App({
     searchCategoryFirstName: '', // 搜索一级类别名称
     searchCategorySecondId: '', // 搜索二级类别id
     searchCategorySecondName: '', // 搜索二级类别名称
-    updatePublishInfo: null // 编辑的发布信息
+    updatePublishInfo: null, // 编辑的发布信息
+    refreshHome: false, // 是否刷新首页的数据
+    refreshSearch: false, // 是否刷新搜索页的数据
+    refreshBuy: false // 是否刷新求购信息列表
   }
 })

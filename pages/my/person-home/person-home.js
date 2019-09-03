@@ -47,7 +47,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
-    const whoId = options.id || 1
+    const whoId = options.id
     this.setData({
       whoId: whoId,
       userId: app.globalData.userInfo && app.globalData.userInfo.id,
@@ -134,7 +134,13 @@ Page({
       } = res.data
       let resList = []
       items.map(item => {
-        item.locationText = `${item.locationDetail.provinceName}·${item.locationDetail.cityName}`
+        let locationText
+        if (item.locationDetail.provinceName === item.locationDetail.cityName) {
+          locationText = item.locationDetail.provinceName
+        } else {
+          locationText = `${item.locationDetail.provinceName}·${item.locationDetail.cityName}`
+        }
+        item.locationText = locationText
         item.tags = [item.newOldLevel, item.categoryFirstName, item.categorySecondName]
         return item
       })

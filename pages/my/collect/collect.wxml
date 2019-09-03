@@ -2,7 +2,7 @@
   <view class="list-item {{item.isDownShelf?'item--disabled':''}}" wx:for="{{listData}}" wx:key="{{index}}" data-id="{{item.id}}" bindtap="handleToDetail">
     <view class="item__top f-flex-justBetween-alignStart">
       <view class="img-box">
-        <image src="{{item.mainMedia}}" class="item__img" mode="aspectFill" mode='aspectFit'></image>
+        <image src="{{item.mainMedia}}" class="item__img" mode="aspectFill" mode='aspectFill'></image>
       </view>
       <view class='item__right'>
         <view class="f-ellipsis2 item__title">{{item.title}}</view>
@@ -12,20 +12,24 @@
           <text wx:if="{{item.productiveYear}}" class="item__tag">{{item.productiveYear}}年</text>
         </view>
         <view class="f-flex-justBetween-alignCenter">
-          <view wx:if="{{item.outPrice}}" class="item__price">
-            <text class="price__unit">¥</text>{{item.outPrice}}
+          <view wx:if="{{item.outPrice!='未知'}}" class="item__price">
+            ¥
+            <text class="price__value">{{item.outPrice}}</text>万
           </view>
-          <view wx:else class="item__price">面议</view>
+          <view wx:else class="item__price">
+            <text class="price__value">面议</text>
+          </view>
           <view class="item__area f-flex-justStart-alignCenter">
             <image class="area__icon" src="../../../icons/location.png"></image>
-            <text class="area__text">{{item.location}}</text>
+            <text wx:if="{{item.locationDetail.cityName}}" class="area__text">{{item.locationDetail.provinceName}}·{{item.locationDetail.cityName}}</text>
+            <text wx:else class="area__text">{{item.locationDetail.provinceName}}</text>
           </view>
         </view>
       </view>
     </view>
     <view class='item-bottom f-flex-justBetween-alignCenter'>
-      <view class="item__user f-flex-justStart-alignCenter">
-        <image class="item__headimg" src="{{item.publishUserInfo.headPortrait}}"></image>
+      <view data-id="{{item.publishUserInfo.id}}" catchtap="handleToUserHome" class="item__user f-flex-justStart-alignCenter">
+        <image class="item__headimg" src="{{item.publishUserInfo.headPortrait}}" mode='aspectFill'></image>
         <view class="f-align-center">
           <view class="item__nickname">{{item.publishUserInfo.nickName}}</view>
         </view>

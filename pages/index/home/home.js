@@ -32,6 +32,13 @@ Page({
     this.audioConfig() // 监听录音状态
   },
 
+  onShow: function() {
+    if (app.globalData.refreshHome) {
+      app.globalData.refreshHome = false
+      this.getPublish(1)
+    }
+  },
+
   /**
    * 页面相关事件处理函数--监听用户下拉动作
    */

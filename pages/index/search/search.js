@@ -21,46 +21,6 @@ Page({
     this.getHistoryList()
   },
 
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function() {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow: function() {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide: function() {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload: function(e) {},
-
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh: function() {
-
-  },
-
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom: function() {
-
-  },
-
   /**e
    * 用户点击右上角分享
    */
@@ -108,6 +68,37 @@ Page({
     app.globalData.searchText = searchText
     wx.switchTab({
       url: `/pages/publish/list/list`,
+    })
+  },
+  // 点击历史搜索
+  handleHistorySearch(e) {
+    const { keyword } = e.currentTarget.dataset
+    app.globalData.searchText = keyword
+    wx.switchTab({
+      url: `/pages/publish/list/list`,
+    })
+  },
+  // 清空历史搜索
+  handleClear() {
+    wx.showModal({
+      title: '提示',
+      content: '清空历史搜索？',
+      success: res => {
+        if (res.confirm) {
+          wx.removeStorage({
+            key: 'searchHistoryList',
+            success: res => {
+              this.setData({
+                historyList: []
+              })
+              wx.showToast({
+                title: '已清空',
+              })
+            }
+          })
+        } else if (res.cancel) {
+        }
+      }
     })
   },
   // 搜索类目

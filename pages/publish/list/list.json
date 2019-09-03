@@ -1,5 +1,5 @@
 {
-  "navigationBarTitleText": "麒麟二手机",
+  "navigationBarTitleText": "找机械",
   "navigationBarTextStyle": "white",
   "usingComponents": {
     "select-category": "/components/SelectCategory/SelectCategory",

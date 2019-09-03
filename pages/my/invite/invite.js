@@ -1,4 +1,4 @@
-import { fetchMyInvite, fetchUserInfo } from '../../../api/my.js'
+import {  fetchUserInfo } from '../../../api/my.js'
 const app = getApp()
 Page({
 
@@ -15,34 +15,6 @@ Page({
    */
   onLoad: function (options) {
     this.getData()
-  },
-
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function () {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow: function () {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide: function () {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload: function () {
-
   },
 
   /**
@@ -70,6 +42,27 @@ Page({
       this.setData({
         inviteCount: res.data.inviteCount
       })
+    })
+  },
+
+  // 提现
+  handleCash() {
+    wx.showModal({
+      title: '温馨提示',
+      content: '该功能将在次月开放，提现请添加微信号805019254，感谢您的支持和信任。',
+      confirmText: '复制微信',
+      success: res => {
+        if (res.confirm) {
+          wx.setClipboardData({
+            data: '805019254',
+            success: function (res) {
+              wx.showToast({
+                title: '已复制微信号'
+              });
+            }
+          })
+        }
+      }
     })
   },
 

@@ -50,7 +50,7 @@ page {
 }
 
 .item__tag {
-  width: 104rpx;
+  min-width: 104rpx;
   height: 37rpx;
   line-height: 37rpx;
   text-align: center;
@@ -60,6 +60,8 @@ page {
   display: inline-block;
   color: #3669F8;
   font-size: 22rpx;
+  padding:  0 20rpx;
+  box-sizing: border-box;
 }
 .item-middle{
   display: flex;

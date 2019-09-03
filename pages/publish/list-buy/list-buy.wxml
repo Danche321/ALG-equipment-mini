@@ -54,19 +54,19 @@
           <image class='location__icon' src="../../../icons/location--publish.png"></image>
           <text>{{item.locationText}}</text>
         </view>
-        <button wx:if="{{!isBindMobile}}" class="item__call" data-phone="{{item.creatorInfo.phone}}" open-type="getPhoneNumber" bindgetphonenumber="handleGetPhone">
+        <button wx:if="{{bindPhone}}" class="item__call" data-phone="{{item.contactMobile}}" open-type="getPhoneNumber" bindgetphonenumber="handleGetPhone">
           <image class="icon-call" src="../../../icons/call.png" data-id="{{item.id}}" data-index="{{index}}"></image>
           <text>拨打</text>
         </button>
-        <view wx:else class="item__call" data-phone="{{item.creatorInfo.phone}}" bindtap="handleCall">
+        <view wx:else class="item__call" data-phone="{{item.contactMobile}}" bindtap="handleCall">
           <image class="icon-call" src="../../../icons/call.png" data-id="{{item.id}}" data-index="{{index}}"></image>
           <text>拨打</text>
         </view>
       </view>
       <!-- 底部 -->
       <view class="item-bottom">
-        <view class="item__creator">
-          <image class="item__headimg" src="{{item.creatorInfo.headPortrait}}"></image>
+        <view class="item__creator" data-userId="{{item.creatorInfo.id}}" bindtap="handleToUserHome">
+          <image class="item__headimg" src="{{item.creatorInfo.headPortrait}}" mode='aspectFill'></image>
           <view>{{item.creatorInfo.nickName}}</view>
         </view>
         <view class="item_time">发布时间：{{item.createTimeFriendly}}</view>

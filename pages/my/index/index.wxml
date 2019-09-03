@@ -2,7 +2,7 @@
 <view class="page__header">
   <view class="header__user">
     <view class="f-flex-justStart-alignCenter" bindtap="handleToPersonInfo">
-      <image class="user__headimg" src="{{userInfo.headPortrait}}"></image>
+      <image class="user__headimg" src="{{userInfo.headPortrait}}" mode='aspectFill'></image>
       <view class="user-block__info">
         <view class="user__nickname">{{userInfo.nickName}}</view>
         <view class="user__desc f-ellipsis1">{{userInfo.signature}}</view>
@@ -19,8 +19,8 @@
       <view class="total-item__value">{{userInfo.fansCount}}</view>
       <view class="total-item__label">粉丝</view>
     </view>
-    <view class="total-item">
-      <view class="total-item__value">{{userInfo.fansCount}}</view>
+    <view class="total-item" bindtap="handleToMyInvite">
+      <view class="total-item__value">{{userInfo.inviteCount}}</view>
       <view class="total-item__label">邀请数量</view>
     </view>
   </view>

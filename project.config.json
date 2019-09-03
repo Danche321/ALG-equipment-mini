@@ -41,26 +41,26 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 2,
+			"current": 1,
 			"list": [
 				{
 					"id": 0,
-					"name": "pages/publish/publish-success/publish-success",
-					"pathName": "pages/publish/publish-success/publish-success",
+					"name": "pages/publish/create-sale/create-sale",
+					"pathName": "pages/publish/create-sale/create-sale",
 					"query": "",
 					"scene": null
 				},
 				{
 					"id": 1,
-					"name": "pages/index/share-bind/share-bind",
-					"pathName": "pages/index/share-bind/share-bind",
+					"name": "pages/publish/create-buy/create-buy",
+					"pathName": "pages/publish/create-buy/create-buy",
 					"query": "",
 					"scene": null
 				},
 				{
 					"id": 2,
-					"name": "pages/publish/publish-success/publish-success",
-					"pathName": "pages/publish/publish-success/publish-success",
+					"name": "pages/publish/detail/detail",
+					"pathName": "pages/publish/detail/detail",
 					"query": "",
 					"scene": null
 				}

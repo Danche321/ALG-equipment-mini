@@ -26,7 +26,8 @@
     "pages/my/my-buy/my-buy",
     "components/SelectYear/SelectYear",
     "pages/index/share-bind/share-bind",
-    "pages/publish/success-buy/success-buy"
+    "pages/publish/success-buy/success-buy",
+    "pages/my/my-invite/my-invite"
   ],
   "window": {
     "backgroundTextStyle": "light",

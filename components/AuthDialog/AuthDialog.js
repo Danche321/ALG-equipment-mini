@@ -21,6 +21,7 @@ Component({
   methods: {
     getUserInfo(e) {
       if (e.detail.userInfo) { // 允许授权
+        console.log(e.detail.userInfo)
         const { avatarUrl, nickName } = e.detail.userInfo
         wx.login({
           success: res => {

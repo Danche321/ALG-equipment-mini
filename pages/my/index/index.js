@@ -105,5 +105,10 @@ Page({
     wx.navigateTo({
       url: '/pages/my/my-buy/my-buy',
     })
+  },
+  handleToMyInvite() {
+    wx.navigateTo({
+      url: '/pages/my/my-invite/my-invite',
+    })
   }
 })

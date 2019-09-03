@@ -32,6 +32,7 @@ export function fetchAllCategory(data) {
   return request({
     url: '/category/categoryForList.action',
     method: 'get',
-    data: data
+    data: data,
+    closeLoading: true
   })
 }

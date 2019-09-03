@@ -103,11 +103,19 @@ export function handleRePublish(data) {
   })
 }
 
-// 我的邀请
-export function fetchMyInvite(data) {
+// 绑定邀请关系
+export function handleBindInvite(data) {
   return request({
-    url: '/invite/inviteBind.action',
-    method: 'post',
+    url: `/invite/inviteBind.action${data}`,
+    method: 'post'
+  })
+}
+
+// 获取我邀请的用户
+export function fetchInviteList(data) {
+  return request({
+    url: '/my/myInvitePageData.action',
+    method: 'get',
     data: data
   })
 }

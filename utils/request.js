@@ -26,7 +26,7 @@ export default function request({
         const { code, data, msg } = res.data
         if (code !== '111111') {
           wx.hideLoading()
-          if (!closeToast) {
+          if (!closeToast && msg !=='发布不存在') {
             wx.showToast({
               title: msg || '连接失败，请检查网络状态',
               icon: 'none'

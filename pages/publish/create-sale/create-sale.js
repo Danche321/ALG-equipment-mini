@@ -2,6 +2,8 @@ import {
   handleCreatePublish,
   handleUpdatePublish
 } from '../../../api/publish.js'
+import { handleBindPhone, fetchWxPhone } from '../../../api/common.js'
+import { checkPhone } from '../../../utils/rules.js'
 const app = getApp()
 const QQMapWX = require('../../../libs/qqmap-wx-jssdk.js');
 
@@ -12,11 +14,11 @@ Page({
    */
   data: {
     tempFilePath: null,
-    isBindMobile: app.globalData.userInfo&&app.globalData.userInfo.phone, // 是否绑定手机号
+    bindMobile: '', // 是否绑定手机号
     params: {
       id: '', // 编辑的时候用
       title: '',
-      contactPhone: '13328202442',
+      contactPhone: '',
       firstCategoryId: '',
       imageVideos: [], //类型：IMAGE-图片、VIDEO-视频
       outPrice: '',
@@ -35,7 +37,11 @@ Page({
     showCategoryName: '', // 分类名称'
     showAreaName: '', // 城市名称
     selectCityVisible: false, // 选择城市组件
-    selectYearVisible: false // 选择年份组件
+    selectYearVisible: false, // 选择年份组件
+    updatePhoneDialog: { // 修改手机号弹窗
+      visible: false,
+      value: '', // 修改联系方式的值
+    }
   },
 
 
@@ -43,6 +49,9 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
+    this.setData({
+      bindMobile: app.globalData.userInfo && app.globalData.userInfo.phone
+    })
     // 编辑
     if (app.globalData.updatePublishInfo) {
       const data = JSON.parse(app.globalData.updatePublishInfo)
@@ -88,6 +97,9 @@ Page({
       })
     } else {
       // 新增
+      this.setData({
+        'params.contactPhone': app.globalData.userInfo && app.globalData.userInfo.phone
+      })
       this.getLocation()
     }
   },
@@ -157,6 +169,7 @@ Page({
         if (res.size > (10 * 1024 * 1024)) {
           return app.showErrMsg('视频大小不能超过10M');
         }
+        console.log(res.tempFilePath)
         this.handleUploadFile(res.tempFilePath, 'VIDEO')
       }
     })
@@ -191,6 +204,10 @@ Page({
       },
       fail: res => {
         wx.hideLoading();
+        wx.showToast({
+          title: '上传失败',
+          icon: 'none'
+        })
       }
     })
   },
@@ -212,8 +229,7 @@ Page({
 
   // 授权用户手机号
   handleGetPhone(e) {
-    console.log(e)
-    if (!e.detail.encryptedData) {
+    if (!e.detail.encryptedData) { // 拒绝授权
       wx.showModal({
         title: '温馨提示',
         content: '为了保证信息的真实性，首次在平台进行信息发布，需要绑定手机号码，平台将对你的隐私进行保护！',
@@ -224,8 +240,39 @@ Page({
         }
       })
     } else {
-      this.handleSubmit()
+      // 登录获取code
+      wx.login({
+        success: res => {
+          const params = {
+            code: res.code,
+            encryptedData: e.detail.encryptedData,
+            iv: e.detail.iv
+          }
+          fetchWxPhone(params).then(res2 => {
+            const phone = 13328202442
+            this.handleBindPhone(phone)
+          })
+        }
+      })
     }
+  },
+
+  // 绑定手机号
+  handleBindPhone(phone) {
+    const userId = app.globalData.userInfo && app.globalData.userInfo.id
+    this.setData({
+      bindMobile: phone,
+      'params.contactPhone': phone
+    })
+    const params = `?userId=${userId}&phone=${phone}`
+    handleBindPhone(params).then(() => {
+      app.globalData.userInfo.phone = phone
+      wx.setStorage({
+        key: "userInfo",
+        data: JSON.stringify(app.globalData.userInfo)
+      })
+      this.handleSubmit()
+    })
   },
 
   // 发布
@@ -247,7 +294,7 @@ Page({
       icon: 'none'
     })
     if (!provinceCode) return wx.showToast({
-      title: '请选择交易地点',
+      title: '请选择发货城市',
       icon: 'none'
     })
     if (!contactPhone) return wx.showToast({
@@ -259,7 +306,7 @@ Page({
       icon: 'none'
     })
     wx.showModal({
-      title: '确定发布？',
+      title: '温馨提示',
       content: '请确保设备信息真实性，否则平台将进行删除并冻结您的账号！',
       confirmText: '确定发布',
       cancelColor: '#999',
@@ -279,7 +326,7 @@ Page({
           } else { // 编辑
             this.handleUpdate()
           }
-        } else if (res.cancel) {}
+        }
       }
     })
   },
@@ -302,6 +349,8 @@ Page({
       wx.redirectTo({
         url: `/pages/publish/publish-success/publish-success?params=${shareParams}`,
       })
+      app.globalData.refreshHome = true
+      app.globalData.refreshSearch = true
     })
   },
 
@@ -327,6 +376,49 @@ Page({
     })
   },
 
+  // 修改手机号弹窗显示
+  handleUpdatePhone() {
+    this.setData({
+      'updatePhoneDialog.visible': true
+    })
+  },
+
+  // 修改手机号输入
+  handlePhoneInput(e) {
+    const phone = e.detail.value
+    this.setData({
+      'updatePhoneDialog.value': phone
+    })
+  },
+
+  // 修改手机号取消
+  updatePhoneCancle() {
+    this.setData({
+      'updatePhoneDialog.visible': false
+    })
+  },
+
+  // 修改手机号确认
+  updatePhoneConfirm() {
+    const value = this.data.updatePhoneDialog.value
+    if (!value) {
+      this.setData({
+        'updatePhoneDialog.visible': false
+      })
+    } else {
+      if (!checkPhone(value)) {
+        return wx.showToast({
+          title: '手机号码格式错误',
+          icon: 'none'
+        })
+      }
+      this.setData({
+        'params.contactPhone': value,
+        'updatePhoneDialog.visible': false
+      })
+    }
+  },
+  
   // 获取定位城市
   getLocation() {
     // 实例化API核心类

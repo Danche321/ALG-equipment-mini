@@ -6,20 +6,20 @@
   </view>
   <text class="search__text" bindtap="handleSearch">搜索</text>
 </view>
+<!-- 历史搜索 -->
+<view class="page-tag">
+  <view class="tag__title history__title">
+    <text>历史搜索</text>
+    <image bindtap="handleClear" class="icon-delete" src="../../../icons/delete.png"></image>
+  </view>
+  <view class="tag__list">
+    <text data-keyWord="{{item}}" bindtap="handleHistorySearch" class="tag-item" wx:for="{{historyList}}" wx:key="{{index}}">{{item}}</text>
+  </view>
+</view>
 <!-- 热门搜索 -->
 <view class="page-tag">
   <view class="tag__title">热门搜索</view>
   <view class="tag__list">
     <text class="tag-item" wx:for="{{hostList}}" wx:key="{{index}}" data-id="{{item.id}}" data-name="{{item.name}}" bindtap="handleSearchCategory">{{item.name}}</text>
-  </view>
-</view>
-<!-- 历史搜索 -->
-<view class="page-tag">
-  <view class="tag__title history__title">
-    <text>历史搜索</text>
-    <image class="icon-delete" src="../../../icons/delete.png"></image>
-  </view>
-  <view class="tag__list">
-    <text class="tag-item" wx:for="{{historyList}}" wx:key="{{index}}">{{item}}</text>
   </view>
 </view>

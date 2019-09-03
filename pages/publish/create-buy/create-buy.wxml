@@ -1,9 +1,14 @@
 <view class="page-base">
   <!-- 标题/内容 -->
-  <view wx:if="{{selectCategoryVisible||selectCityVisible||selectYearVisible}}" class="input-desc">{{params.title||'描述：简述你的购机要求···'}}</view>
+  <view wx:if="{{selectCategoryVisible||selectCityVisible||selectYearVisible||updatePhoneDialog.visible}}" class="input-desc">{{params.title||'描述：简述你的购机要求···'}}</view>
   <textarea wx:else show-confirm-bar="{{false}}" class="input-desc" value="{{params.title}}" bindinput="handleTitleChange" placeholder="描述：简述你的购机要求···" maxlength="-1"></textarea>
   <!-- 定位 -->
+  
   <view class='page-contact'>
+    <view class="mobile" bindtap="handleUpdatePhone">
+      <image class="contact-icon" src="../../../icons/mobile-publish-gray.png"></image>
+      <text>{{params.contactPhone}}</text>
+    </view>
     <view class="location" bindtap="handleShowCity">
       <image class="contact-icon" src="../../../icons/location--publish.png"></image>
       <text wx:if="{{params.provinceCode}}" class='f-ellipsis1 location__text'>{{showAreaName}}</text>
@@ -20,10 +25,6 @@
     <input class="info__value-input" value="{{showCategoryName}}" placeholder="请选择" type="number" disabled></input>
   </view>
   <view class="info-item">
-    <text>联系电话</text>
-    <input class="info__value-input" value="{{params.contactPhone}}" bindinput="handlePhoneChange" placeholder="" type="number"></input>
-  </view>
-  <view class="info-item">
     <text>新旧程度</text>
     <view class="info__value--year">
       <view class="tag-year">
@@ -33,9 +34,26 @@
   </view>
 </view>
 
-<button wx:if="{{!isBindMobile}}" open-type="getPhoneNumber" bindgetphonenumber="handleGetPhone" class="btn-publish">发布</button>
+<button wx:if="{{!bindMobile}}" open-type="getPhoneNumber" bindgetphonenumber="handleGetPhone" class="btn-publish">发布</button>
 
 <button wx:else class="btn-publish" bindtap="handleSubmit">发布</button>
+
+<!-- 修改手机号弹窗 -->
+<view wx:if="{{updatePhoneDialog.visible}}">
+  <view class="modal-bindMobile">
+    <view class="modal-content">
+      <view class='modal-title'>修改联系方式</view>
+      <view class="filed-cell">
+        <input type="number" focus="{{true}}" value="{{updatePhoneDialog.value}}" placeholder="{{params.contactPhone}}" bindinput="handlePhoneInput" class="modal-input" maxlength="11" cursor-spacing="90" />
+      </view>
+      <view class="modal-btns">
+        <button class='cancle' bindtap='updatePhoneCancle'>取消</button>
+        <button class='confirm' bindtap="updatePhoneConfirm">修改</button>
+      </view>
+    </view>
+  </view>
+  <view class="modal-bg" catchtouchmove="ture"></view>
+</view>
 
 <!-- 选择机型组件 -->
 <select-category visible="{{selectCategoryVisible}}" firstId="{{params.firstCategoryId}}" secondId="{{params.secondCategoryId}}" bind:checked="handleCategoryConfirm"></select-category>

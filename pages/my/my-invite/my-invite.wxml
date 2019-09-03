@@ -1,5 +1,5 @@
 <block wx:if="{{listData.length}}">
-  <view wx:for="{{listData}}" wx:key="{{index}}" data-id="{{item.personInfo.id}}" bindtap="handleToUserHome" class="f-flex-justBetween-alignCenter list-item">
+  <view wx:for="{{listData}}" data-id="{{item.personInfo.id}}" bindtap="handleToUserHome" wx:key="{{index}}" class="f-flex-justBetween-alignCenter list-item">
     <view class="f-flex-justStart-alignCenter">
       <image class="item__img" src="{{item.personInfo.headPortrait}}" mode='aspectFill'></image>
       <view>
@@ -23,5 +23,5 @@
 <!-- 无数据 -->
 <view wx:else class='m-page-empty'>
   <image class='empty__img' src="../../../icons/empty.png"></image>
-  <text class='empty__text'>获取关注量，能让你的设备更快售出</text>
+  <text class='empty__text'>快去邀请好友，共享信息平台</text>
 </view>

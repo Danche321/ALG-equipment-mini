@@ -23,10 +23,13 @@
             <text wx:if="{{item.productiveYear}}" class="item__tag">{{item.productiveYear}}年</text>
           </view>
           <view class="price-block">
-            <view wx:if="{{item.outPrice}}" class="item__price">
-              <text class="price__unit">¥</text>{{item.outPrice}}
+            <view wx:if="{{item.outPrice!='未知'}}" class="item__price">
+              ¥
+              <text class="price__value">{{item.outPrice}}</text>万
             </view>
-            <view wx:else class="item__price">面议</view>
+            <view wx:else class="item__price">
+              <text class="price__value">面议</text>
+            </view>
           </view>
         </view>
       </view>
@@ -49,7 +52,8 @@
       <view class="item-bottom">
         <view class='location'>
           <image class='location__icon' src="../../../icons/location--publish.png"></image>
-          <text>{{item.locationDetail.provinceName}}·{{item.locationDetail.cityName}}</text>
+          <text wx:if="{{item.locationDetail.cityName}}">{{item.locationDetail.provinceName}}·{{item.locationDetail.cityName}}</text>
+          <text wx:else>{{item.locationDetail.provinceName}}</text>
         </view>
         <view class="item_time">发布时间：{{item.createTimeFriendly}}</view>
       </view>

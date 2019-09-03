@@ -1,4 +1,4 @@
-import { fetchMyFollow } from '../../../api/my.js'
+import { fetchInviteList } from '../../../api/my.js'
 import {
   handleFocus,
   handleCancleFocus
@@ -16,16 +16,13 @@ Page({
       pageSize: 10
     },
     hasNextPage: true,
-    userId: ''
+    userId: app.globalData.userInfo && app.globalData.userInfo.id
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    this.setData({
-      userId: app.globalData.userInfo && app.globalData.userInfo.id
-    })
     this.getList()
   },
 
@@ -56,11 +53,8 @@ Page({
   getList(isFirst) {
     if (isFirst) this.data.params.pageNum = 1
     const params = this.data.params
-    fetchMyFollow(params).then(res => {
-      const {
-        items,
-        hasNextPage
-      } = res.data
+    fetchInviteList(params).then(res => {
+      const { items, hasNextPage } = res.data
       this.setData({
         listData: items,
         hasNextPage

@@ -1,7 +1,7 @@
 <block wx:if="{{listData.length}}">
-  <view wx:for="{{listData}}" data-id="{{item.personInfo.id}}" bindtap="handleToUserHome" class="f-flex-justBetween-alignCenter list-item">
+  <view wx:for="{{listData}}" data-id="{{item.personInfo.id}}" bindtap="handleToUserHome" wx:key="{{index}}" class="f-flex-justBetween-alignCenter list-item">
     <view class="f-flex-justStart-alignCenter">
-      <image class="item__img" src="{{item.personInfo.headPortrait}}"></image>
+      <image class="item__img" src="{{item.personInfo.headPortrait}}" mode='aspectFill'></image>
       <view>
         <view class="item__nickname">{{item.personInfo.nickName}}</view>
         <view class="item__num">

@@ -209,18 +209,6 @@ page {
   font-size: 22rpx;
 }
 
-.item__tag {
-  width: 104rpx;
-  height: 37rpx;
-  line-height: 37rpx;
-  text-align: center;
-  background: #f9f9f9;
-  border-radius: 19rpx;
-  margin-right: 20rpx;
-  display: inline-block;
-  color: rgba(51, 51, 51, 0.7);
-}
-
 .price-block {
   display: flex;
   justify-content: space-between;
@@ -229,11 +217,11 @@ page {
 
 .item__price {
   color: #fb4238;
-  font-size: 48rpx;
+  font-size: 32rpx;
 }
 
-.price__unit {
-  font-size: 32rpx;
+.price__value {
+  font-size: 48rpx;
 }
 
 .location {
@@ -301,7 +289,9 @@ page {
 }
 
 .item__tag {
-  width: 104rpx;
+  min-width: 104rpx;
+  padding:  0 20rpx;
+  box-sizing: border-box;
   height: 37rpx;
   line-height: 37rpx;
   text-align: center;

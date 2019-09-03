@@ -16,7 +16,7 @@
   </swiper>
 </view>
 <!-- 分类 -->
-<swiper class="swiper-category" indicator-dots circular>
+<swiper class="swiper-category" indicator-dots>
   <swiper-item class="swiper-item" wx:for="{{categoryList}}" wx:key="{{index}}">
     <view class="category-box f-flex-justStart-wrap">
       <view wx:for="{{item}}" wx:for-item="cell" wx:key="{{index}}" class="category-item" data-id="{{cell.id}}" data-name="{{cell.name}}" bindtap="handleSearchCategory">
@@ -30,7 +30,7 @@
 <view class="publish-box">
   <view class="publish-column">
     <view wx:if="{{index%2===0}}" wx:for="{{publishList}}" wx:key="{{index}}" class="publish-item" data-id="{{item.id}}" bindtap="handleToDetail">
-      <image class="img" src="{{item.mainMedia}}" mode='aspectFit'></image>
+      <image class="img" src="{{item.mainMedia}}" mode='aspectFill'></image>
       <view class="publish__content">
         <view class="title f-ellipsis2">{{item.title}}</view>
         <view wx:if="{{item.voiceIntroduce}}" id="audio{{item.id}}" data-src="{{item.voiceIntroduce}}" data-id="{{item.id}}" catchtap="handleAudioPlay" class="voice">
@@ -39,14 +39,15 @@
           <text class='voice__text'>{{item.voiceIntroduceTime}}s"</text>
         </view>
         <view class="item-priceArea">
-          <view wx:if="{{item.outPrice}}" class="price">
-            <text class="price__unit">￥</text>{{item.outPrice}}
+          <view wx:if="{{item.outPrice!='未知'}}" class="price">
+            ￥<text class="price__value">{{item.outPrice}}</text>万
           </view>
-          <view wx:else class="price">面议</view>
-          <text class="area f-ellipsis1">{{item.locationDetail.provinceName}}·{{item.locationDetail.cityName}}</text>
+          <view wx:else class="price"><text class="price__value">面议</text></view>
+          <text wx:if="{{item.locationDetail.cityName}}" class="area f-ellipsis1">{{item.locationDetail.provinceName}}·{{item.locationDetail.cityName}}</text>
+          <text wx:else class="area f-ellipsis1">{{item.locationDetail.provinceName}}</text>
         </view>
         <view data-userid="{{item.publishUserInfo.id}}" catchtap="handleToUserHome" class="user-info f-flex-justStart-alignCenter">
-          <image src="{{item.publishUserInfo.headPortrait}}" class="headimg"></image>
+          <image src="{{item.publishUserInfo.headPortrait}}" class="headimg" mode='aspectFill'></image>
           <text class="nickname f-ellipsis1">{{item.publishUserInfo.nickName}}</text>
         </view>
       </view>
@@ -54,7 +55,7 @@
   </view>
   <view class="publish-column">
     <view wx:if="{{index%2!==0}}" wx:for="{{publishList}}" wx:key="{{index}}" class="publish-item" data-id="{{item.id}}" bindtap="handleToDetail">
-      <image class="img" src="{{item.mainMedia}}"mode='aspectFit'></image>
+      <image class="img" src="{{item.mainMedia}}"mode='aspectFill'></image>
       <view class="publish__content">
         <view class="title f-ellipsis2">{{item.title}}</view>
         <view wx:if="{{item.voiceIntroduce}}" id="audio{{item.id}}" data-src="{{item.voiceIntroduce}}" data-id="{{item.id}}" catchtap="handleAudioPlay" class="voice">
@@ -62,14 +63,15 @@
           <text class='voice__text'>{{item.voiceIntroduceTime}}s"</text>
         </view>
         <view class="item-priceArea">
-          <view wx:if="{{item.outPrice}}" class="price">
-            <text class="price__unit">￥</text>{{item.outPrice}}
+          <view wx:if="{{item.outPrice!='未知'}}" class="price">
+            ￥<text class="price__value">{{item.outPrice}}</text>万
           </view>
           <view wx:else class="price">面议</view>
-          <text class="area f-ellipsis1">{{item.locationDetail.provinceName}}·{{item.locationDetail.cityName}}</text>
+          <text wx:if="{{item.locationDetail.cityName}}" class="area f-ellipsis1">{{item.locationDetail.provinceName}}·{{item.locationDetail.cityName}}</text>
+          <text wx:else class="area f-ellipsis1">{{item.locationDetail.provinceName}}</text>
         </view>
         <view data-userid="{{item.publishUserInfo.id}}" catchtap="handleToUserHome" class="user-info f-flex-justStart-alignCenter">
-          <image src="{{item.publishUserInfo.headPortrait}}" class="headimg"></image>
+          <image src="{{item.publishUserInfo.headPortrait}}" class="headimg" mode='aspectFill'></image>
           <text class="nickname f-ellipsis1">{{item.publishUserInfo.nickName}}</text>
         </view>
       </view>
