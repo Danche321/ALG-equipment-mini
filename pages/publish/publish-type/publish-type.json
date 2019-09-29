@@ -1,6 +1,7 @@
 {
   "navigationBarTitleText": "选择发布类型",
   "usingComponents": {
-    "auth-dialog": "/components/AuthDialog/AuthDialog"
+    "auth-dialog": "/components/AuthDialog/AuthDialog",
+    "freezing-dialog": "/components/FreezingDialog/FreezingDialog"
   }
 }

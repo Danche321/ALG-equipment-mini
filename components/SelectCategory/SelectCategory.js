@@ -9,6 +9,7 @@ Component({
     secondId: String
   },
   data: {
+    ICON_URL: app.globalData.ICON_URL,
     listData: [],
     showFirstId: ''
   },

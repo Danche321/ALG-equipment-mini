@@ -1,36 +1,45 @@
 <view class="page-base">
   <!-- 标题/内容 -->
   <input value="{{params.title}}" data-type="title" bindinput="handleInput" class="input-title" placeholder="标题：如设备品牌型号等" />
-  <view wx:if="{{selectCategoryVisible||selectCityVisible||selectYearVisible||updatePhoneDialog.visible}}" class="input-desc">{{params.textIntroduce||'描述：使用语音或者文字进行描述···'}}</view>
-  <textarea wx:else show-confirm-bar="{{false}}" data-type="textIntroduce" value="{{params.textIntroduce}}" bindinput="handleInput" class="input-desc" placeholder="描述：使用语音或者文字进行描述···" maxlength="-1"></textarea>
+  <view wx:if="{{selectCategoryVisible||selectCityVisible||selectYearVisible||updatePhoneDialog.visible}}" class="input-desc">{{params.textIntroduce||'描述：使用语音或者文字进行描述（选填）···'}}</view>
+  <textarea wx:else show-confirm-bar="{{false}}" data-type="textIntroduce" value="{{params.textIntroduce}}" bindinput="handleInput" class="input-desc" placeholder="描述：使用语音或者文字进行描述（选填）···" maxlength="-1"></textarea>
 
   <!-- 录音 -->
-  <view class="page-voice">
+  <view wx:if="{{!params.id}}" class="page-voice">
     <bind-record hasRecord="{{!!params.voiceIntroduce}}" recordPath="{{params.voiceIntroduce}}" bind:recordConfirm="handleRecordConfirm"></bind-record>
   </view>
   <!-- 图片上传 -->
   <view class='page-upload'>
     <view wx:for="{{params.imageVideos}}" wx:key="{{index}}" class="upload-file-item">
-      <image class="upload-img" src="{{item.fileUrl}}"></image>
-      <image src="../../../icons/close.png" data-index="{{index}}" data-type="{{item.type}}" bindtap="handleRemove" class="upload-del"></image>
+      <image wx:if="{{item.type==='IMAGE'}}" class="upload-img" src="{{item.fileUrl}}" mode='aspectFill' data-src="{{item.file}}" bindtap="handlePriviewImg"></image>
+      <block wx:else>
+        <image class="upload-img" mode='aspectFill' src="{{video.showImg}}"></image>
+        <view class="video-cover" bindtap="handlePriviewVideo">
+          <view class="cover-bg"></view>
+          <image src="{{ICON_URL}}video-play.png" class="icon-play"></image>
+        </view>
+      </block>
+      <image src="{{ICON_URL}}close.png" data-index="{{index}}" data-type="{{item.type}}" bindtap="handleRemove" class="upload-del"></image>
     </view>
-    <view wx:if="{{!hasVideo}}" class='upload-add' bindtap="handleFileAdd">
-      <text class='upload-add__icon'>+</text>
-      <text class='upload-add__text'>图片/视频</text>
-    </view>
-    <view wx:else class='upload-add' bindtap="handleChooseImg">
-      <text class='upload-add__icon'>+</text>
-      <text class='upload-add__text'>图片</text>
-    </view>
+    <block wx:if="{{params.imageVideos.length<12}}">
+      <view wx:if="{{!hasVideo}}" class='upload-add' bindtap="handleFileAdd">
+        <text class='upload-add__icon'>+</text>
+        <text class='upload-add__text'>图片/视频</text>
+      </view>
+      <view wx:else class='upload-add' bindtap="handleChooseImg">
+        <text class='upload-add__icon'>+</text>
+        <text class='upload-add__text'>图片</text>
+      </view>
+    </block>
   </view>
   <!-- 定位和电话 -->
   <view class='page-contact'>
     <view class="mobile" bindtap="handleUpdatePhone">
-      <image class="contact-icon" src="../../../icons/mobile-publish-gray.png"></image>
-      <text>{{params.contactPhone}}</text>
+      <image class="contact-icon" src="{{ICON_URL}}mobile-publish-gray.png"></image>
+      <text>{{params.contactPhone||'联系电话'}}</text>
     </view>
     <view class="location" bindtap="handleShowCity">
-      <image class="contact-icon" src="../../../icons/location--publish.png"></image>
+      <image class="contact-icon" src="{{ICON_URL}}location--publish.png"></image>
       <text wx:if="{{params.provinceCode}}" class='f-ellipsis1 location__text'>{{showAreaName}}</text>
       <text wx:else class='f-ellipsis1 location__text'>发货城市...</text>
     </view>
@@ -41,6 +50,10 @@
 <view class="page-info">
   <view class="info__title">设备信息</view>
   <view class="info-item">
+    <text class="required">设备类型</text>
+    <input bindtap="handleShowCategory" class="info__value-input" value="{{showCategoryName}}" placeholder="请选择" type="number" disabled></input>
+  </view>
+  <view class="info-item">
     <text>价格</text>
     <view class="info__value-input">
       <input value="{{params.outPrice}}" data-type="outPrice" bindinput="handleInput" placeholder="" type="digit" class="price-input"></input>
@@ -48,16 +61,12 @@
     </view>
   </view>
   <view class="info-item">
-    <text>机型</text>
-    <input bindtap="handleShowCategory" class="info__value-input" value="{{showCategoryName}}" placeholder="请选择" type="number" disabled></input>
-  </view>
-  <view class="info-item">
-    <text>出厂年份</text>
-    <input bindtap="handleShowYear" class="info__value-input" value="{{params.productiveYear}}" placeholder="选择生产年份" type="number" disabled></input>
+    <text>生产年份</text>
+    <input bindtap="handleShowYear" class="info__value-input" value="{{params.productiveYear}}" placeholder="请选择" type="number" disabled></input>
   </view>
 </view>
 
-<button wx:if="{{!bindMobile}}" open-type="getPhoneNumber" bindgetphonenumber="handleGetPhone" class="btn-publish">发布</button>
+<button wx:if="{{!bindMobile}}" open-type="getPhoneNumber" bindgetphonenumber="handleGetPhone" bindtap="handleLogin" class="btn-publish">发布</button>
 
 <button wx:else class="btn-publish" bindtap="handleSubmit">发布</button>
 
@@ -77,6 +86,9 @@
   </view>
   <view class="modal-bg" catchtouchmove="ture"></view>
 </view>
+
+<!-- 视频播放 -->
+<video id="myVideo" autoplay wx:if="{{video.visible}}" src="{{video.src}}" bindfullscreenchange="bindfullscreenchange"></video>
 
 <!-- 选择机型组件 -->
 <select-category visible="{{selectCategoryVisible}}" firstId="{{params.firstCategoryId}}" secondId="{{params.secondCategoryId}}" bind:checked="handleCategoryConfirm"></select-category>

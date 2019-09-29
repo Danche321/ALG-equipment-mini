@@ -1,6 +1,7 @@
 {
   "navigationBarTitleText": "找机械",
   "navigationBarTextStyle": "white",
+  "enablePullDownRefresh": true,
   "usingComponents": {
     "select-category": "/components/SelectCategory/SelectCategory",
     "select-city": "/components/SelectCity/SelectCity"

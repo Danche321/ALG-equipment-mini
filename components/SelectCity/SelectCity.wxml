@@ -10,7 +10,7 @@
         <view wx:if="{{showFirstId===item.id&&item.children.length}}" class="item__children">
           <view class="children__item {{activeFirstId==item.id&&activeSecondId==cell.id?'active':''}}" data-first="{{item}}" data-second="{{cell}}" wx:for="{{item.children}}" wx:for-item="cell" wx:key="{{index}}" catchtap="handleSelectCategory">
             <view>{{cell.fullname}}</view>
-            <image class="icon-checked" src="../../icons/checked.png"></image>
+            <image class="icon-checked" src="{{ICON_URL}}checked.png"></image>
           </view>
         </view>
       </view>

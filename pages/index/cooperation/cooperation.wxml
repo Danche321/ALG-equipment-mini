@@ -8,11 +8,11 @@
   </view>
   <view class='item__bottom'>
     <view class='item__phone'>
-      <image class='icon-mobile' src='../../../icons/cooraption_mobile.png'></image>
+      <image class='icon-mobile' src='{{ICON_URL}}cooraption_mobile.png'></image>
       <text>联系电话：{{item.contactPhone}}</text>
     </view>
     <view class='item__address'>
-      <image class='icon-location' src='../../../icons/cooraption_location.png'></image>
+      <image class='icon-location' src='{{ICON_URL}}cooraption_location.png'></image>
       <view class='item__address__text'>
         <text>地址：</text>
         <text class='item__address__content'>{{item.address}}</text>

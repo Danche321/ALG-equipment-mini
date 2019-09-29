@@ -4,7 +4,7 @@ const app = getApp()
 // 搜索发布列表
 export function fetchPublish(data) {
   return request({
-    url: '/publish/pageData.action',
+    url: '/publish/pageDataComplex.action',
     method: 'get',
     data: data
   })

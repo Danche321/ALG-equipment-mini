@@ -9,10 +9,12 @@ Page({
    * 页面的初始数据
    */
   data: {
+    ICON_URL: app.globalData.ICON_URL,
     publishList: [],
     publishParams: {
       pageNum: 1,
       pageSize: 10,
+      isDownShelf: 1,
       searchText: '',
       provinceCode: '',
       cityCode: '',
@@ -63,19 +65,19 @@ Page({
   /**
    * 生命周期函数--监听页面隐藏
    */
-  onHide: function() {
-
+  onHide: function () {
+    innerAudioContext.stop()
+    this.setData({
+      activePlayingId: ''
+    })
   },
-
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload: function() {},
 
   /**
    * 页面相关事件处理函数--监听用户下拉动作
    */
-  onPullDownRefresh: function() {},
+  onPullDownRefresh: function () {
+    this.getList(1)
+  },
 
   /**
    * 页面上拉触底事件的处理函数
@@ -136,6 +138,9 @@ Page({
       } = res.data
       let resList = []
       if (isFirst) {
+        wx.pageScrollTo({
+          scrollTop: 0
+        })
         resList = items
       } else {
         resList = [...this.data.publishList, ...items]
@@ -260,9 +265,6 @@ Page({
   audioConfig() {
     // 停止
     innerAudioContext.onStop(() => {
-      this.setData({
-        activePlayingId: ''
-      })
     });
     // 结束
     innerAudioContext.onEnded(() => {
@@ -280,9 +282,13 @@ Page({
   // 播放录音
   handleAudioPlay(e) {
     const { src, id } = e.currentTarget.dataset
+    console.log(id)
     const { activePlayingId } = this.data
     if (activePlayingId === id) {
       innerAudioContext.stop()
+      this.setData({
+        activePlayingId: ''
+      })
     } else {
       innerAudioContext.src = src
       innerAudioContext.play()
@@ -310,6 +316,12 @@ Page({
   handleSwitchArea() {
     wx.navigateTo({
       url: '/pages/index/switchcity/switchcity',
+    })
+  },
+  handleToUserHome(e) {
+    const id = e.currentTarget.dataset.userid
+    wx.navigateTo({
+      url: `/pages/my/person-home/person-home?id=${id}`,
     })
   }
 })

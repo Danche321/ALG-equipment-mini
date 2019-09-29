@@ -1,21 +1,22 @@
 <view class="page-voice">
   <button class="btn-voice" bindtouchstart="checkAuth" bindtouchend="stopRecord" wx:if="{{!hasRecord}}" hover-class='btn-voice-hover'>
-    <image class="voice__icon" src="../../icons/yuyin.png"></image>
+    <image class="voice__icon" src="{{ICON_URL}}yuyin.png"></image>
     <text class="voice__text">按住说话</text>
   </button>
   <button class="btn-listen-btn" bindtap="showListenBox" wx:else>
-    <image src="../../icons/start.png" class='listen_icon'></image>
+    <image src="{{ICON_URL}}start.png" class='listen_icon'></image>
     <text>语音介绍</text>
   </button>
 </view>
 <view class="record-countDown-box" wx:if="{{isSaying}}">
-  <image src='../../icons/recordIng.png' class="record-icon"></image>
+  <image src='{{ICON_URL}}recordIng.png' class="record-icon"></image>
   <Text class="countDown-text">录制中...({{recordSecond}}s)</Text>
 </view>
 <view class="record-shadow" wx:if="{{isListen}}">
   <view class="record-finish-box">
     <view bindtap="changeListenState" class="record-top">
-      <image src="{{listenState ? '../../icons/stop.png' : '../../icons/start.png'}}" class="record-progress-icon" class="listen-box-icon"></image>
+      <image wx:if="{{listenState}}" src="{{ICON_URL}}stop.png" class="record-progress-icon" class="listen-box-icon"></image>
+      <image wx:else src="{{ICON_URL}}start.png" class="record-progress-icon" class="listen-box-icon"></image>
       <text class="record-text">{{listenState ? "播放中...("+voiceSecond +"s)": "点击试听("+recordSecond +"s)"}}</text>
     </view>
     <view class="btn-box">

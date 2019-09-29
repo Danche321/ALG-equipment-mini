@@ -2,18 +2,14 @@ const app = getApp()
 import {
   fetchBuyList
 } from '../../../api/buy.js'
-import {
-  handleBindPhone,
-  fetchWxPhone
-} from '../../../api/common.js'
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    authVisible: false,
-    bindPhone: '', // 是否绑定手机号
+    isOverShare: true,
+    ICON_URL: app.globalData.ICON_URL,
     listData: [],
     params: {
       pageNum: 1,
@@ -48,11 +44,17 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function() {
-    this.checkAuthStatus()
     if (app.globalData.refreshBuy) {
       this.getList(1)
       app.globalData.refreshBuy = false
     }
+  },
+
+  /**
+   * 页面相关事件处理函数--监听用户下拉动作
+   */
+  onPullDownRefresh: function () {
+    this.getList(1)
   },
 
   /**
@@ -70,20 +72,6 @@ Page({
    */
   onShareAppMessage: function() {
 
-  },
-
-  // 是否授权
-  checkAuthStatus() {
-    this.setData({
-      authVisible: !app.globalData.userInfo,
-      bindPhone: app.globalData.userInfo && app.globalData.userInfo.phone
-    })
-  },
-
-  authHide() {
-    this.setData({
-      authVisible: false
-    })
   },
 
   // 发布列表
@@ -104,7 +92,7 @@ Page({
       let resList = []
       items.map(item => {
         let locationText
-        if (item.locationDetail.provinceName === item.locationDetail.cityName) {
+        if (item.locationDetail.provinceName === item.locationDetail.cityName || !item.locationDetail.cityName) {
           locationText = item.locationDetail.provinceName
         } else {
           locationText = `${item.locationDetail.provinceName}·${item.locationDetail.cityName}`
@@ -122,79 +110,6 @@ Page({
         hasNextPage
       })
       if (isFirst) wx.stopPullDownRefresh()
-    })
-  },
-
-
-  // 授权用户手机号
-  handleGetPhone(e) {
-    const contactPhone = e.target.dataset.phone
-    if (!e.detail.encryptedData) { // 拒绝授权
-      wx.showModal({
-        title: '温馨提示',
-        content: '为了避免恶意骚扰，首次在平台进行电话咨询，需要绑定手机号码，平台将对你的隐私进行保护！',
-        showCancel: false
-      })
-    } else { // 同意
-      // 登录获取code
-      wx.login({
-        success: res => {
-          const params = {
-            code: res.code,
-            encryptedData: e.detail.encryptedData,
-            iv: e.detail.iv
-          }
-          fetchWxPhone(params).then(res2 => {
-            const bindPhone = 13328202442
-            this.handleBindPhone(bindPhone, contactPhone)
-          })
-        }
-      })
-    }
-  },
-
-  // 绑定手机号
-  handleBindPhone(bindPhone, contactPhone) {
-    const userId = app.globalData.userInfo && app.globalData.userInfo.id
-    const params = `?userId=${userId}&phone=${bindPhone}`
-    handleBindPhone(params).then(() => {
-      this.setData({
-        bindPhone: bindPhone
-      })
-      app.globalData.userInfo.phone = bindPhone
-      wx.setStorage({
-        key: "userInfo",
-        data: JSON.stringify(app.globalData.userInfo)
-      })
-      wx.showModal({
-        title: '温馨提示',
-        content: '信息由用户自行发布，平台无法杜绝可能存在的风险和瑕疵；电话洽谈时，请仔细核实，谨防诈骗！',
-        confirmText: '呼叫',
-        success: res => {
-          if (res.confirm) {
-            wx.makePhoneCall({
-              phoneNumber: contactPhone
-            })
-          }
-        }
-      })
-    })
-  },
-
-  // 拨打电话
-  handleCall(e) {
-    wx.showModal({
-      title: '温馨提示',
-      content: '信息由用户自行发布，平台无法杜绝可能存在的风险和瑕疵；电话洽谈时，请仔细核实，谨防诈骗！',
-      confirmText: '呼叫',
-      success: res => {
-        if (res.confirm) {
-          const phone = e.currentTarget.dataset.phone
-          wx.makePhoneCall({
-            phoneNumber: phone
-          })
-        } else if (res.cancel) {}
-      }
     })
   },
 
@@ -304,10 +219,10 @@ Page({
     }
   },
 
-  handleToUserHome(e) {
-    const id = e.currentTarget.dataset.userid
+  handleToDetail(e) {
+    const id = e.currentTarget.dataset.id
     wx.navigateTo({
-      url: `/pages/my/person-home/person-home?id=${id}`,
+      url: `/pages/publish/detail-buy/detail-buy?id=${id}`,
     })
   }
 })

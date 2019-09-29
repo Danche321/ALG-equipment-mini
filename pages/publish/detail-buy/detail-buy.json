@@ -1,0 +1,6 @@
+{
+  "navigationBarTitleText": "求购详情",
+  "usingComponents": {
+    "auth-dialog": "/components/AuthDialog/AuthDialog"
+  }
+}

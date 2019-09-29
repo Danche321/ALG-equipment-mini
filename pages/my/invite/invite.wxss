@@ -6,10 +6,13 @@
 
 .banner__rule {
   position: absolute;
-  width: 139rpx;
-  height: 36rpx;
+  width: 180rpx;
+  height: 47rpx;
   right: 6rpx;
   top: 14rpx;
+  z-index: 2;
+  background: #0e48e6;
+  border-radius: 50rpx;
 }
 
 .banner__bg {
@@ -149,4 +152,126 @@
 .btn-item__text {
   font-size: 28rpx;
   color: #fff;
+}
+
+
+/* 邀请二维码 */
+.canvas{
+  width: 100%;
+  height: 100%;
+   position: fixed;
+  left: 0;
+  top: 999999rpx;     
+  background-color: rgba(0,0,0,0.3)
+}
+ 
+.preview{
+  position:fixed;
+  top:0;
+  left:0;
+  width:100vw;
+  height:100vh;
+  background-color:rgba(0,0,0,0.8);
+  z-index: 2;
+  text-align: center;
+  display:flex; 
+  flex-flow:column;
+}
+ 
+.preview image{
+  width: 80%;
+  height: 80%;
+  margin: 10%;
+  margin-bottom: 5%;
+}
+ 
+.preview button{
+  margin:0 20rpx;
+  border-radius:50px;
+  background: linear-gradient(to right bottom, #3fa4fe, #3369f8);
+  padding: 10rpx 20rpx;
+  width: 400rpx;
+}
+
+/* 活动规则 */
+
+.modal-bindMobile {
+  z-index: 1000;
+  width: 80vw;
+  height: 900rpx;
+  position: fixed;
+  background: #3fa4fe;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20rpx;
+  border-radius: 15rpx;
+}
+
+.modal-content {
+  background-color: #fff;
+  padding: 40rpx;
+  border-radius: 15rpx;
+  height: 100%;
+  width: 100%;
+  box-sizing: border-box;
+  overflow-y: scroll;
+  position: relative;
+}
+
+.modal-title {
+  font-size: 42rpx;
+  text-align: center;
+  padding-bottom: 40rpx;
+  color: #3369f8;
+}
+
+.rule-cell {
+  font-size: 28rpx;
+  margin-bottom: 36rpx;
+}
+
+.cell__question{
+  color: #000;
+  margin-bottom: 8rpx;
+}
+.cell__answer{
+  color: #666;
+}
+
+.rule-tip{
+  font-size: 26rpx;
+  color: #3b9df3;
+  position: absolute;
+  bottom: 30rpx;
+  left: 40rpx;
+}
+
+.modal-btn{
+  background: linear-gradient(to right bottom, #2695f7, #3369f8);
+  color: #fff;
+  width: 80%;
+  height: 90rpx;
+  font-size: 32rpx;
+  box-sizing: border-box;
+  border: none;
+  margin-top: 20rpx;
+  border-radius: 150rpx;
+}
+
+.modal-btn::after {
+  display: none;
+}
+
+.modal-bg {
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  position: fixed;
+  top: 0;
+  z-index: 999;
 }

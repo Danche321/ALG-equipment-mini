@@ -1,108 +1,121 @@
-<wxs src="../../../wxs/utils.wxs" module="tools" />
-<!-- 轮播 -->
-<swiper autoplay circular duration="{{duration}}" class="swiper-box" bindchange="handleSwiperChange">
-  <block wx:for="{{publishInfo.imageVideos}}" wx:key="{{index}}">
-    <swiper-item class="swiper-item">
-      <image src="{{item.file}}" mode='aspectFill' class='swiper-item' data-list="{{publishInfo.imageVideos}}" data-src="{{item.file}}" bindtap='handlePriviewImg'></image>
-    </swiper-item>
-  </block>
-</swiper>
-<view wx:if="{{publishInfo.imageVideos.length}}" class="swiper-indicator">{{swiperCurrent+1}}/{{publishInfo.imageVideos.length}}</view>
-<!-- 头部信息 -->
-<view class="page-header">
-  <view class="f-flex-justBetween-alignCenter">
-    <view wx:if="{{publishInfo.outPrice!='未知'}}" class="price">
-      ￥<text class="price__num">{{publishInfo.outPrice}}</text>万
-    </view>
-    <view wx:else class="price">
-      <text class="price__num">面议</text>
-    </view>
-    <view class="f-flex-justStart-alignCenter header__user" bindtap="handleToHome">
-      <image class="header__user__headimg" src="{{publishInfo.publishUserInfo.headPortrait||'../../../icons/headimg.png'}}" mode='aspectFill'></image>
-      <text class="header__user__nickname f-ellipsis1">{{publishInfo.publishUserInfo.nickName}}</text>
-    </view>
-  </view>
-  <view class="title">{{publishInfo.title}}</view>
-  <view class="tags">
-    <text wx:if="{{publishInfo.categoryFirstName}}" class="tag-item">{{publishInfo.categoryFirstName}}</text>
-    <text wx:if="{{publishInfo.categorySecondName}}" class="tag-item">{{publishInfo.categorySecondName}}</text>
-    <text wx:if="{{publishInfo.productiveYear}}" class="tag-item">{{publishInfo.productiveYear}}年</text>
-  </view>
-  <view class='header-bottom'>
-    <view class='location'>
-      <image class='location__icon' src="../../../icons/location--publish.png"></image>
-      <text wx:if="{{publishInfo.locationDetail.cityName}}">发货地：{{publishInfo.locationDetail.provinceName}}·{{publishInfo.locationDetail.cityName}}</text>
-      <text wx:else>发货地：{{publishInfo.locationDetail.provinceName}}</text>
-    </view>
-    <view class='publish__time'>发布时间：{{publishInfo.createTimeFriendly}}</view>
-  </view>
-</view>
-<!-- 设备描述 -->
-<view class="page-desc">
-  <view wx:if="{{publishInfo.voiceIntroduce}}" class="page-listen">
-    <text class="listen__text">点击听卖家介绍</text>
-    <view id="audio{{item.id}}" catchtap="handleAudioPlay" class="listen__voice">
-      <image wx:if="{{isPlaying}}" class='voice__icon' src='../../../icons/audio-playing.gif'></image>
-      <image wx:else class='voice__icon' src='../../../icons/voice.png'></image>
-      <text class='voice__text'>{{item.voiceWidth}}</text>
-    </view>
-    <!-- <text class="listen__voice" bindtap="handleAudioPlay">{{voice.second}}"</text> -->
-  </view>
-  <view class="desc">{{publishInfo.textIntroduce}}</view>
-  <view class="num">
-    <text class="f-mr70">点赞{{publishInfo.likeCount}}</text>
-    <text>浏览{{publishInfo.viewCount}}</text>
-  </view>
-</view>
-<!-- 留言 -->
-<view class="page-message">
-  <view class="message__total">全部留言·{{publishInfo.discussCount}}</view>
-  <view wx:for="{{discussInfo}}" wx:key="{{index}}" class="message-item">
-    <view class="f-flex-justBetween-alignCenter">
-      <view class="f-flex-justStart-alignCenter">
-        <image class="message__headimg" src="{{item.userInfo.headPortrait}}" mode='aspectFill'></image>
-        <text class="message__nickname">{{item.userInfo.nickName}}</text>
+<view class="{{publishInfo.isDownShelf?'has-down':''}}">
+  <wxs src="../../../wxs/utils.wxs" module="tools" />
+  <!-- 轮播 -->
+  <swiper circular duration="{{duration}}" class="swiper-box" bindchange="handleSwiperChange">
+    <block wx:for="{{publishInfo.imageVideos}}" wx:key="{{index}}">
+      <swiper-item class="swiper-item">
+        <image wx:if="{{item.type==='IMAGE'}}" src="{{item.file}}" mode='aspectFill' class='swiper-item' data-list="{{publishInfo.imageVideos}}" data-src="{{item.file}}" bindtap='handlePriviewImg'></image>
+        <video wx:else id="myVideo" src="{{item.file}}" show-mute-btn="{{true}}" show-fullscreen-btn="{{true}}" class='swiper-item' poster="{{publishInfo.mainMedia}}"></video>
+      </swiper-item>
+    </block>
+  </swiper>
+  <view wx:if="{{publishInfo.imageVideos.length}}" class="swiper-indicator">{{swiperCurrent+1}}/{{publishInfo.imageVideos.length}}</view>
+  <!-- 头部信息 -->
+  <view class="page-header">
+    <view class="page-header__userInfo">
+      <view wx:if="{{publishInfo.outPrice!=0}}" class="price">
+        ￥
+        <text class="price__num">{{publishInfo.outPrice}}</text>万
       </view>
-      <text class="message__time">{{item.createTimeFriendly}}</text>
+      <view wx:else class="price">
+        <text class="price__num">面议</text>
+      </view>
+      <view class="f-flex-justStart-alignCenter header__user" bindtap="handleToHome" data-userid="{{publishInfo.publishUserInfo.id}}">
+        <image wx:if="{{publishInfo.publishUserInfo.headPortrait}}" class="header__user__headimg" src="{{publishInfo.publishUserInfo.headPortrait}}" mode='aspectFill'></image>
+        <image wx:else class="header__user__headimg" src="{{ICON_URL}}headimg.png" mode='aspectFill'></image>
+        <text class="header__user__nickname f-ellipsis1">{{publishInfo.publishUserInfo.nickName}}</text>
+      </view>
     </view>
-    <view class="message-bottom">
-      <view class="message__content" data-info="{{item}}" bindtap="handleReply">{{item.content}}</view>
-      <view wx:for="{{item.secondLevel}}" wx:key="{{index}}" wx:for-item="childItem" class="message-child">
+    <view class="title">{{publishInfo.title}}</view>
+    <view class="tags">
+      <text wx:if="{{publishInfo.categoryFirstName}}" class="tag-item">{{publishInfo.categoryFirstName}}</text>
+      <text wx:if="{{publishInfo.categorySecondName}}" class="tag-item">{{publishInfo.categorySecondName}}</text>
+      <text wx:if="{{publishInfo.productiveYear}}" class="tag-item">{{publishInfo.productiveYear}}年</text>
+    </view>
+    <view class='header-bottom'>
+      <view class='location'>
+        <image class='location__icon' src="{{ICON_URL}}location--publish.png"></image>
+        <text wx:if="{{!publishInfo.locationDetail.cityCode||publishInfo.locationDetail.cityName===publishInfo.locationDetail.provinceName}}">发货地：{{publishInfo.locationDetail.provinceName}}</text>
+        <text wx:else>发货地：{{publishInfo.locationDetail.provinceName}}·{{publishInfo.locationDetail.cityName}}</text>
+      </view>
+      <view class='publish__time'>发布时间：{{publishInfo.createTimeFriendly}}</view>
+    </view>
+  </view>
+  <!-- 设备描述 -->
+  <view class="page-desc">
+    <view wx:if="{{publishInfo.voiceIntroduce}}" class="page-listen">
+      <text class="listen__text">点击听卖家介绍</text>
+      <view id="audio{{item.id}}" catchtap="handleAudioPlay" class="listen__voice">
+        <image wx:if="{{isPlaying}}" class='voice__icon' src='{{ICON_URL}}audio-playing.gif'></image>
+        <image wx:else class='voice__icon' src='{{ICON_URL}}voice.png'></image>
+        <text class='voice__text'>{{publishInfo.voiceIntroduceTime}}s"</text>
+      </view>
+    </view>
+    <view class="desc">{{publishInfo.textIntroduce}}</view>
+    <view class="num">
+      <text>浏览{{publishInfo.viewCount}}</text>
+    </view>
+  </view>
+  <!-- 留言 -->
+  <view class="page-message">
+    <view class="message__total">全部留言
+      <text wx:if="{{discussInfo.length}}">·{{discussInfo.length}}</text>
+    </view>
+    <block wx:if="{{discussInfo.length}}">
+      <view wx:for="{{discussInfo}}" wx:key="{{index}}" class="message-item">
         <view class="f-flex-justBetween-alignCenter">
           <view class="f-flex-justStart-alignCenter">
-            <image class="child__headimg" src="{{childItem.userInfo.headPortrait}}" mode='aspectFill'></image>
-            <text class="child__nickname">{{childItem.userInfo.nickName}}</text>
+            <image bindtap="handleToHome" data-userid="{{item.userId}}" class="message__headimg" src="{{item.userInfo.headPortrait}}" mode='aspectFill'></image>
+            <text class="message__nickname">{{item.userInfo.nickName}}</text>
           </view>
-          <text class="child__time">{{childItem.createTimeFriendly}}</text>
+          <text class="message__time">{{item.createTimeFriendly}}</text>
         </view>
-        <view class="child__content" data-floorId="{{item.id}}" data-info="{{childItem}}" bindtap="handleReplyChild">回复
-          <text class="child__toName">{{tools.sub(childItem.contentPrefix,2)}}</text> {{childItem.content}}</view>
+        <view class="message-bottom">
+          <view class="message__content" data-info="{{item}}" bindtap="handleReply">{{item.content}}</view>
+          <view wx:for="{{item.secondLevel}}" wx:key="{{index}}" wx:for-item="childItem" class="message-child">
+            <view class="f-flex-justBetween-alignCenter">
+              <view class="f-flex-justStart-alignCenter">
+                <image bindtap="handleToHome" data-userid="{{childItem.userInfo.id}}" class="child__headimg" src="{{childItem.userInfo.headPortrait}}" mode='aspectFill'></image>
+                <text class="child__nickname">{{childItem.userInfo.nickName}}</text>
+              </view>
+              <text class="child__time">{{childItem.createTimeFriendly}}</text>
+            </view>
+            <view class="child__content" data-floorId="{{item.id}}" data-info="{{childItem}}" bindtap="handleReplyChild">回复
+              <text class="child__toName">{{tools.sub(childItem.contentPrefix,2)}}</text> {{childItem.content}}</view>
+          </view>
+        </view>
       </view>
+    </block>
+    <view wx:else class="message-empty">
+      <text>还没有人留言，快来抢沙发...</text>
+      <button class="btn-new" bindtap="handleNewMsg">留言</button>
+    </view>
+  </view>
+  <!-- 底部 -->
+  <view class="page-footer f-flex-justBetween-alignCenter">
+    <button wx:if="{{bindPhone}}" class="footer-connect" bindtap="handleCall">
+      <image class="connect__icon" src="{{ICON_URL}}mobile.png"></image>联系TA
+    </button>
+    <button wx:else class="footer-connect" open-type="getPhoneNumber" bindgetphonenumber="handleGetPhone" bindtap="handleLogin">
+      <image class="connect__icon" src="{{ICON_URL}}mobile.png"></image>联系TA
+    </button>
+    <view class="f-flex-justBetween-alignCenter footer-handles">
+      <view class="handle__item" bindtap="handleNewMsg">
+        <image class="item__icon" src="{{ICON_URL}}message.png"></image>留言
+      </view>
+      <view class="handle__item" bindtap="handleCollect">
+        <image wx:if="{{collectionDown}}" class="item__icon" src="{{ICON_URL}}collect--yellow.png"></image>
+        <image wx:else class="item__icon" src="{{ICON_URL}}collect.png"></image>收藏
+      </view>
+      <button class="handle__item" open-type='share'>
+        <image class="item__icon item__icon-share" src="{{ICON_URL}}ic-share.png"></image>转发
+      </button>
     </view>
   </view>
 </view>
-<!-- 底部 -->
-<view class="page-footer f-flex-justBetween-alignCenter">
-  <button wx:if="{{bindPhone}}" class="footer-connect" bindtap="handleCall">
-    <image class="connect__icon" src="../../../icons/mobile.png"></image>联系TA
-  </button>
-  <button wx:else class="footer-connect" open-type="getPhoneNumber" bindgetphonenumber="handleGetPhone">
-    <image class="connect__icon" src="../../../icons/mobile.png"></image>联系TA
-  </button>
-  <view class="f-flex-justBetween-alignCenter footer-handles">
-    <view class="handle__item" bindtap="handleNewMsg">
-      <image class="item__icon" src="../../../icons/message.png"></image>留言
-    </view>
-    <view class="handle__item" bindtap="handleCollect">
-      <image wx:if="{{collectionDown}}" class="item__icon" src="../../../icons/collect--yellow.png"></image>
-      <image wx:else class="item__icon" src="../../../icons/collect.png"></image>收藏
-    </view>
-    <view class="handle__item" bindtap="handleZan">
-      <image wx:if="{{!likeDown}}" class="item__icon" src="../../../icons/zan.png"></image>
-      <image wx:else class="item__icon" src="../../../icons/zan_on.png"></image>超赞
-    </view>
-  </view>
-</view>
+
+<!-- 已下架 -->
+<image wx:if="{{publishInfo.isDownShelf}}" src="{{ICON_URL}}has-down.png" class="icon-saleDown"></image>
 
 <!-- 留言 -->
 <view wx:if="{{message.visible}}" class="page-takeMsg">

@@ -4,14 +4,22 @@
 		"ignore": []
 	},
 	"setting": {
-		"urlCheck": false,
+		"urlCheck": true,
 		"es6": true,
 		"postcss": true,
 		"minified": true,
 		"newFeature": true,
-		"autoAudits": false,
 		"coverView": true,
-		"nodeModules": true
+		"nodeModules": true,
+		"autoAudits": false,
+		"checkInvalidKey": true,
+		"checkSiteMap": true,
+		"uploadWithSourceMap": true,
+		"babelSetting": {
+			"ignore": [],
+			"disablePlugins": [],
+			"outputPath": ""
+		}
 	},
 	"compileType": "miniprogram",
 	"libVersion": "2.7.7",
@@ -41,27 +49,75 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 1,
+			"current": 9,
 			"list": [
 				{
 					"id": 0,
-					"name": "pages/publish/create-sale/create-sale",
-					"pathName": "pages/publish/create-sale/create-sale",
-					"query": "",
-					"scene": null
-				},
-				{
-					"id": 1,
 					"name": "pages/publish/create-buy/create-buy",
 					"pathName": "pages/publish/create-buy/create-buy",
 					"query": "",
 					"scene": null
 				},
 				{
+					"id": 1,
+					"name": "pages/index/share-bind/share-bind",
+					"pathName": "pages/index/share-bind/share-bind",
+					"query": "scene=2",
+					"scene": 1025
+				},
+				{
 					"id": 2,
+					"name": "pages/my/invite/invite",
+					"pathName": "pages/my/invite/invite",
+					"query": "id=7",
+					"scene": null
+				},
+				{
+					"id": 3,
+					"name": "pages/my/person-home/person-home",
+					"pathName": "pages/my/person-home/person-home",
+					"query": "id=75",
+					"scene": null
+				},
+				{
+					"id": 4,
 					"name": "pages/publish/detail/detail",
 					"pathName": "pages/publish/detail/detail",
-					"query": "",
+					"query": "id=30",
+					"scene": 1011
+				},
+				{
+					"id": -1,
+					"name": "pages/my/index/index",
+					"pathName": "pages/my/index/index",
+					"query": "id=75",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "pages/publish/list-buy/list-buy",
+					"pathName": "pages/publish/list-buy/list-buy",
+					"query": "id=75",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "pages/index/share-bind/share-bind",
+					"pathName": "pages/index/share-bind/share-bind",
+					"query": "id=75",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "pages/publish/detail-buy/detail-buy",
+					"pathName": "pages/publish/detail-buy/detail-buy",
+					"query": "id=2",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "pages/my/my-buy/my-buy",
+					"pathName": "pages/my/my-buy/my-buy",
 					"scene": null
 				}
 			]

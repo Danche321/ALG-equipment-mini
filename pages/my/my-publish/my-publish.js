@@ -7,6 +7,7 @@ Page({
    * 页面的初始数据
    */
   data: {
+    ICON_URL: app.globalData.ICON_URL,
     listData: [],
     totalCount: 0,
     params: {
@@ -113,6 +114,7 @@ Page({
       success: res => {
         if (res.confirm) {
           const itemInfo = this.data.listData[index]
+          console.log(itemInfo)
           app.globalData.updatePublishInfo = JSON.stringify(itemInfo)
           wx.navigateTo({
             url: '/pages/publish/create-sale/create-sale',

@@ -1,8 +1,9 @@
+<wxs src="../../../wxs/utils.wxs" module="tools" />
 <!-- 筛选条件 -->
 <view class="m-page-filter">
   <!-- 选择 -->
   <view class="page-filter-select">
-    <view class="filter-item" bindtap="handleShowCity">交易地点</view>
+    <view class="filter-item" bindtap="handleShowCity">求购地区</view>
     <view class="filter-split"></view>
     <view bindtap="handleShowCategory" class="filter-item {{params.categoryFirstId?'active':''}}">机型</view>
   </view>
@@ -11,73 +12,62 @@
     <!-- 关键字 -->
     <view wx:if="{{params.searchText}}" class="tag-item" bindtap="handleClearSearchText">
       <text>{{params.searchText}}</text>
-      <image class="icon-clear" src="../../../icons/clear.png"></image>
+      <image class="icon-clear" src="{{ICON_URL}}clear.png"></image>
     </view>
     <!-- 一级类别 -->
     <view wx:if="{{params.categoryFirstId}}" class="tag-item" bindtap="handleClearCategoryFirst">
       <text>{{searchCategoryFirstName}}</text>
-      <image class="icon-clear" src="../../../icons/clear.png"></image>
+      <image class="icon-clear" src="{{ICON_URL}}clear.png"></image>
     </view>
     <!-- 二级类别 -->
     <view wx:if="{{params.categorySecondId}}" class="tag-item" bindtap="handleClearCategorySecond">
       <text>{{searchCategorySecondName}}</text>
-      <image class="icon-clear" src="../../../icons/clear.png"></image>
+      <image class="icon-clear" src="{{ICON_URL}}clear.png"></image>
     </view>
     <!-- 省份 -->
     <view wx:if="{{params.provinceCode}}" class="tag-item" bindtap="handleClearProvince">
       <text>{{provinceName}}</text>
-      <image class="icon-clear" src="../../../icons/clear.png"></image>
+      <image class="icon-clear" src="{{ICON_URL}}clear.png"></image>
     </view>
     <!-- 城市 -->
     <view wx:if="{{params.cityCode}}" class="tag-item" bindtap="handleClearCity">
       <text>{{cityName}}</text>
-      <image class="icon-clear" src="../../../icons/clear.png"></image>
+      <image class="icon-clear" src="{{ICON_URL}}clear.png"></image>
     </view>
   </view>
 </view>
 
 <view class="page-body" style="padding-top:{{marginTop}}px">
   <view wx:if="{{listData.length}}" class="publish-box">
-    <view class="list-item {{item.isDownShelf?'item--disabled':''}}" wx:for="{{listData}}" wx:key="{{index}}">
-      <!--头部-->
-      <view class="item-top">
-        <view class="item__title">{{item.title}}</view>
-        <view class="tag-box">
-          <block wx:for="{{item.tags}}" wx:key="{{index}}">
-            <text wx:if="{{item&&item!=='不限制'}}" class="item__tag">{{item}}</text>
-          </block>
+    <view class="list-item {{item.isDownShelf?'item--disabled':''}}" wx:for="{{listData}}" wx:key="{{index}}" data-id="{{item.id}}" bindtap="handleToDetail">
+      <view class="item__top">
+        <view class="title">{{item.categorySecondName||item.categoryFirstName}}</view>
+        <view class="item__top-bottom">
+          <text class="price">{{item.expectedPrice||'面议'}}</text>
+          <text class="time">{{tools.splitDate(item.createTime)}}发布</text>
         </view>
       </view>
-      <!--中部-->
-      <view class='item-middle'>
-        <view class='location'>
-          <image class='location__icon' src="../../../icons/location--publish.png"></image>
-          <text>{{item.locationText}}</text>
+      <view class="item__bottom">
+        <view class="bottom-filed">
+          <image class='filed__icon' src="{{ICON_URL}}year-buy.png"></image>
+          <text class="filed__key">年限范围</text>
+          <text class="filed__value">{{item.yearLimitNum||'不限'}}</text>
         </view>
-        <button wx:if="{{bindPhone}}" class="item__call" data-phone="{{item.contactMobile}}" open-type="getPhoneNumber" bindgetphonenumber="handleGetPhone">
-          <image class="icon-call" src="../../../icons/call.png" data-id="{{item.id}}" data-index="{{index}}"></image>
-          <text>拨打</text>
-        </button>
-        <view wx:else class="item__call" data-phone="{{item.contactMobile}}" bindtap="handleCall">
-          <image class="icon-call" src="../../../icons/call.png" data-id="{{item.id}}" data-index="{{index}}"></image>
-          <text>拨打</text>
+        <view class="bottom-filed">
+          <image class='filed__icon' src="{{ICON_URL}}location-buy.png"></image>
+          <text class="filed__key">求购地区</text>
+          <text class="filed__value">
+          <block wx:if="{{!item.locationDetail.cityCode||item.locationDetail.cityName===item.locationDetail.provinceName}}">{{item.locationDetail.provinceName}}</block>
+          <block wx:else> {{item.locationDetail.provinceName}}·{{item.locationDetail.cityName}}</block>
+          </text>
         </view>
       </view>
-      <!-- 底部 -->
-      <view class="item-bottom">
-        <view class="item__creator" data-userId="{{item.creatorInfo.id}}" bindtap="handleToUserHome">
-          <image class="item__headimg" src="{{item.creatorInfo.headPortrait}}" mode='aspectFill'></image>
-          <view>{{item.creatorInfo.nickName}}</view>
-        </view>
-        <view class="item_time">发布时间：{{item.createTimeFriendly}}</view>
-      </view>
-      <image wx:if="{{item.isDownShelf}}" src="../../../icons/sale--down.png " class="icon-saleDown "></image>
     </view>
   </view>
 
   <!-- 无数据 -->
   <view wx:else class='m-page-empty' style="margin-top:{{marginTop/2}}px">
-    <image class='empty__img' src="../../../icons/empty.png"></image>
+    <image class='empty__img' src="{{ICON_URL}}empty.png"></image>
     <text class='empty__text'>暂无相关数据</text>
   </view>
 </view>
@@ -87,6 +77,3 @@
 
 <!-- 选择城市组件 -->
 <select-city visible="{{selectCityVisible}}" bind:checked="handleCityConfirm"></select-city>
-
-<!-- 授权弹窗 -->
-<auth-dialog visible="{{authVisible}}" bind:hideModal="authHide"></auth-dialog>

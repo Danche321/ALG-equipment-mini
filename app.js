@@ -1,6 +1,27 @@
-//app.js
+// const ICON_URL = 'https://mechanical-test.oss-cn-hangzhou.aliyuncs.com/project_mini_icon/' // 测试环境-icon文件oss
+const ICON_URL = 'https://mechanical.oss-cn-hangzhou.aliyuncs.com/project_mini_icon/' // 生产环境-icon文件oss
 App({
   onLaunch: function() {
+    const updateManager = wx.getUpdateManager()
+    updateManager.onCheckForUpdate(function (res) {
+      // 请求完新版本信息的回调
+      console.log(res.hasUpdate)
+    })
+    updateManager.onUpdateReady(function () {
+      wx.showModal({
+        title: '更新提示',
+        content: '新版本已经准备好，是否重启应用？',
+        success: function (res) {
+          if (res.confirm) {
+            // 新的版本已经下载好，调用 applyUpdate 应用新版本并重启
+            updateManager.applyUpdate()
+          }
+        }
+      })
+    })
+    updateManager.onUpdateFailed(function () {
+      // 新的版本下载失败
+    })
     this.overShare()
   },
 
@@ -22,7 +43,8 @@ App({
             //你的分享配置
             return {
               title: '麒麟二手工程机械',
-              path: '/pages/index/home/home'
+              path: '/pages/index/home/home',
+              imageUrl: `${ICON_URL}share.png`
             };
           }
         }
@@ -30,11 +52,10 @@ App({
     })
   },
 
-
   globalData: {
-    BASE_URL: 'https://test.lanchengyun.com', // 测试环境
-    FILE_URL: 'https://mechanical-test.oss-cn-hangzhou.aliyuncs.com/', // 测试环境
-    // BASE_URL: 'https://www.lanchengyun.com', // 生产环境
+    // BASE_URL: 'https://test.lanchengyun.com', // 测试环境
+    BASE_URL: 'https://www.lanchengyun.com', // 生产环境
+    ICON_URL: ICON_URL, // 存放icon的oss测试环境地址
     userInfo: wx.getStorageSync('userInfo') ? JSON.parse(wx.getStorageSync('userInfo')) : null, // 用户信息
     searchText: '', // 搜索关键字
     searchCategoryFirstId: '', // 搜索一级类别id
@@ -42,8 +63,10 @@ App({
     searchCategorySecondId: '', // 搜索二级类别id
     searchCategorySecondName: '', // 搜索二级类别名称
     updatePublishInfo: null, // 编辑的发布信息
+    updateBuyInfo: null, // 编辑求购信息
     refreshHome: false, // 是否刷新首页的数据
     refreshSearch: false, // 是否刷新搜索页的数据
-    refreshBuy: false // 是否刷新求购信息列表
+    refreshBuy: false, // 是否刷新求购信息列表
+    refreshMyBuy: false, // 是否刷新我的求购信息列表
   }
 })

@@ -2,6 +2,8 @@
   "navigationStyle": "custom",
   "navigationBarTextStyle": "white",
   "navigationBarTitleText": "",
-  "usingComponents": {},
+  "usingComponents": {
+    "auth-dialog": "/components/AuthDialog/AuthDialog"
+  },
   "enablePullDownRefresh": true
 }

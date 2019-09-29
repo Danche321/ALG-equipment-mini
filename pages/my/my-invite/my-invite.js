@@ -10,6 +10,7 @@ Page({
    * 页面的初始数据
    */
   data: {
+    ICON_URL: app.globalData.ICON_URL,
     listData: [],
     params: {
       pageNum: 1,
@@ -55,45 +56,17 @@ Page({
     const params = this.data.params
     fetchInviteList(params).then(res => {
       const { items, hasNextPage } = res.data
+      let resList = []
+      if (isFirst) {
+        resList = items
+      } else {
+        resList = [...this.data.listData, ...items]
+      }
       this.setData({
-        listData: items,
+        listData: resList,
         hasNextPage
       })
       if (isFirst) wx.stopPullDownRefresh()
-    })
-  },
-
-  // 关注
-  handleFocus() {
-    const { id, index } = e.currentTarget.dataset
-    const { userId } = this.data
-    const params = `?userId=${userId}&objectId=${id}`
-    handleFocus(params).then(() => {
-      wx.showToast({
-        title: '已关注'
-      })
-      this.data.listData[index].followed = true
-      this.setData({
-        listData: this.data.listData
-      })
-    })
-  },
-
-  // 取消关注
-  handleCancleFocus(e) {
-    console.log(e)
-    const { id, index } = e.currentTarget.dataset
-    const { userId } = this.data
-    const params = `?userId=${userId}&objectId=${id}`
-    handleCancleFocus(params).then(() => {
-      wx.showToast({
-        title: '已取消',
-        icon: 'none'
-      })
-      this.data.listData[index].followed = false
-      this.setData({
-        listData: this.data.listData
-      })
     })
   },
 

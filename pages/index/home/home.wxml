@@ -1,7 +1,7 @@
-<!-- 头部 -->
+<wxs src="../../../wxs/utils.wxs" module="tools" />
 <view class="page__header">
   <view class='search__input' bindtap='handleToSearch'>
-    <image class='icon-search' src='../../../icons/search.png'></image>
+    <image class='icon-search' src='{{ICON_URL}}search.png'></image>
     <text>搜索机械设备</text>
   </view>
 </view>
@@ -10,7 +10,7 @@
   <swiper indicator-dots autoplay circular duration="{{duration}}" class="swiper-box" style="top:{{statusBarHeight+titleBar.height+titleBar.top}}px">
     <block wx:for="{{bannerList}}" wx:key="{{index}}">
       <swiper-item class="swiper-item">
-        <image src="{{item.image}}" class="slide-image" />
+        <image data-url="{{item.url}}" bindtap="handleBannerTo" src="{{item.image}}" class="slide-image" />
       </swiper-item>
     </block>
   </swiper>
@@ -28,52 +28,33 @@
 </swiper>
 <!-- 发布列表 -->
 <view class="publish-box">
-  <view class="publish-column">
-    <view wx:if="{{index%2===0}}" wx:for="{{publishList}}" wx:key="{{index}}" class="publish-item" data-id="{{item.id}}" bindtap="handleToDetail">
-      <image class="img" src="{{item.mainMedia}}" mode='aspectFill'></image>
-      <view class="publish__content">
-        <view class="title f-ellipsis2">{{item.title}}</view>
-        <view wx:if="{{item.voiceIntroduce}}" id="audio{{item.id}}" data-src="{{item.voiceIntroduce}}" data-id="{{item.id}}" catchtap="handleAudioPlay" class="voice">
-          <image wx:if="{{activePlayingId===item.id}}" class='voice__icon' src='../../../icons/audio-playing.gif'></image>
-          <image wx:else class='voice__icon' src='../../../icons/voice.png'></image>
-          <text class='voice__text'>{{item.voiceIntroduceTime}}s"</text>
-        </view>
-        <view class="item-priceArea">
-          <view wx:if="{{item.outPrice!='未知'}}" class="price">
-            ￥<text class="price__value">{{item.outPrice}}</text>万
-          </view>
-          <view wx:else class="price"><text class="price__value">面议</text></view>
-          <text wx:if="{{item.locationDetail.cityName}}" class="area f-ellipsis1">{{item.locationDetail.provinceName}}·{{item.locationDetail.cityName}}</text>
-          <text wx:else class="area f-ellipsis1">{{item.locationDetail.provinceName}}</text>
-        </view>
-        <view data-userid="{{item.publishUserInfo.id}}" catchtap="handleToUserHome" class="user-info f-flex-justStart-alignCenter">
-          <image src="{{item.publishUserInfo.headPortrait}}" class="headimg" mode='aspectFill'></image>
-          <text class="nickname f-ellipsis1">{{item.publishUserInfo.nickName}}</text>
+  <view class="list-item" wx:for="{{publishList}}" wx:key="{{index}}" data-id="{{item.id}}" bindtap="handleToDetail">
+    <view class="img-box">
+      <image src="{{item.mainMedia}}" class="item__img" mode="aspectFill"></image>
+      <image wx:if="{{item.imageVideos[0].type==='VIDEO'}}" class="icon-play" src="{{ICON_URL}}list-play.png"></image>
+    </view>
+    <view class='item__right'>
+      <view>
+        <view class="f-ellipsis1 item__title">{{item.title}}</view>
+        <view class="tag-box f-ellipsis1">
+          <block wx:if="{{item.categoryFirstName&&!item.categorySecondName}}">{{item.categoryFirstName}} </block>
+          <block wx:if="{{item.categorySecondName}}" class="item__tag">{{item.categorySecondName}} </block>
+          <block wx:if="{{item.productiveYear}}" class="item__tag">| {{item.productiveYear}}年 </block>
+          <block>
+            <block wx:if="{{!item.locationDetail.cityCode||item.locationDetail.cityName===item.locationDetail.provinceName}}">| {{item.locationDetail.provinceName}}</block>
+            <block wx:else>| {{item.locationDetail.provinceName}}·{{item.locationDetail.cityName}}</block>
+          </block>
         </view>
       </view>
-    </view>
-  </view>
-  <view class="publish-column">
-    <view wx:if="{{index%2!==0}}" wx:for="{{publishList}}" wx:key="{{index}}" class="publish-item" data-id="{{item.id}}" bindtap="handleToDetail">
-      <image class="img" src="{{item.mainMedia}}"mode='aspectFill'></image>
-      <view class="publish__content">
-        <view class="title f-ellipsis2">{{item.title}}</view>
-        <view wx:if="{{item.voiceIntroduce}}" id="audio{{item.id}}" data-src="{{item.voiceIntroduce}}" data-id="{{item.id}}" catchtap="handleAudioPlay" class="voice">
-          <image class='voice__icon' src='../../../icons/voice.png'></image>
-          <text class='voice__text'>{{item.voiceIntroduceTime}}s"</text>
-        </view>
-        <view class="item-priceArea">
-          <view wx:if="{{item.outPrice!='未知'}}" class="price">
-            ￥<text class="price__value">{{item.outPrice}}</text>万
+      <view class="item-bottom">
+        <view class="price-block">
+          <view wx:if="{{item.outPrice!=0}}" class="item__price">
+            ¥
+            <text class="price__value">{{item.outPrice}}</text>万
           </view>
-          <view wx:else class="price">面议</view>
-          <text wx:if="{{item.locationDetail.cityName}}" class="area f-ellipsis1">{{item.locationDetail.provinceName}}·{{item.locationDetail.cityName}}</text>
-          <text wx:else class="area f-ellipsis1">{{item.locationDetail.provinceName}}</text>
+          <view wx:else class="item__price">面议</view>
         </view>
-        <view data-userid="{{item.publishUserInfo.id}}" catchtap="handleToUserHome" class="user-info f-flex-justStart-alignCenter">
-          <image src="{{item.publishUserInfo.headPortrait}}" class="headimg" mode='aspectFill'></image>
-          <text class="nickname f-ellipsis1">{{item.publishUserInfo.nickName}}</text>
-        </view>
+        <view class="item_time">{{tools.splitDate(item.createTime)}}发布</view>
       </view>
     </view>
   </view>

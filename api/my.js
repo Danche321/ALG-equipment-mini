@@ -68,9 +68,17 @@ export function fetchMyFans(data) {
 // 获取个人主页
 export function fetchPersonHome(data) {
   return request({
-    url: '/my/personalHomePage.action',
+    url: '/my/v2/personalHomePage.action',
     method: 'get',
     data: data
+  })
+}
+
+// 修改个人主页背景图
+export function handleUpdateHomeBg(data) {
+  return request({
+    url: `/my/personalHomePageBk.action${data}`,
+    method: 'post'
   })
 }
 

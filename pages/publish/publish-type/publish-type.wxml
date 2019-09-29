@@ -1,17 +1,20 @@
 <view class="item item-sale" bindtap="handleToSale">
-  <image class="item__icon" src="../../../icons/publish_sale.png"></image>
+  <image class="item__icon" src="{{ICON_URL}}publish_sale.png"></image>
   <view class="item__text">
     <text class="item__title">发布转让</text>
     <text class="item__desc">我有设备出售，让老板主动找上你</text>
   </view>
 </view>
 <view class="item item-buy" bindtap="handleToBug">
-  <image class="item__icon" src="../../../icons/publish_buy.png"></image>
+  <image class="item__icon" src="{{ICON_URL}}publish_buy.png"></image>
   <view class="item__text">
     <text class="item__title">发布求购</text>
     <text class="item__desc">我要购买设备，极速解决购机需求</text>
   </view>
 </view>
+
+<!-- 账户被冻结弹窗 -->
+<freezing-dialog visible="{{freezVisible===1}}"></freezing-dialog>
 
 <!-- 授权弹窗 -->
 <auth-dialog visible="{{authVisible}}" bind:hideModal="authHide"></auth-dialog>

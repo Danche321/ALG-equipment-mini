@@ -3,6 +3,7 @@
     <view class="item__top f-flex-justBetween-alignStart">
       <view class="img-box">
         <image src="{{item.mainMedia}}" class="item__img" mode="aspectFill" mode='aspectFill'></image>
+          <image wx:if="{{item.imageVideos[0].type==='VIDEO'}}" class="icon-play" src="{{ICON_URL}}list-play.png"></image>
       </view>
       <view class='item__right'>
         <view class="f-ellipsis2 item__title">{{item.title}}</view>
@@ -12,17 +13,15 @@
           <text wx:if="{{item.productiveYear}}" class="item__tag">{{item.productiveYear}}年</text>
         </view>
         <view class="f-flex-justBetween-alignCenter">
-          <view wx:if="{{item.outPrice!='未知'}}" class="item__price">
+          <view wx:if="{{item.outPrice!=0}}" class="item__price">
             ¥
             <text class="price__value">{{item.outPrice}}</text>万
           </view>
-          <view wx:else class="item__price">
-            <text class="price__value">面议</text>
-          </view>
+          <view wx:else class="item__price">面议</view>
           <view class="item__area f-flex-justStart-alignCenter">
-            <image class="area__icon" src="../../../icons/location.png"></image>
-            <text wx:if="{{item.locationDetail.cityName}}" class="area__text">{{item.locationDetail.provinceName}}·{{item.locationDetail.cityName}}</text>
-            <text wx:else class="area__text">{{item.locationDetail.provinceName}}</text>
+            <image class="area__icon" src="{{ICON_URL}}location.png"></image>
+            <text wx:if="{{!item.locationDetail.cityCode||item.locationDetail.cityName===item.locationDetail.provinceName}}" class="area__text">{{item.locationDetail.provinceName}}</text>
+            <text wx:else class="area__text">{{item.locationDetail.provinceName}}·{{item.locationDetail.cityName}}</text>
           </view>
         </view>
       </view>
@@ -35,20 +34,20 @@
         </view>
       </view>
       <view wx:if="{{!item.isCollect}}" class="btn-collect active f-flex-justCenter-alignCenter" data-id="{{item.id}}" data-index="{{index}}" catchtap="handleCancelCollect">
-        <image class="collect__icon" src="../../../icons/collect--yellow.png"></image>
+        <image class="collect__icon" src="{{ICON_URL}}collect--yellow.png"></image>
         <text class="collect__text">取消收藏</text>
       </view>
       <view wx:else class="btn-collect f-flex-justCenter-alignCenter" data-id="{{item.id}}" data-index="{{index}}" catchtap="handleCollect">
-        <image class="collect__icon " src="../../../icons/collect--gray.png "></image>
+        <image class="collect__icon " src="{{ICON_URL}}collect--gray.png "></image>
         <text class="collect__text">收藏</text>
       </view>
     </view>
-    <image wx:if="{{item.isDownShelf}}" src="../../../icons/sale--down.png" class="icon-saleDown"></image>
+    <image wx:if="{{item.isDownShelf}}" src="{{ICON_URL}}sale--down.png" class="icon-saleDown"></image>
   </view>
 </block>
 
 <!-- 无数据 -->
 <view wx:else class='m-page-empty'>
-  <image class='empty__img' src="../../../icons/empty.png"></image>
+  <image class='empty__img' src="{{ICON_URL}}empty.png"></image>
   <text class='empty__text'>您还没有任何收藏～</text>
 </view>

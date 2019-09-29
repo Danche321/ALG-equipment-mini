@@ -3,7 +3,7 @@
   <view class="avatar__content" bindtap="handleUpload">
     <image mode="aspectFill" class="avatar__photo" src="{{userInfo.headPortrait}}"></image>
     <view class="avatar__upload">
-      <image src="../../../icons/camera.png" class="upload__icon"></image>
+      <image src="{{ICON_URL}}camera.png" class="upload__icon"></image>
     </view>
   </view>
 </view>
@@ -14,7 +14,7 @@
     <text class="field__label">昵称</text>
     <view class="field__value">
       <text class='field__value-input'>{{userInfo.nickName}}</text>
-      <image class='field__value-arrow' src='../../../icons/arrow-right-gray.png'></image>
+      <image class='field__value-arrow' src='{{ICON_URL}}arrow-right-gray.png'></image>
     </view>
   </view>
 
@@ -23,7 +23,7 @@
       <text class="field__label">家乡</text>
       <view class="field__value">
         <text>{{userInfo.location}}</text>
-        <image class='field__value-arrow' src='../../../icons/arrow-right-gray.png'></image>
+        <image class='field__value-arrow' src='{{ICON_URL}}arrow-right-gray.png'></image>
       </view>
     </view>
   </picker>
@@ -31,7 +31,7 @@
     <text class="field__label">个性签名</text>
     <view class="field__value">
       <text class="field__value--signature">{{userInfo.signature}}</text>
-      <image class='field__value-arrow' src='../../../icons/arrow-right-gray.png'></image>
+      <image class='field__value-arrow' src='{{ICON_URL}}arrow-right-gray.png'></image>
     </view>
   </view>
 </view>

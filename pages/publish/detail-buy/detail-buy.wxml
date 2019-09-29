@@ -1,0 +1,82 @@
+<wxs src="../../../wxs/utils.wxs" module="tools" />
+<view class="{{info.shelfStatus===0?'has-down':''}}">
+  <!-- 基本信息 -->
+  <view class="page-section">
+    <view class="page-title">
+      <text>基本信息</text>
+      <text class="create-time">{{tools.splitDate(info.createTime)}}发布</text>
+    </view>
+    <view class="filed-cell">
+      <text class="filed__key">设备类型</text>
+      <text class="filed__value">{{info.categorySecondName||info.categoryFirstName}}</text>
+    </view>
+    <view class="filed-cell">
+      <text class="filed__key">求购地区</text>
+      <text class="filed__value">
+     <block wx:if="{{!info.locationDetail.cityCode||info.locationDetail.cityName===info.locationDetail.provinceName}}">{{info.locationDetail.provinceName}}</block>
+          <block wx:else> {{info.locationDetail.provinceName}}·{{info.locationDetail.cityName}}</block>
+    </text>
+    </view>
+    <view class="filed-cell">
+      <text class="filed__key">期望价格</text>
+      <text class="filed__value">{{info.expectedPrice||'不限'}}</text>
+    </view>
+    <view class="filed-cell">
+      <text class="filed__key">使用小时数</text>
+      <text class="filed__value">{{info.usageHours||'不限'}}</text>
+    </view>
+    <view class="filed-cell">
+      <text class="filed__key">年限</text>
+      <text class="filed__value">{{info.yearLimitNum||'不限'}}</text>
+    </view>
+    <view class="filed-cell">
+      <text class="filed__key">联系人</text>
+      <text class="filed__value">{{info.contact}}</text>
+    </view>
+    <view class="filed-cell">
+      <text class="filed__key">其他要求</text>
+      <text wx:if="{{info.hasInvoice===1||info.hasCertificate===1}}" class="filed__value">
+    <text class="other" wx:if="{{info.hasInvoice===1}}">需要发票</text>
+      <text class="other" wx:if="{{info.hasCertificate===1}}">需要合格证</text>
+      </text>
+      <text wx:else class="filed__value">无</text>
+    </view>
+  </view>
+
+  <!-- 备注 -->
+  <view class="page-section">
+    <view class="page-title">备注</view>
+    <view class="filed-cell filed__value">{{info.remark||'无'}}</view>
+  </view>
+
+
+  <!-- 底部 -->
+  <view class="page-footer f-flex-justBetween-alignCenter">
+    <button wx:if="{{bindPhone}}" class="footer-connect" bindtap="handleCall">
+      <image class="connect__icon" src="{{ICON_URL}}mobile.png"></image>联系TA
+    </button>
+    <button wx:else class="footer-connect" open-type="getPhoneNumber" bindgetphonenumber="handleGetPhone" bindtap="handleLogin">
+      <image class="connect__icon" src="{{ICON_URL}}mobile.png"></image>联系TA
+    </button>
+    <view class="f-flex-justBetween-alignCenter footer-handles">
+      <view class="handle__item" bindtap="handleCanvas">
+        <image class="item__icon" src="{{ICON_URL}}share-pic.png" bindtap="handleCanvas"></image>宣传图
+      </view>
+      <button class="handle__item" open-type='share'>
+        <image class="item__icon item__icon-share" src="{{ICON_URL}}ic-share.png"></image>转发
+      </button>
+    </view>
+  </view>
+</view>
+
+<!-- 已下架 -->
+<image wx:if="{{info.shelfStatus===0}}" src="{{ICON_URL}}has-down.png" class="icon-saleDown"></image>
+
+<!-- 宣传图 -->
+<canvas canvas-id="myCanvas" class='canvas' />
+<view hidden='{{qrCode.hidden}}' class='preview' bindtap='hideCanvas'>
+  <image src="{{qrCode.imgUrl}}" mode='widthFix'></image>
+  <view>
+    <button type='primary' size='mini' catchtap='save'>保存图片</button>
+  </view>
+</view>

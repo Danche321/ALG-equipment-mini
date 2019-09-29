@@ -1,4 +1,12 @@
 var sub = function(val, start, end) {
   return val.substring(start, end)
 }
-module.exports.sub = sub;
+
+var splitDate = function (date) {
+  return date.split(' ')[0]
+}
+
+module.exports = {
+  sub: sub,
+  splitDate: splitDate
+}

@@ -18,7 +18,7 @@ page {
 }
 
 .item__nickname {
-  font-size: 30prx;
+  font-size: 30rpx;
   color: #333;
   font-weight: 500;
 }

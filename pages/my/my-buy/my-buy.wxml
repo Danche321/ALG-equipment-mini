@@ -1,3 +1,4 @@
+<wxs src="../../../wxs/utils.wxs" module="tools" />
 <view class="filter">
   <view data-type="1" bindtap="handleTabChange" class="filter-item {{params.shelfStatus==1?'active':''}}">发布中
     <text wx:if="{{params.shelfStatus==1}}">（{{totalCount}}）</text>
@@ -9,34 +10,39 @@
 
 <view class="publish-box">
   <block wx:if="{{listData.length}}">
-    <view class="list-item {{!item.shelfStatus?'item--disabled':''}}" wx:for="{{listData}}" wx:key="{{index}}">
-      <!--头部-->
-      <view class="item-top">
-        <view class="item__title">{{item.title}}</view>
-      </view>
-      <!--中部-->
-      <view class='item-middle'>
-        <view class="tag-box">
-          <block wx:for="{{item.tags}}" wx:key="{{index}}">
-            <text wx:if="{{item&&item!=='不限制'}}" class="item__tag">{{item}}</text>
-          </block>
+    <view class="list-item {{item.isDownShelf?'item--disabled':''}}" wx:for="{{listData}}" wx:key="{{index}}" data-id="{{item.id}}" bindtap="handleToDetail">
+      <view class="item__top">
+        <view class="title">{{item.categorySecondName||item.categoryFirstName}}</view>
+        <view class="item__top-bottom">
+          <text class="price">{{item.expectedPrice||'面议'}}</text>
+          <text class="time">{{tools.splitDate(item.createTime)}}发布</text>
         </view>
-        <image wx:if="{{item.shelfStatus}}" catchtap='handleDown' data-id="{{item.id}}" data-index="{{index}}" class="item__btn " src="../../../icons/btn_shelves.png "></image>
       </view>
-      <!-- 底部 -->
-      <view class="item-bottom">
-        <view class='location'>
-          <image class='location__icon' src="../../../icons/location--publish.png"></image>
-          <text>{{item.locationText}}</text>
+      <view class="item__bottom">
+        <view class="bottom-filed">
+          <image class='filed__icon' src="{{ICON_URL}}year-buy.png"></image>
+          <text class="filed__key">年限范围</text>
+          <text class="filed__value">{{item.yearLimitNum||'不限'}}</text>
         </view>
-        <view class="item_time">发布时间：{{item.createTimeFriendly}}</view>
+        <view class="bottom-filed">
+          <image class='filed__icon' src="{{ICON_URL}}location-buy.png"></image>
+          <text class="filed__key">求购地区</text>
+          <text class="filed__value">
+          <block wx:if="{{!item.locationDetail.cityCode||item.locationDetail.cityName===item.locationDetail.provinceName}}">{{item.locationDetail.provinceName}}</block>
+          <block wx:else> {{item.locationDetail.provinceName}}·{{item.locationDetail.cityName}}</block>
+          </text>
+        </view>
+        <view class="bottom-filed-btn" wx:if="{{item.shelfStatus===1}}">
+          <image catchtap='handleDown' data-id="{{item.id}}" data-index="{{index}}" class="item__btn " src="{{ICON_URL}}btn_shelves.png "></image>
+          <image catchtap="handleUpdate" data-id="{{item.id}}" data-index="{{index}}" class="item__btn " src="{{ICON_URL}}btn_modify.png "></image>
+        </view>
       </view>
     </view>
   </block>
 
   <!-- 无数据 -->
   <view wx:else class='m-page-empty'>
-    <image class='empty__img' src="../../../icons/empty.png"></image>
+    <image class='empty__img' src="{{ICON_URL}}empty.png"></image>
     <text class='empty__text'>发布求购信息，极速解决你的购机需求</text>
   </view>
 </view>

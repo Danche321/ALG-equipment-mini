@@ -9,6 +9,7 @@ Page({
    * 页面的初始数据
    */
   data: {
+    ICON_URL: app.globalData.ICON_URL,
     listData: [],
     totalCount: 0,
     params: {
@@ -24,6 +25,16 @@ Page({
    */
   onLoad: function(options) {
     this.getList(1)
+  },
+
+  /**
+   * 生命周期函数--监听页面显示
+   */
+  onShow: function () {
+    if (app.globalData.refreshMyBuy) {
+      this.getList(1)
+      app.globalData.refreshMyBuy = false
+    }
   },
 
   /**
@@ -108,6 +119,7 @@ Page({
             this.setData({
               listData: [...this.data.listData]
             })
+            app.globalData.refreshBuy = true
             wx.showToast({
               title: '已下架',
             })
@@ -117,4 +129,21 @@ Page({
       }
     })
   },
+
+  // 编辑
+  handleUpdate(e) {
+    const { index } = e.currentTarget.dataset
+    const itemInfo = this.data.listData[index]
+    app.globalData.updateBuyInfo = JSON.stringify(itemInfo)
+    wx.navigateTo({
+      url: '/pages/publish/create-buy/create-buy',
+    })
+  },
+
+  handleToDetail(e) {
+    const id = e.currentTarget.dataset.id
+    wx.navigateTo({
+      url: `/pages/publish/detail-buy/detail-buy?id=${id}`,
+    })
+  }
 })

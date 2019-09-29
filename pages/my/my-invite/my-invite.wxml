@@ -1,27 +1,21 @@
 <block wx:if="{{listData.length}}">
-  <view wx:for="{{listData}}" data-id="{{item.personInfo.id}}" bindtap="handleToUserHome" wx:key="{{index}}" class="f-flex-justBetween-alignCenter list-item">
-    <view class="f-flex-justStart-alignCenter">
-      <image class="item__img" src="{{item.personInfo.headPortrait}}" mode='aspectFill'></image>
-      <view>
-        <view class="item__nickname">{{item.personInfo.nickName}}</view>
-        <view class="item__num">
-          <text>{{item.personInfo.fansCount}}粉丝</text>
-          <text class="f-ml40">{{item.personInfo.publishCount}}发布</text>
+  <view wx:for="{{listData}}" data-id="{{item.invite.id}}" bindtap="handleToUserHome" wx:key="{{index}}" class="list-item">
+    <image class="item__img" src="{{item.invite.headPortrait}}" mode='aspectFill'></image>
+      <view class="item-content">
+        <view class="item__nickname">{{item.invite.nickName}}</view>
+        <view class="item__bottom">
+          <view class="item__num">
+            <text>{{item.invite.fansCount}}粉丝</text>
+            <text class="f-ml40">{{item.invite.publishCount}}发布</text>
+          </view>
+          <view class="invite-time">{{item.inviteTime}}</view>
         </view>
       </view>
-    </view>
-    <view wx:if="{{item.followed}}" class="item__btn btn--gray" data-id="{{item.personInfo.id}}" data-index="{{index}}" catchtap="handleCancleFocus">
-      <text class="focus__text">已关注</text>
-    </view>
-    <view wx:else class="item__btn btn--blue" data-id="{{item.personInfo.id}}" data-index="{{index}}" catchtap="handleFocus">
-      <text class="focus__add ">+</text>
-      <text class="focus__text ">关注</text>
-    </view>
   </view>
 </block>
 
 <!-- 无数据 -->
 <view wx:else class='m-page-empty'>
-  <image class='empty__img' src="../../../icons/empty.png"></image>
-  <text class='empty__text'>快去邀请好友，共享信息平台</text>
+  <image class='empty__img' src="{{ICON_URL}}empty.png"></image>
+  <text class='empty__text'>邀请好友，共享信息平台</text>
 </view>

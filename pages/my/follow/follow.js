@@ -10,6 +10,7 @@ Page({
    * 页面的初始数据
    */
   data: {
+    ICON_URL: app.globalData.ICON_URL,
     listData: [],
     params: {
       pageNum: 1,
@@ -61,8 +62,14 @@ Page({
         items,
         hasNextPage
       } = res.data
+      let resList = []
+      if (isFirst) {
+        resList = items
+      } else {
+        resList = [...this.data.listData, ...items]
+      }
       this.setData({
-        listData: items,
+        listData: resList,
         hasNextPage
       })
       if (isFirst) wx.stopPullDownRefresh()

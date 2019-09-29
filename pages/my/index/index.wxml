@@ -8,7 +8,7 @@
         <view class="user__desc f-ellipsis1">{{userInfo.signature}}</view>
       </view>
     </view>
-    <image bindtap='handleToHome' class="user__homeIcon" src="../../../icons/my_home.png"></image>
+    <view bindtap='handleToHome' class="user__homeIcon">麒麟小店</view>
   </view>
   <view class="header__total f-flex-justBetween-alignCenter">
     <view class="total-item f-border--right" bindtap="handleToFollow">
@@ -32,17 +32,16 @@
     <view class="section-title">卖在麒麟</view>
     <view class="section-cardList">
       <view class="card-item" bindtap='handleToPublish'>
-        <image src="../../../icons/my_publish.png" class="card__icon"></image>
-        <text class='card__label'>我发布的</text>
+        <image src="{{ICON_URL}}my_publish.png" class="card__icon"></image>
+        <text class='card__label'>我的转让</text>
+      </view>
+      <view class="card-item" bindtap='handleToBuy'>
+        <image src="{{ICON_URL}}my_buy.png" class="card__icon icon-buy"></image>
+        <text class='card__label'>我的求购</text>
       </view>
       <view class="card-item" bindtap='handleToCollect'>
-        <image src="../../../icons/my_collect.png" class="card__icon"></image>
+        <image src="{{ICON_URL}}my_collect.png" class="card__icon"></image>
         <text class='card__label'>我收藏的</text>
-      </view>
-      <view class="card-item card-item-dynamic" bindtap='handleToDynamic'>
-        <image src="../../../icons/my_dynamic.png" class="card__icon"></image>
-        <text class='card__label'>我的动态</text>
-        <text wx:if="{{userInfo.unreadCommentCount}}" class="label__add">+{{userInfo.unreadCommentCount}}</text>
       </view>
     </view>
   </view>
@@ -50,16 +49,17 @@
   <view class="section-card">
     <view class="section-title">其他服务</view>
     <view class="section-cardList">
-      <view class="card-item" bindtap='handleToBuy'>
-        <image src="../../../icons/my_buy.png" class="card__icon icon-buy"></image>
-        <text class='card__label'>我的求购</text>
+      <view class="card-item card-item-dynamic" bindtap='handleToDynamic'>
+        <image src="{{ICON_URL}}my_dynamic.png" class="card__icon"></image>
+        <text class='card__label'>我的动态</text>
+        <text wx:if="{{userInfo.unreadCommentCount}}" class="label__add">+{{userInfo.unreadCommentCount}}</text>
       </view>
       <view class="card-item" bindtap='handleToInvite'>
-        <image src="../../../icons/my_invite.png" class="card__icon"></image>
+        <image src="{{ICON_URL}}my_invite.png" class="card__icon"></image>
         <text class='card__label'>邀请有奖</text>
       </view>
       <button open-type="contact" class="card-item card-item--contact">
-        <image src="../../../icons/my_kefu.png" class="card__icon"></image>
+        <image src="{{ICON_URL}}my_kefu.png" class="card__icon"></image>
         <text class='card__label'>联系平台</text>
       </button>
     </view>

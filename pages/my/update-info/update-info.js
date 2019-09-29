@@ -1,9 +1,11 @@
+const app = getApp()
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
+    ICON_URL: app.globalData.ICON_URL,
     key: '',
     value: ''
   },

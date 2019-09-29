@@ -1,0 +1,64 @@
+
+
+.modal-bindMobile {
+  z-index: 1000;
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  top: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal-content {
+  background-color: #fff;
+  padding: 40rpx;
+  border-radius: 15rpx;
+  width: 550rpx;
+}
+
+.modal-title {
+  font-size: 42rpx;
+  text-align: center;
+  padding-bottom: 40rpx;
+}
+
+.modal-tip {
+  font-size: 32rpx;
+  color: #666;
+}
+
+.modal-btns {
+  padding-top: 40rpx;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.modal-btns button {
+  width: 340rpx;
+  height: 90rpx;
+  line-height: 88rpx;
+  font-size: 34rpx;
+  box-sizing: border-box;
+  border: none;
+}
+
+.modal-btns button::after {
+  display: none;
+}
+
+.modal-btns .confirm {
+  background: linear-gradient(to right bottom, #3fa4fe, #3369f8);
+  color: #fff;
+}
+
+.modal-bg {
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  position: fixed;
+  top: 0;
+  z-index: 999;
+}

@@ -6,14 +6,15 @@ import { handleBindPhone, fetchWxPhone } from '../../../api/common.js'
 import { checkPhone } from '../../../utils/rules.js'
 const app = getApp()
 const QQMapWX = require('../../../libs/qqmap-wx-jssdk.js');
-
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    tempFilePath: null,
+    ICON_URL: app.globalData.ICON_URL,
+    audioFilePath: null, // 录音文件
+    code: '', // 授权手机号前的登录code
     bindMobile: '', // 是否绑定手机号
     params: {
       id: '', // 编辑的时候用
@@ -30,7 +31,7 @@ Page({
       provinceName: '',
       cityCode: '',
       cityName: '',
-      voiceIntroduceTime: '' //录音时长
+      voiceIntroduceTime: 0 //录音时长
     },
     hasVideo: false,
     selectCategoryVisible: false, // 选择机型组件
@@ -41,6 +42,11 @@ Page({
     updatePhoneDialog: { // 修改手机号弹窗
       visible: false,
       value: '', // 修改联系方式的值
+    },
+    video: {
+      visible: false,
+      src: '',
+      showImg: ''
     }
   },
 
@@ -71,6 +77,18 @@ Page({
         categoryFirstName,
         categorySecondName
       } = data
+      let showCategoryName
+      if (categorySecondName) {
+        showCategoryName = `${categoryFirstName}·${categorySecondName}`
+      } else {
+        showCategoryName = categoryFirstName
+      }
+      let showAreaName
+      if (!locationDetail.cityCode || locationDetail.cityName === locationDetail.provinceName) {
+        showAreaName = locationDetail.provinceName
+      } else {
+        showAreaName = `${locationDetail.provinceName}·${locationDetail.cityName}`
+      }
       this.setData({
         'params.id': id,
         'params.title': title,
@@ -82,8 +100,8 @@ Page({
             type: item.type
           }
         }),
-        'params.outPrice': outPrice,
-        'params.productiveYear': `${productiveYear}年`,
+        'params.outPrice': outPrice === '0' ? '' : outPrice,
+        'params.productiveYear': productiveYear?`${productiveYear}年`:'',
         'params.secondCategoryId': categorySecondId,
         'params.textIntroduce': textIntroduce,
         'params.voiceIntroduce': voiceIntroduce,
@@ -91,8 +109,8 @@ Page({
         'params.provinceName': locationDetail.provinceName,
         'params.cityCode': locationDetail.cityCode,
         'params.cityName': locationDetail.cityName,
-        showCategoryName: `${categoryFirstName}·${categorySecondName}`,
-        showAreaName: `${locationDetail.provinceName}·${locationDetail.cityName}`,
+        showCategoryName: showCategoryName,
+        showAreaName: showAreaName,
         hasVideo: imageVideos.some(item => item.type === 'VIDEO')
       })
     } else {
@@ -127,7 +145,7 @@ Page({
     })
   },
 
-  // 选择图片/视频
+  // 选择图片/
   handleFileAdd(e) {
     wx.showActionSheet({
       itemList: ['图片', '视频'],
@@ -150,7 +168,7 @@ Page({
       imageVideos
     } = this.data.params
     wx.chooseImage({
-      count: 9 - imageVideos.length, // 默认9
+      count: 12 - imageVideos.length, // 默认12
       sizeType: ['compressed'], // 可以指定是原图还是压缩图，默认二者都有
       sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有
       success: res => {
@@ -169,8 +187,8 @@ Page({
         if (res.size > (10 * 1024 * 1024)) {
           return app.showErrMsg('视频大小不能超过10M');
         }
-        console.log(res.tempFilePath)
-        this.handleUploadFile(res.tempFilePath, 'VIDEO')
+        const { tempFilePath } = res
+        this.handleUploadFile(tempFilePath, 'VIDEO')
       }
     })
   },
@@ -188,16 +206,27 @@ Page({
         const {
           domainUrl
         } = JSON.parse(res.data).data
-        this.data.params.imageVideos.push({
-          fileUrl: domainUrl,
-          type: type //类型：IMAGE-图片、VIDEO-视频
-        })
+        if (type === 'VIDEO') {
+          this.data.params.imageVideos.unshift({
+            fileUrl: domainUrl,
+            type: type //类型：IMAGE-图片、VIDEO-视频
+          })
+          this.setData({
+            'video.showImg': `${domainUrl}?x-oss-process=video/snapshot,t_1000,f_jpg,w_0,h_0,m_fast`
+          })
+        } else {
+          this.data.params.imageVideos.push({
+            fileUrl: domainUrl,
+            type: type //类型：IMAGE-图片、VIDEO-视频
+          })
+        }
         this.setData({
           'params.imageVideos': this.data.params.imageVideos
         })
         if (type === 'VIDEO') {
           this.setData({
-            hasVideo: true
+            hasVideo: true,
+            'video.src': domainUrl
           })
         }
         wx.hideLoading();
@@ -227,6 +256,17 @@ Page({
     })
   },
 
+  // 授权手机号前登录
+  handleLogin() {
+    wx.login({
+      success: res => {
+        this.setData({
+          code: res.code
+        })
+      }
+    })
+  },
+
   // 授权用户手机号
   handleGetPhone(e) {
     if (!e.detail.encryptedData) { // 拒绝授权
@@ -240,19 +280,14 @@ Page({
         }
       })
     } else {
-      // 登录获取code
-      wx.login({
-        success: res => {
-          const params = {
-            code: res.code,
-            encryptedData: e.detail.encryptedData,
-            iv: e.detail.iv
-          }
-          fetchWxPhone(params).then(res2 => {
-            const phone = 13328202442
-            this.handleBindPhone(phone)
-          })
-        }
+      const params = {
+        code: this.data.code,
+        encryptedData: e.detail.encryptedData,
+        iv: e.detail.iv
+      }
+      fetchWxPhone(params).then(res2 => {
+        const phone = res2.data.phoneNumber
+        this.handleBindPhone(phone)
       })
     }
   },
@@ -316,7 +351,7 @@ Page({
             this.data.params.productiveYear = this.data.params.productiveYear.substring(0, this.data.params.productiveYear.length - 1)
           }
           if (!id) { // 新增
-            if (this.data.tempFilePath) {
+            if (this.data.audioFilePath) {
               this.uploadFileVoice().then(() => {
                 this.handleCreate()
               })
@@ -344,8 +379,11 @@ Page({
       const shareParams = JSON.stringify({
         id: id,
         title: title,
-        imgUrl: imageVideos[0].fileUrl
+        imgUrl: imageVideos[0].fileUrl,
+        imgList: imageVideos.map(item => item.fileUrl),
+        showAreaName: this.data.showAreaName
       })
+      console.log(shareParams)
       wx.redirectTo({
         url: `/pages/publish/publish-success/publish-success?params=${shareParams}`,
       })
@@ -365,7 +403,9 @@ Page({
       const shareParams = JSON.stringify({
         id: id,
         title: title,
-        imgUrl: imageVideos[0].fileUrl
+        imgUrl: imageVideos[0].fileUrl,
+        imgList: imageVideos.map(item => item.fileUrl),
+        showAreaName: this.data.showAreaName
       })
       const pages = getCurrentPages();
       const prevPage = pages[pages.length - 2];
@@ -524,8 +564,9 @@ Page({
 
   //录音确认
   handleRecordConfirm(e) {
+    this.data.audioFilePath = JSON.parse(e.detail).file
     this.setData({
-      tempFilePath: JSON.parse(e.detail).file,
+      'params.voiceIntroduce': JSON.parse(e.detail).file,
       'params.voiceIntroduceTime': JSON.parse(e.detail).second,
     })
   },
@@ -538,7 +579,7 @@ Page({
     return new Promise(resolve => {
       wx.uploadFile({
         url: `${app.globalData.BASE_URL}/global/upload`, //开发者服务器
-        filePath: this.data.tempFilePath,
+        filePath: this.data.audioFilePath,
         name: 'file', //文件对应的 key , 开发者在服务器端通过这个 key 可以获取到文件二进制内容
         formData: {
           'type': 1
@@ -548,10 +589,10 @@ Page({
         },
         success: res => {
           const {
-            url
+            domainUrl
           } = JSON.parse(res.data).data
           this.setData({
-            'params.voiceIntroduce': url
+            'params.voiceIntroduce': domainUrl
           })
           wx.hideLoading();
           resolve(res)
@@ -561,6 +602,31 @@ Page({
           resolve(res)
         }
       })
+    })
+  },
+
+  // 图片预览
+  handlePriviewImg(event) {
+    const src = event.currentTarget.dataset.src; //获取data-src
+    const imgList = this.data.params.imageVideos.filter(item => item.type ==='IMAGE').map(item => item.fileUrl) //获取data-list
+    wx.previewImage({
+      current: src, // 当前显示图片的http链接
+      urls: imgList // 需要预览的图片http链接列表
+    })
+  },
+  
+  // 视频预览
+  handlePriviewVideo() {
+    const videoContext = wx.createVideoContext('myVideo', this);
+    videoContext.requestFullScreen({ direction: 0 });
+    this.setData({
+      'video.visible': true
+    })
+  },
+  // 视频进入退出全屏
+  bindfullscreenchange(e) {
+    this.setData({
+      'video.visible': e.detail.fullScreen
     })
   }
 })

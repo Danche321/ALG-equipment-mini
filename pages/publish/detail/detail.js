@@ -14,12 +14,14 @@ Page({
    * 页面的初始数据
    */
   data: {
+    ICON_URL: app.globalData.ICON_URL,
+    isOverShare: true,
     id: '',
     authVisible: false, // 是否授权
+    code: '', // 授权手机号前的登录code
     bindPhone: '', // 是否绑定手机号
     publishInfo: null, // 发布信息
-    discussInfo: null, // 留言信息
-    headimgTest: '../../../icons/headimg.png',
+    headimgTest: '{{ICON_URL}}headimg.png',
     interval: 3000,
     duration: 100,
     swiperCurrent: 0,
@@ -40,19 +42,49 @@ Page({
       },
       placeholder: ''
     },
-    isPlaying: false // 播放状态
+    isPlaying: false, // 播放状态
+    hasVideo: false // 是否含有视频
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    this.setData({
-      id: options.id || 6
-    })
+    console.log(options)
+    if (options.scene) {
+      console.log(options.scene)
+      this.setData({
+        id: decodeURIComponent(options.scene)
+      })
+    }
+    if (options.id) {
+      this.setData({
+        id: options.id
+      })
+    }
     this.checkAuthStatus()
     this.getDetail()
     this.audioConfig()
+  },
+
+  /**
+   * 生命周期函数--监听页面隐藏
+   */
+  onHide: function () {
+    innerAudioContext.stop()
+    this.setData({
+      isPlaying: false
+    })
+  },
+
+  /**
+   * 生命周期函数--监听页面隐藏
+   */
+  onUnload: function () {
+    innerAudioContext.stop()
+    this.setData({
+      isPlaying: false
+    })
   },
 
   // 是否授权
@@ -73,7 +105,7 @@ Page({
   // 图片预览
   handlePriviewImg(event) {
     let src = event.currentTarget.dataset.src; //获取data-src
-    let imgList = event.currentTarget.dataset.list.map(item => item.file); //获取data-list
+    let imgList = event.currentTarget.dataset.list.filter(item => item.type === 'IMAGE').map(item => item.file); //获取data-list
     wx.previewImage({
       current: src, // 当前显示图片的http链接
       urls: imgList // 需要预览的图片http链接列表
@@ -85,6 +117,10 @@ Page({
     this.setData({
       swiperCurrent: e.detail.current
     })
+    if (this.data.hasVideo) {
+      const video = wx.createVideoContext('myVideo', this)
+      video.pause()
+    }
   },
 
   // 详情
@@ -103,7 +139,8 @@ Page({
         publishInfo: publish,
         discussInfo: discuss,
         collectionDown,
-        likeDown
+        likeDown,
+        hasVideo: publish.imageVideos.some(item => item.type ==='VIDEO')
       })
     }).catch(err => {
       console.log(err)
@@ -228,10 +265,10 @@ Page({
     }
   },
 
-  handleToHome() {
-    const id = this.data.publishInfo.publishUserInfo.id
+  handleToHome(e) {
+    const userid = e.currentTarget.dataset.userid
     wx.navigateTo({
-      url: `/pages/my/person-home/person-home?id=${id}`,
+      url: `/pages/my/person-home/person-home?id=${userid}`,
     })
   },
 
@@ -271,6 +308,17 @@ Page({
     }
   },
 
+  // 授权手机号前登录
+  handleLogin() {
+    wx.login({
+      success: res => {
+        this.setData({
+          code: res.code
+        })
+      }
+    })
+  },
+
   // 授权用户手机号
   handleGetPhone(e) {
     if (!e.detail.encryptedData) { // 拒绝授权
@@ -280,19 +328,14 @@ Page({
         showCancel: false
       })
     } else {
-      // 登录获取code
-      wx.login({
-        success: res => {
-          const params = {
-            code: res.code,
-            encryptedData: e.detail.encryptedData,
-            iv: e.detail.iv
-          }
-          fetchWxPhone(params).then(res2 => {
-            const phone = 13328202442
-            this.handleBindPhone(phone)
-          })
-        }
+      const params = {
+        code: this.data.code,
+        encryptedData: e.detail.encryptedData,
+        iv: e.detail.iv
+      }
+      fetchWxPhone(params).then(res2 => {
+        const phone = res2.data.phoneNumber
+        this.handleBindPhone(phone)
       })
     }
   },
@@ -312,7 +355,7 @@ Page({
       })
       wx.showModal({
         title: '温馨提示',
-        content: '信息由用户自行发布，平台无法杜绝可能存在的风险和瑕疵；电话洽谈时，请仔细核实，谨防诈骗！',
+        content: '信息由用户自行发布，请仔细核实，联系请说岚麒麟平台！',
         confirmText: '呼叫',
         success: res => {
           if (res.confirm) {
@@ -329,7 +372,7 @@ Page({
   handleCall() {
     wx.showModal({
       title: '温馨提示',
-      content: '信息由用户自行发布，平台无法杜绝可能存在的风险和瑕疵；电话洽谈时，请仔细核实，谨防诈骗！',
+      content: '信息由用户自行发布，请仔细核实，联系请说岚麒麟平台！',
       confirmText: '呼叫',
       success: res => {
         if (res.confirm) {
@@ -346,7 +389,18 @@ Page({
   /**
    * 用户点击右上角分享
    */
-  onShareAppMessage: function() {
-
+  onShareAppMessage: function () {
+    const { id, title, mainMedia } = this.data.publishInfo
+    return {
+      title: `#转让#${title}` || '麒麟二手机械',
+      path: `pages/publish/detail/detail?id=${id}`,
+      imageUrl: '',
+      success: function (res) {
+        console.log(res)
+      },
+      fail: function (res) {
+        console.log(res)
+      }
+    }
   }
 })

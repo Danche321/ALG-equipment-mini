@@ -40,6 +40,18 @@ page {
   margin-right: 23rpx;
   overflow: hidden;
 }
+.icon-play{
+  position: absolute;
+  width: 90rpx;
+  height: 90rpx;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+  background: #fff;
+  border-radius: 50%;
+  opacity: .7;
+}
+
 
 .item__img {
   width: 100%;
@@ -66,7 +78,7 @@ page {
 }
 
 .item__tag {
-  width: 104rpx;
+  width: 110rpx;
   height: 37rpx;
   line-height: 37rpx;
   text-align: center;
@@ -83,7 +95,7 @@ page {
 }
 
 .price__value {
-  font-size: 48rpx;
+  font-size: 40rpx;
 }
 
 .item-bottom {

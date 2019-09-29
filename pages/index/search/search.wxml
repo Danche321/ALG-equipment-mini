@@ -1,7 +1,7 @@
 <!-- 搜索框 -->
 <view class="page-search">
   <view class="search-box">
-    <image class='icon-search' src='../../../icons/search.png'></image>
+    <image class='icon-search' src='{{ICON_URL}}search.png'></image>
     <input placeholder="搜索机械设备" class="search__input" confirm-type="search" bindconfirm="handleSearch" value="{{searchText}}" bindinput="handleInputChange" focus="{{true}}"></input>
   </view>
   <text class="search__text" bindtap="handleSearch">搜索</text>
@@ -10,7 +10,7 @@
 <view class="page-tag">
   <view class="tag__title history__title">
     <text>历史搜索</text>
-    <image bindtap="handleClear" class="icon-delete" src="../../../icons/delete.png"></image>
+    <image bindtap="handleClear" class="icon-delete" src="{{ICON_URL}}delete.png"></image>
   </view>
   <view class="tag__list">
     <text data-keyWord="{{item}}" bindtap="handleHistorySearch" class="tag-item" wx:for="{{historyList}}" wx:key="{{index}}">{{item}}</text>

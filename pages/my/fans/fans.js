@@ -1,3 +1,4 @@
+const app = getApp()
 import { fetchMyFans } from '../../../api/my.js'
 import {
   handleFocus,
@@ -9,6 +10,7 @@ Page({
    * 页面的初始数据
    */
   data: {
+    ICON_URL: app.globalData.ICON_URL,
     listData: [],
     params: {
       pageNum: 1,
@@ -23,6 +25,9 @@ Page({
    */
   onLoad: function (options) {
     this.getList()
+    this.setData({
+      userId: app.globalData.userInfo && app.globalData.userInfo.id
+    })
   },
 
   /**
@@ -54,8 +59,14 @@ Page({
     if (isFirst) this.data.params.pageNum = 1
     fetchMyFans(params).then(res => {
       const { items, hasNextPage } = res.data
+      let resList = []
+      if (isFirst) {
+        resList = items
+      } else {
+        resList = [...this.data.listData, ...items]
+      }
       this.setData({
-        listData: items,
+        listData: resList,
         hasNextPage
       })
       if (isFirst) wx.stopPullDownRefresh()
@@ -63,7 +74,7 @@ Page({
   },
 
   // 关注
-  handleFocus() {
+  handleFocus(e) {
     const { id, index } = e.currentTarget.dataset
     const { userId } = this.data
     const params = `?userId=${userId}&objectId=${id}`

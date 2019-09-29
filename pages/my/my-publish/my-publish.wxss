@@ -71,6 +71,17 @@ page {
   overflow: hidden;
   /* border: 1rpx solid #f5f5f5; */
 }
+.icon-play{
+  position: absolute;
+  width: 90rpx;
+  height: 90rpx;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+  background: #fff;
+  border-radius: 50%;
+  opacity: .7;
+}
 
 .item__img {
   width: 100%;

@@ -1,3 +1,4 @@
+const app = getApp()
 import { fetchMyDynamic } from '../../../api/my.js'
 
 Page({
@@ -6,6 +7,7 @@ Page({
    * 页面的初始数据
    */
   data: {
+    ICON_URL: app.globalData.ICON_URL,
     listData: [],
     params: {
       pageNum: 1,

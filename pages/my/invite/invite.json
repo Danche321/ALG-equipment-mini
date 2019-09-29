@@ -1,4 +1,6 @@
 {
   "navigationBarTitleText": "我的邀请",
-  "usingComponents": {}
+  "usingComponents": {
+    "auth-dialog": "/components/AuthDialog/AuthDialog"
+  }
 }

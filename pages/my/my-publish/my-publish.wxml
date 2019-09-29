@@ -14,6 +14,7 @@
       <view class="item-top f-flex-justBetween-alignStart">
         <view class="img-box">
           <image src="{{item.mainMedia}}" class="item__img" mode="aspectFill"></image>
+          <image wx:if="{{item.imageVideos[0].type==='VIDEO'}}" class="icon-play" src="{{ICON_URL}}list-play.png"></image>
         </view>
         <view class='item__right'>
           <view class="f-ellipsis2 item__title">{{item.title}}</view>
@@ -23,13 +24,11 @@
             <text wx:if="{{item.productiveYear}}" class="item__tag">{{item.productiveYear}}年</text>
           </view>
           <view class="price-block">
-            <view wx:if="{{item.outPrice!='未知'}}" class="item__price">
+            <view wx:if="{{item.outPrice!=0}}" class="item__price">
               ¥
               <text class="price__value">{{item.outPrice}}</text>万
             </view>
-            <view wx:else class="item__price">
-              <text class="price__value">面议</text>
-            </view>
+            <view wx:else class="item__price">面议</view>
           </view>
         </view>
       </view>
@@ -37,33 +36,32 @@
       <view class='item-middle'>
         <view class='item-middle-num'>
           <text class="item__num ">{{item.viewCount}}浏览</text>
-          <text class="item__num ">{{item.discussCount}}留言</text>
         </view>
         <view class="item__handles" wx:if="{{!item.isDownShelf}}">
-          <image catchtap='handleDown' data-id="{{item.id}}" data-index="{{index}}" class="item__btn " src="../../../icons/btn_shelves.png "></image>
-          <image catchtap="handleUpdate" data-id="{{item.id}}" data-index="{{index}}" class="item__btn " src="../../../icons/btn_modify.png "></image>
+          <image catchtap='handleDown' data-id="{{item.id}}" data-index="{{index}}" class="item__btn " src="{{ICON_URL}}btn_shelves.png "></image>
+          <image catchtap="handleUpdate" data-id="{{item.id}}" data-index="{{index}}" class="item__btn " src="{{ICON_URL}}btn_modify.png "></image>
         </view>
         <view wx:else data-id="{{item.id}}" data-index="{{index}}" catchtap="handleRePublish" class="btn-publish">
-          <image class="icon-republish" src="../../../icons/republish.png"></image>
+          <image class="icon-republish" src="{{ICON_URL}}republish.png"></image>
           <text>重新发布</text>
         </view>
       </view>
       <!-- 底部 -->
       <view class="item-bottom">
         <view class='location'>
-          <image class='location__icon' src="../../../icons/location--publish.png"></image>
-          <text wx:if="{{item.locationDetail.cityName}}">{{item.locationDetail.provinceName}}·{{item.locationDetail.cityName}}</text>
+          <image class='location__icon' src="{{ICON_URL}}location--publish.png"></image>
+          <text wx:if="{{item.locationDetail.cityCode&&item.locationDetail.cityName!==item.locationDetail.provinceName}}">{{item.locationDetail.provinceName}}·{{item.locationDetail.cityName}}</text>
           <text wx:else>{{item.locationDetail.provinceName}}</text>
         </view>
         <view class="item_time">发布时间：{{item.createTimeFriendly}}</view>
       </view>
-      <image wx:if="{{item.isDownShelf}}" src="../../../icons/sale--down.png " class="icon-saleDown "></image>
+      <image wx:if="{{item.isDownShelf}}" src="{{ICON_URL}}sale--down.png " class="icon-saleDown "></image>
     </view>
   </block>
 
   <!-- 无数据 -->
   <view wx:else class='m-page-empty'>
-    <image class='empty__img' src="../../../icons/empty.png"></image>
+    <image class='empty__img' src="{{ICON_URL}}empty.png"></image>
     <text class='empty__text'>发布闲置设备，让老板主动找上你</text>
   </view>
 </view>

@@ -19,16 +19,16 @@ swiper {
 .swiper-indicator {
   position: absolute;
   color: #fff;
-  width: 87rpx;
+  width: 90rpx;
   height: 40prx;
   line-height: 40rpx;
   background: rgba(0, 0, 0, 0.5);
   border-radius: 20rpx;
   right: 35rpx;
-  top: 358rpx;
+  top: 40rpx;
   text-align: center;
   font-size: 30rpx;
-  z-index: 222;
+  z-index: 2;
 }
 
 /* 头部信息 */
@@ -38,14 +38,19 @@ swiper {
   background: #fff;
   margin-bottom: 18rpx;
 }
+.page-header__userInfo{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
 
 .price {
   color: #ff2c40;
-  font-size: 36rpx;
+  font-size: 32rpx;
 }
 
 .price__num {
-  font-size: 71rpx;
+  font-size: 44rpx;
 }
 
 .header__user {
@@ -55,7 +60,8 @@ swiper {
   padding: 0 14rpx;
   border-top-left-radius: 50rpx;
   border-bottom-left-radius: 50rpx;
-  margin-right: -30rpx;
+  position: absolute;
+  right: 0;
 }
 
 .header__user__headimg {
@@ -121,6 +127,10 @@ swiper {
   padding: 20rpx 30rpx;
   background-color: #fff;
   margin-bottom: 18rpx;
+  min-height: 200rpx;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
 .listen {
@@ -195,6 +205,7 @@ swiper {
 .page-message {
   padding: 22rpx 30rpx;
   background-color: #fff;
+  margin-bottom: 20rpx;
 }
 
 .message__total {
@@ -307,14 +318,14 @@ swiper {
 
 .footer-connect {
   color: #fff;
-  width: 279rpx;
+  width: 300rpx;
   height: 65rpx;
   line-height: 65rpx;
   background: linear-gradient(to right, #349bf8, #3369f8);
   box-shadow: 0 3rpx 8rpx 0 rgba(54, 106, 248, 0.3);
   border-radius: 33rpx;
   text-align: center;
-  margin-right: 50rpx;
+  margin-right: 40rpx;
   font-size: 32rpx;
 }
 
@@ -328,6 +339,15 @@ swiper {
   display: flex;
   align-items: center;
   height: 100rpx;
+  padding: 0;
+  background: none;
+  font-size: 30rpx;
+  border: none;
+  color: #888;
+  margin: 0;
+}
+.handle__item::after{
+  display: none;
 }
 
 .footer-handles {
@@ -338,6 +358,11 @@ swiper {
   width: 35rpx;
   height: 35rpx;
   margin-right: 10rpx;
+}
+
+.item__icon-share{
+  width: 38rpx;
+  height: 38rpx;
 }
 
 /* 留言 */
@@ -377,4 +402,44 @@ swiper {
 .takeMsg__send-active {
   background: linear-gradient(to bottom, #3fa4fe, #3369f8);
   color: #fff;
+}
+
+/* 空留言展示 */
+.message-empty{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+  margin: 30rpx 0;
+  color: #bbb;
+  font-size: 30rpx;
+}
+.btn-new{
+  width: 180rpx;
+  height: 70rpx;
+  line-height: 68rpx;
+  font-size: 30rpx;
+  background: #349bf8;
+  border: none;
+  color: #fff;
+  margin-top: 20rpx;
+}
+.btn-new::after{
+  display: none;
+}
+
+.has-down{
+  min-width: 100vw;
+  min-height: 100vh;
+  box-sizing: border-box;
+  opacity: 0.7;
+}
+.icon-saleDown{
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%,-50%);
+  width: 200rpx;
+  height: 200rpx;
+  opacity: 0.8;
 }

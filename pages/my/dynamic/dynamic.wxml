@@ -21,6 +21,6 @@
 
 <!-- 无数据 -->
 <view wx:else class='m-page-empty'>
-  <image class='empty__img' src="../../../icons/empty.png"></image>
+  <image class='empty__img' src="{{ICON_URL}}empty.png"></image>
   <text class='empty__text'>您还没有任何动态～</text>
 </view>

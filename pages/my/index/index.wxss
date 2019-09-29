@@ -44,8 +44,14 @@ page {
 }
 
 .user__homeIcon {
-  width: 138rpx;
+  width: 160rpx;
+  line-height: 50rpx;
   height: 50rpx;
+  background: #fff;
+  color: #3f85fa;
+  border-radius: 50rpx;
+  font-size: 26rpx;
+  text-align: center;
 }
 
 .header__total {
@@ -110,6 +116,7 @@ page {
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  margin: 0;
 }
 .card-item--contact{
   border: none;
@@ -124,8 +131,8 @@ page {
   margin-bottom: 20rpx;
 }
 .icon-buy{
-  width: 74rpx;
-  height: 74rpx;
+  width: 80rpx;
+  height: 80rpx;
 }
 .card__label {
   font-size: 24rpx;

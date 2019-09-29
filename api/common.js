@@ -20,6 +20,18 @@ export function fetchWxPhone(data) {
   })
 }
 
+// 生成小程序码
+export function fetchWxCode(data) {
+  return request({
+    url: '/wxPg/qr.action',
+    method: 'get',
+    data: data,
+    responseType: 'arraybuffer',
+    closeCheck: true
+  })
+}
+
+
 
 // 关注
 export function handleFocus(data) {

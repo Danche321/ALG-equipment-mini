@@ -13,6 +13,7 @@ Component({
    * 组件的初始数据
    */
   data: {
+    ICON_URL: app.globalData.ICON_URL,
   },
 
   /**

@@ -7,6 +7,8 @@ Page({
    * 页面的初始数据
    */
   data: {
+    ICON_URL: app.globalData.ICON_URL,
+    code: '', // 授权手机号前获取登录code
     authVisible: false,
     phone: '', // 绑定手机号
     identity: '',
@@ -20,9 +22,18 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    this.setData({
-      fromId: options.inviteUserId || 1
-    })
+    console.log(options)
+    if (options.scene) {
+      console.log(options.scene)
+      this.setData({
+        fromId: decodeURIComponent(options.scene)
+      })
+    }
+    if (options.inviteUserId) {
+      this.setData({
+        fromId: options.inviteUserId
+      })
+    }
   },
 
   getUserInfo(e) {
@@ -83,6 +94,17 @@ Page({
     }
   },
 
+  // 授权用户手机号前登录
+  handleLogin() {
+    wx.login({
+      success: res => {
+        this.setData({
+          code: res.code
+        })
+      }
+    })
+  },
+
   // 授权用户手机号
   handleGetPhone(e) {
     if (!e.detail.encryptedData) { // 拒绝授权
@@ -92,21 +114,16 @@ Page({
         showCancel: false
       })
     } else {
-      // 登录获取code
-      wx.login({
-        success: res => {
-          const params = {
-            code: res.code,
-            encryptedData: e.detail.encryptedData,
-            iv: e.detail.iv
-          }
-          fetchWxPhone(params).then(res2 => {
-            const phone = 13328202442
-            this.setData({
-              phone: phone
-            })
-          })
-        }
+      const params = {
+        code: this.data.code,
+        encryptedData: e.detail.encryptedData,
+        iv: e.detail.iv
+      }
+      fetchWxPhone(params).then(res2 => {
+        const phone = res2.data.phoneNumber
+        this.setData({
+          phone: phone
+        })
       })
     }
   },

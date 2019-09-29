@@ -5,7 +5,7 @@
       <view class="item__children">
         <view class="children__item {{activeYear==item?'active':''}}" wx:for="{{listData}}" wx:key="{{index}}" data-year="{{item}}" catchtap="handleSelectCategory">
           <view>{{item}}</view>
-          <image class="icon-checked" src="../../icons/checked.png"></image>
+          <image class="icon-checked" src="{{ICON_URL}}checked.png"></image>
         </view>
       </view>
     </scroll-view>

@@ -1,16 +1,16 @@
 <!-- 背景图 -->
 <view class="page-banner">
-  <image class="banner__bg" src="../../../icons/invite-banner.png"></image>
-  <!-- <image class="banner__rule" src="../../../icons/rule.png"></image> -->
+  <image class="banner__bg" src="{{ICON_URL}}invite-banner.png"></image>
+  <image bindtap="handleToggleRule" class="banner__rule" src="{{ICON_URL}}rule.png"></image>
 </view>
 <!-- 内容区 -->
 <view class="page-content">
-  <image class="content__bg" src="../../../icons/invite-total-bg.png"></image>
+  <image class="content__bg" src="{{ICON_URL}}invite-total-bg.png"></image>
   <view class="title">
     <text class="title__left">我的奖金</text>
     <view class="title__right" bindtap="handleCash">
       <text>提现</text>
-      <image class="icon-arrow" src="../../../icons/arrow-right--white.png"></image>
+      <image class="icon-arrow" src="{{ICON_URL}}arrow-right--white.png"></image>
     </view>
   </view>
 
@@ -34,12 +34,51 @@
   <!-- 按钮 -->
   <view class="btn">
     <button class="btn-item" open-type='share'>
-      <image class="btn-item__icon" src="../../../icons/weixin.png"></image>
+      <image class="btn-item__icon" src="{{ICON_URL}}weixin.png"></image>
       <text class="btn-item__text">邀请好友</text>
     </button>
-    <view class="btn-item" bindtap="handleToInvitePic">
-      <image class="btn-item__icon" src="../../../icons/make-pic.png"></image>
-      <text class="btn-item__text">生成美图</text>
+    <view class="btn-item" bindtap="handleCanvas">
+      <image class="btn-item__icon" src="{{ICON_URL}}make-pic.png"></image>
+      <text class="btn-item__text">生成海报</text>
     </view>
   </view>
 </view>
+
+<!-- 邀请二维码 -->
+<canvas canvas-id="myCanvas" class='canvas' />
+<view hidden='{{qrCode.hidden}}' class='preview' bindtap='hideCanvas'>
+  <image src="{{qrCode.imgUrl}}" mode='widthFix'></image>
+  <view>
+    <button type='primary' size='mini' catchtap='save'>保存图片</button>
+  </view>
+</view>
+
+<!-- 规则 -->
+<view wx:if="{{ruleVisible}}">
+  <view class="modal-bindMobile">
+    <view class="modal-content">
+      <view class='modal-title'>活动规则</view>
+      <view class="modal-rules">
+        <view class="rule-cell">
+          <view class="cell__question">（1）如何参与邀请有奖？</view>
+          <view class="cell__answer">1、点击页面下方“邀请好友”分享到微信群/微信好友</view>
+          <view class="cell__answer">2、点击页面下方“生成海报”，将图片分享到朋友圈/微信群/微信好友</view>
+        </view>
+        <view class="rule-cell">
+          <view class="cell__question">（2）怎么才算邀请成功？</view>
+          <view class="cell__answer">好友通过你分享的小程序/海报进行注册，则邀请成功</view>
+        </view>
+        <view class="rule-cell">
+          <view class="cell__question">（3）如何提现？</view>
+          <view class="cell__answer">点击本页面中“提现”，添加工作人员微信，发送本页面截图，即可得现金红包</view>
+        </view>
+        <view class="rule-tip">*活动最终解释权归岚麒麟所有</view>
+      </view>
+    </view>
+    <button class='modal-btn' bindtap="handleToggleRule">我知道了</button>
+  </view>
+  <view class="modal-bg" catchtouchmove="ture"></view>
+</view>
+
+<!-- 授权弹窗 -->
+<auth-dialog visible="{{authVisible}}" bind:hideModal="authHide"></auth-dialog>

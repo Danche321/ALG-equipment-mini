@@ -22,6 +22,6 @@
 
 <!-- 无数据 -->
 <view wx:else class='m-page-empty'>
-  <image class='empty__img' src="../../../icons/empty.png"></image>
+  <image class='empty__img' src="{{ICON_URL}}empty.png"></image>
   <text class='empty__text'>快去关注别人，淘更多TA的好货～</text>
 </view>

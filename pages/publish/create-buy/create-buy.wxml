@@ -1,59 +1,91 @@
-<view class="page-base">
-  <!-- 标题/内容 -->
-  <view wx:if="{{selectCategoryVisible||selectCityVisible||selectYearVisible||updatePhoneDialog.visible}}" class="input-desc">{{params.title||'描述：简述你的购机要求···'}}</view>
-  <textarea wx:else show-confirm-bar="{{false}}" class="input-desc" value="{{params.title}}" bindinput="handleTitleChange" placeholder="描述：简述你的购机要求···" maxlength="-1"></textarea>
-  <!-- 定位 -->
-  
-  <view class='page-contact'>
-    <view class="mobile" bindtap="handleUpdatePhone">
-      <image class="contact-icon" src="../../../icons/mobile-publish-gray.png"></image>
-      <text>{{params.contactPhone}}</text>
-    </view>
-    <view class="location" bindtap="handleShowCity">
-      <image class="contact-icon" src="../../../icons/location--publish.png"></image>
-      <text wx:if="{{params.provinceCode}}" class='f-ellipsis1 location__text'>{{showAreaName}}</text>
-      <text wx:else class='f-ellipsis1 location__text'>交易城市...</text>
-    </view>
-  </view>
-</view>
-
 <!-- 设备信息 -->
 <view class="page-info">
   <view class="info__title">基本信息</view>
+
   <view class="info-item" bindtap="handleShowCategory">
-    <text>机型</text>
-    <input class="info__value-input" value="{{showCategoryName}}" placeholder="请选择" type="number" disabled></input>
+    <text class="required">设备类型</text>
+    <view class="filed-right">
+      <text style="color:{{showCategoryName?'#333':'#bbb'}}">{{showCategoryName||'请选择'}}</text>
+      <image class="icon-arrow-right" src="{{ICON_URL}}arrow-right-gray.png"></image>
+    </view>
+  </view>
+
+  <view class="info-item">
+    <text class="required">求购地区</text>
+    <view class="filed-right" bindtap="handleShowCity">
+      <text style="color:{{showAreaName?'#333':'#bbb'}}">{{showAreaName||'请选择'}}</text>
+      <image class="icon-arrow-right" src="{{ICON_URL}}arrow-right-gray.png"></image>
+    </view>
+  </view>
+
+  <view class="info-item">
+    <text>期望价格</text>
+    <picker mode="multiSelector" bindchange="bindPricePickerChange" bindcolumnchange="bindPricePickerColumnChange" value="{{pricePickerIndex}}" range="{{priceArray}}">
+      <view class="filed-right">
+        <text style="color:{{params.expectedPrice?'#333':'#bbb'}}">{{params.expectedPrice||'请选择'}}</text>
+        <image class="icon-arrow-right" src="{{ICON_URL}}arrow-right-gray.png"></image>
+      </view>
+    </picker>
+  </view>
+
+  <view class="info-item">
+    <text>使用小时数</text>
+    <picker bindchange="bindHourPickerChange" value="{{hourPickerIndex}}" range="{{hourArray}}">
+      <view class="filed-right">
+        <text style="color:{{params.usageHours?'#333':'#bbb'}}">{{params.usageHours||'请选择'}}</text>
+        <image class="icon-arrow-right" src="{{ICON_URL}}arrow-right-gray.png"></image>
+      </view>
+    </picker>
+  </view>
+
+  <view class="info-item">
+    <text>年限</text>
+    <picker mode="multiSelector" bindchange="bindYearPickerChange" bindcolumnchange="bindYearPickerColumnChange" value="{{yearPickerIndex}}" range="{{yearArray}}">
+      <view class="filed-right">
+        <text style="color:{{params.yearLimitNum?'#333':'#bbb'}}">{{params.yearLimitNum||'请选择'}}</text>
+        <image class="icon-arrow-right" src="{{ICON_URL}}arrow-right-gray.png"></image>
+      </view>
+    </picker>
+  </view>
+
+  <view class="info-item">
+    <text>其他要求</text>
+    <view class="filed-right">
+      <text bindtap="handleInvoiceToggle" class="tag {{params.hasInvoice===1?'active':''}}">发票</text>
+      <text bindtap="handleCertificateToggle" class="tag {{params.hasCertificate===1?'active':''}}">合格证</text>
+    </view>
+  </view>
+</view>
+
+<view class="page-info">
+  <view class="info__title">联系方式</view>
+  <view class="info-item">
+    <text class="required">联系人</text>
+    <view class="filed-right">
+      <input value="{{params.contact}}" bindinput="handleContactChange"></input>
+      <image class="icon-arrow-right" src="{{ICON_URL}}arrow-right-gray.png"></image>
+    </view>
   </view>
   <view class="info-item">
-    <text>新旧程度</text>
-    <view class="info__value--year">
-      <view class="tag-year">
-        <text data-item="{{item}}" bindtap="handleYearChange" wx:for="{{yearTags}}" wx:key="{{index}}" class="tag-year-item {{params.newOldLevel===item?'active':''}}">{{item}}</text>
-      </view>
+    <text class="required">联系电话</text>
+    <view class="filed-right">
+      <input value="{{params.contactPhone}}"></input>
+      <image class="icon-arrow-right" src="{{ICON_URL}}arrow-right-gray.png"></image>
     </view>
   </view>
 </view>
 
-<button wx:if="{{!bindMobile}}" open-type="getPhoneNumber" bindgetphonenumber="handleGetPhone" class="btn-publish">发布</button>
+<!-- 其他要求 -->
+<view class="page-info">
+  <view class="info__title">备注</view>
+  <!-- 标题/内容 -->
+  <view wx:if="{{selectCategoryVisible||selectCityVisible||selectYearVisible||updatePhoneDialog.visible}}" class="input-desc">{{params.remark||'请在此描述您对设备的具体要求，如设备来源、是否需要担保、质保等'}}</view>
+  <textarea wx:else show-confirm-bar="{{false}}" class="input-desc" value="{{params.remark}}" bindinput="handleRemarkChange" placeholder-class="f-placeholder-class" placeholder="请在此描述您对设备的具体要求，如设备来源、是否需要担保、质保等" maxlength="-1"></textarea>
+</view>
+
+<button wx:if="{{!bindMobile}}" open-type="getPhoneNumber" bindgetphonenumber="handleGetPhone" bindtap="handleLogin" class="btn-publish">发布</button>
 
 <button wx:else class="btn-publish" bindtap="handleSubmit">发布</button>
-
-<!-- 修改手机号弹窗 -->
-<view wx:if="{{updatePhoneDialog.visible}}">
-  <view class="modal-bindMobile">
-    <view class="modal-content">
-      <view class='modal-title'>修改联系方式</view>
-      <view class="filed-cell">
-        <input type="number" focus="{{true}}" value="{{updatePhoneDialog.value}}" placeholder="{{params.contactPhone}}" bindinput="handlePhoneInput" class="modal-input" maxlength="11" cursor-spacing="90" />
-      </view>
-      <view class="modal-btns">
-        <button class='cancle' bindtap='updatePhoneCancle'>取消</button>
-        <button class='confirm' bindtap="updatePhoneConfirm">修改</button>
-      </view>
-    </view>
-  </view>
-  <view class="modal-bg" catchtouchmove="ture"></view>
-</view>
 
 <!-- 选择机型组件 -->
 <select-category visible="{{selectCategoryVisible}}" firstId="{{params.firstCategoryId}}" secondId="{{params.secondCategoryId}}" bind:checked="handleCategoryConfirm"></select-category>

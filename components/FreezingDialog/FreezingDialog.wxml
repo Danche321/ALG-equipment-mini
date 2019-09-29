@@ -1,0 +1,13 @@
+<!-- 修改手机号弹窗 -->
+<view wx:if="{{visible}}">
+  <view class="modal-bindMobile">
+    <view class="modal-content">
+      <view class='modal-title'>账号被冻结！</view>
+      <view class="modal-tip">您的账号由于操作不当，已被平台冻结无法使用发布功能，如有异议，请联系平台。</view>
+      <view class="modal-btns">
+        <button open-type="contact" class='confirm' bindtap="updatePhoneConfirm">联系平台</button>
+      </view>
+    </view>
+  </view>
+  <view class="modal-bg" catchtouchmove="ture"></view>
+</view>

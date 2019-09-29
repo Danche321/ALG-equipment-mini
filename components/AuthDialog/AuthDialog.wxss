@@ -36,8 +36,8 @@
 }
 .dialog-logo{
   display: block;
-  width:100rpx;
-  height:100rpx;
+  width:140rpx;
+  height:140rpx;
   margin:20rpx auto;
 }
 .dialog-tishi{

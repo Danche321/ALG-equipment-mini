@@ -4,6 +4,7 @@ const QQMapWX = require('../../../libs/qqmap-wx-jssdk.js');
 let qqmapsdk
 Page({
   data: {
+    ICON_URL: app.globalData.ICON_URL,
     searchLetter: [],
     showLetter: "",
     winHeight: 0,

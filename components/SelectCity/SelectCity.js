@@ -6,6 +6,7 @@ Component({
     visible: Boolean
   },
   data: {
+    ICON_URL: app.globalData.ICON_URL,
     listData: [],
     showFirstId: '',
     activeFirstId: '',

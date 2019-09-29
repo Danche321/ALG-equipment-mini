@@ -10,6 +10,15 @@ export function fetchBuyList(data) {
   })
 }
 
+// 获取求购信息详情
+export function fetchDetail(data) {
+  return request({
+    url: '/purchaseInformation/detail.action',
+    method: 'get',
+    data: data
+  })
+}
+
 // 发布求购信息
 export function handleCreateBuy(data) {
   return request({
