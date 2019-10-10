@@ -87,9 +87,9 @@
 					"scene": 1011
 				},
 				{
-					"id": -1,
-					"name": "pages/my/index/index",
-					"pathName": "pages/my/index/index",
+					"id": 5,
+					"name": "pages/publish/list/list",
+					"pathName": "pages/publish/list/list",
 					"query": "id=75",
 					"scene": null
 				},
@@ -115,9 +115,31 @@
 					"scene": null
 				},
 				{
+					"id": 9,
+					"name": "pages/my/collect/collect",
+					"pathName": "pages/my/collect/collect",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": 10,
+					"name": "pages/publish/create-sale/create-sale",
+					"pathName": "pages/publish/create-sale/create-sale",
+					"query": "",
+					"scene": null
+				},
+				{
 					"id": -1,
-					"name": "pages/my/my-buy/my-buy",
-					"pathName": "pages/my/my-buy/my-buy",
+					"name": "pages/publish/create-sale-model/create-sale-model",
+					"pathName": "pages/publish/create-sale-model/create-sale-model",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "pages/publish/create-sale/create-sale",
+					"pathName": "pages/publish/create-sale/create-sale",
+					"query": "",
 					"scene": null
 				}
 			]

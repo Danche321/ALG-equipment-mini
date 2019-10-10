@@ -30,7 +30,7 @@
 
   <view class="info-item">
     <text>使用小时数</text>
-    <picker bindchange="bindHourPickerChange" value="{{hourPickerIndex}}" range="{{hourArray}}">
+    <picker bindchange="bindHourPickerChange" range="{{hourArray}}">
       <view class="filed-right">
         <text style="color:{{params.usageHours?'#333':'#bbb'}}">{{params.usageHours||'请选择'}}</text>
         <image class="icon-arrow-right" src="{{ICON_URL}}arrow-right-gray.png"></image>

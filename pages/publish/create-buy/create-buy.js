@@ -56,7 +56,6 @@ Page({
       ['面议', ...leftPrices],
       []
     ],
-    hourPickerIndex: 0,
     hourArray: ['不限', '2000小时以内', '2000-4000小时', '4000-6000小时', '6000-8000小时', '8000以上'],
     yearPickerIndex: [0, 0],
     yearArray: [

@@ -1,3 +1,4 @@
+<wxs src="../../../wxs/utils.wxs" module="tools" />
 <view class="{{publishInfo.isDownShelf?'has-down':''}}">
   <wxs src="../../../wxs/utils.wxs" module="tools" />
   <!-- 轮播 -->
@@ -27,38 +28,75 @@
       </view>
     </view>
     <view class="title">{{publishInfo.title}}</view>
-    <view class="tags">
-      <text wx:if="{{publishInfo.categoryFirstName}}" class="tag-item">{{publishInfo.categoryFirstName}}</text>
-      <text wx:if="{{publishInfo.categorySecondName}}" class="tag-item">{{publishInfo.categorySecondName}}</text>
-      <text wx:if="{{publishInfo.productiveYear}}" class="tag-item">{{publishInfo.productiveYear}}年</text>
-    </view>
     <view class='header-bottom'>
-      <view class='location'>
-        <image class='location__icon' src="{{ICON_URL}}location--publish.png"></image>
-        <text wx:if="{{!publishInfo.locationDetail.cityCode||publishInfo.locationDetail.cityName===publishInfo.locationDetail.provinceName}}">发货地：{{publishInfo.locationDetail.provinceName}}</text>
-        <text wx:else>发货地：{{publishInfo.locationDetail.provinceName}}·{{publishInfo.locationDetail.cityName}}</text>
-      </view>
-      <view class='publish__time'>发布时间：{{publishInfo.createTimeFriendly}}</view>
+      <view class='publish__time'>{{tools.splitDate(publishInfo.createTime)}}发布</view>
     </view>
   </view>
+
+  <view class="page-info">
+    <view class="info-item">
+      <text wx:if="{{publishInfo.productiveYear}}" class="info-item__value">{{publishInfo.productiveYear}}年</text>
+      <text wx:else class="info-item__value">无</text>
+      <text class="info-item__key">出厂年份</text>
+    </view>
+    <view class="info-item">
+      <text wx:if="{{publishInfo.productiveYear}}" class="info-item__value">{{publishInfo.productiveYear}}小时</text>
+      <text wx:else class="info-item__value">无</text>
+      <text class="info-item__key">使用时长</text>
+    </view>
+    <view class="info-item">
+      <text wx:if="{{!publishInfo.locationDetail.cityCode||publishInfo.locationDetail.cityName===publishInfo.locationDetail.provinceName}}" class="info-item__value">{{publishInfo.locationDetail.provinceName}}</text>
+      <text wx:else class="info-item__value">{{publishInfo.locationDetail.provinceName}}·{{publishInfo.locationDetail.cityName}}</text>
+      <text class="info-item__key">设备位置</text>
+    </view>
+  </view>
+
   <!-- 设备描述 -->
   <view class="page-desc">
-    <view wx:if="{{publishInfo.voiceIntroduce}}" class="page-listen">
-      <text class="listen__text">点击听卖家介绍</text>
-      <view id="audio{{item.id}}" catchtap="handleAudioPlay" class="listen__voice">
-        <image wx:if="{{isPlaying}}" class='voice__icon' src='{{ICON_URL}}audio-playing.gif'></image>
-        <image wx:else class='voice__icon' src='{{ICON_URL}}voice.png'></image>
-        <text class='voice__text'>{{publishInfo.voiceIntroduceTime}}s"</text>
+    <view class="page-section-title">车主描述</view>
+    <block wx:if="{{publishInfo.textIntroduce||publishInfo.voiceIntroduce}}">
+      <view class="desc">{{publishInfo.textIntroduce}}</view>
+      <view wx:if="{{publishInfo.voiceIntroduce}}" class="page-listen">
+        <view id="audio{{item.id}}" catchtap="handleAudioPlay" class="listen__voice">
+          <image wx:if="{{isPlaying}}" class='voice__icon' src='{{ICON_URL}}audio-playing.gif'></image>
+          <image wx:else class='voice__icon' src='{{ICON_URL}}voice.png'></image>
+          <text class='voice__text'>{{publishInfo.voiceIntroduceTime}}s"</text>
+        </view>
+      </view>
+    </block>
+    <view wx:else class="desc">无</view>
+  </view>
+
+  <!-- 基本信息 -->
+  <view class="page-base">
+    <view class="page-section-title">基本信息</view>
+    <view class="page-base-list">
+      <view class="base-list-item">
+        <text class="list-item__key">设备类型</text>
+        <text class="list-item__value">{{publishInfo.categorySecondName||publishInfo.categoryFirstName}}</text>
+      </view>
+      <view class="base-list-item">
+        <text class="list-item__key">品牌型号</text>
+        <text class="list-item__value">tt</text>
+      </view>
+      <view class="base-list-item">
+        <text class="list-item__key">发票</text>
+        <text class="list-item__value">tt</text>
+      </view>
+      <view class="base-list-item">
+        <text class="list-item__key">合格证</text>
+        <text class="list-item__value">tt</text>
+      </view>
+      <view class="base-list-item">
+        <text class="list-item__key">联系人</text>
+        <text class="list-item__value">tt</text>
       </view>
     </view>
-    <view class="desc">{{publishInfo.textIntroduce}}</view>
-    <view class="num">
-      <text>浏览{{publishInfo.viewCount}}</text>
-    </view>
   </view>
+
   <!-- 留言 -->
   <view class="page-message">
-    <view class="message__total">全部留言
+    <view class="page-section-title">全部留言
       <text wx:if="{{discussInfo.length}}">·{{discussInfo.length}}</text>
     </view>
     <block wx:if="{{discussInfo.length}}">

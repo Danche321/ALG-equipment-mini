@@ -6,6 +6,10 @@ import { handleBindPhone, fetchWxPhone } from '../../../api/common.js'
 import { checkPhone } from '../../../utils/rules.js'
 const app = getApp()
 const QQMapWX = require('../../../libs/qqmap-wx-jssdk.js');
+const yearArr = []
+for (let i = 1989; i <= 2019; i++) {
+  yearArr.push(`${i}年`)
+}
 Page({
 
   /**
@@ -31,23 +35,20 @@ Page({
       provinceName: '',
       cityCode: '',
       cityName: '',
-      voiceIntroduceTime: 0 //录音时长
+      voiceIntroduceTime: 0, //录音时长
+      usageHours: '', // 使用小时数
+      hasInvoice: 0, // 发票
+      hasCertificate: 0, // 合格证
     },
     hasVideo: false,
-    selectCategoryVisible: false, // 选择机型组件
-    showCategoryName: '', // 分类名称'
     showAreaName: '', // 城市名称
     selectCityVisible: false, // 选择城市组件
-    selectYearVisible: false, // 选择年份组件
-    updatePhoneDialog: { // 修改手机号弹窗
-      visible: false,
-      value: '', // 修改联系方式的值
-    },
     video: {
       visible: false,
       src: '',
       showImg: ''
-    }
+    },
+    yearArray: yearArr
   },
 
 
@@ -77,12 +78,6 @@ Page({
         categoryFirstName,
         categorySecondName
       } = data
-      let showCategoryName
-      if (categorySecondName) {
-        showCategoryName = `${categoryFirstName}·${categorySecondName}`
-      } else {
-        showCategoryName = categoryFirstName
-      }
       let showAreaName
       if (!locationDetail.cityCode || locationDetail.cityName === locationDetail.provinceName) {
         showAreaName = locationDetail.provinceName
@@ -101,7 +96,7 @@ Page({
           }
         }),
         'params.outPrice': outPrice === '0' ? '' : outPrice,
-        'params.productiveYear': productiveYear?`${productiveYear}年`:'',
+        'params.productiveYear': productiveYear?`${productiveYear}`:'',
         'params.secondCategoryId': categorySecondId,
         'params.textIntroduce': textIntroduce,
         'params.voiceIntroduce': voiceIntroduce,
@@ -109,11 +104,28 @@ Page({
         'params.provinceName': locationDetail.provinceName,
         'params.cityCode': locationDetail.cityCode,
         'params.cityName': locationDetail.cityName,
-        showCategoryName: showCategoryName,
         showAreaName: showAreaName,
         hasVideo: imageVideos.some(item => item.type === 'VIDEO')
       })
     } else {
+      wx.getStorage({
+        key: 'createSaleType',
+        success: res => {
+          const params = JSON.parse(res.data)
+          this.setData({
+            'params.firstCategoryId': params.firstid,
+            'params.secondCategoryId': params.secondid
+          })
+        }
+      })
+      wx.getStorage({
+        key: 'saleContact',
+        success: res => {
+          this.setData({
+            'params.contact': res.data
+          })
+        },
+      })
       // 新增
       this.setData({
         'params.contactPhone': app.globalData.userInfo && app.globalData.userInfo.phone
@@ -168,7 +180,7 @@ Page({
       imageVideos
     } = this.data.params
     wx.chooseImage({
-      count: 12 - imageVideos.length, // 默认12
+      count: 20 - imageVideos.length, // 默认20
       sizeType: ['compressed'], // 可以指定是原图还是压缩图，默认二者都有
       sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有
       success: res => {
@@ -336,10 +348,6 @@ Page({
       title: '请填写联系方式',
       icon: 'none'
     })
-    if (!firstCategoryId) return wx.showToast({
-      title: '请选择机型',
-      icon: 'none'
-    })
     wx.showModal({
       title: '温馨提示',
       content: '请确保设备信息真实性，否则平台将进行删除并冻结您的账号！',
@@ -415,49 +423,6 @@ Page({
       })
     })
   },
-
-  // 修改手机号弹窗显示
-  handleUpdatePhone() {
-    this.setData({
-      'updatePhoneDialog.visible': true
-    })
-  },
-
-  // 修改手机号输入
-  handlePhoneInput(e) {
-    const phone = e.detail.value
-    this.setData({
-      'updatePhoneDialog.value': phone
-    })
-  },
-
-  // 修改手机号取消
-  updatePhoneCancle() {
-    this.setData({
-      'updatePhoneDialog.visible': false
-    })
-  },
-
-  // 修改手机号确认
-  updatePhoneConfirm() {
-    const value = this.data.updatePhoneDialog.value
-    if (!value) {
-      this.setData({
-        'updatePhoneDialog.visible': false
-      })
-    } else {
-      if (!checkPhone(value)) {
-        return wx.showToast({
-          title: '手机号码格式错误',
-          icon: 'none'
-        })
-      }
-      this.setData({
-        'params.contactPhone': value,
-        'updatePhoneDialog.visible': false
-      })
-    }
-  },
   
   // 获取定位城市
   getLocation() {
@@ -489,33 +454,6 @@ Page({
     })
   },
 
-  // 显示机型选择弹窗
-  handleShowCategory() {
-    this.setData({
-      selectCategoryVisible: true
-    })
-  },
-
-  // 选择机型确定
-  handleCategoryConfirm(e) {
-    this.setData({
-      selectCategoryVisible: false
-    })
-    if (!e.detail) return false
-    const {
-      firstid,
-      firstName,
-      secondid,
-      secondName
-    } = JSON.parse(e.detail)
-    let trueSecondName = secondid ? `·${secondName}` : ''
-    this.setData({
-      'params.firstCategoryId': firstid,
-      'params.secondCategoryId': secondid,
-      showCategoryName: `${firstName}${trueSecondName}`
-    })
-  },
-
   // 显示城市选择弹窗
   handleShowCity() {
     this.setData({
@@ -542,24 +480,37 @@ Page({
     })
   },
 
-  // 选择年份显示
-  handleShowYear() {
+  // 出厂日期确定
+  bindYearPickerChange(e) {
+    const year = this.data.yearArray[e.detail.value]
     this.setData({
-      selectYearVisible: true
+      'params.productiveYear': year
+    })
+  },
+  
+  // 发票
+  handleInvoiceToggle() {
+    this.setData({
+      'params.hasInvoice': this.data.params.hasInvoice === 1 ? 0 : 1
     })
   },
 
-  // 选择年份确定
-  handleYearConfirm(e) {
+  // 合格证
+  handleCertificateToggle() {
     this.setData({
-      selectYearVisible: false
+      'params.hasCertificate': this.data.params.hasCertificate === 1 ? 0 : 1
     })
-    const year = e.detail
-    if (year) {
-      this.setData({
-        'params.productiveYear': year
-      })
-    }
+  },
+
+  // 联系人
+  handleContactChange(e) {
+    this.setData({
+      'params.contact': e.detail.value
+    })
+    wx.setStorage({
+      key: 'saleContact',
+      data: e.detail.value,
+    })
   },
 
   //录音确认

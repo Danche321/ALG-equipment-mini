@@ -1,0 +1,12 @@
+<!-- 类型 -->
+<view class="page-list">
+  <view wx:for="{{listData}}" wx:key="{{index}}" class="item">
+    <view class="item__title">{{item.name}}</view>
+    <view>
+      <text data-first="{{item}}" data-second="{{cell}}" wx:for="{{item.children}}" wx:key="{{index}}" wx:for-item="cell" class="children-tag f-ellipsis1 {{first.id==item.id&&second.id==cell.id?'active':''}}" bindtap="handleSelect">{{cell.name}}</text>
+    </view>
+  </view>
+</view>
+
+<!-- 下一步 -->
+<button class="btn-next {{second?'active':''}}" bindtap="handleNext">下一步</button>

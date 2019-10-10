@@ -61,7 +61,7 @@ Page({
 
   handleToSale() {
     wx.navigateTo({
-      url: '/pages/publish/create-sale/create-sale',
+      url: '/pages/publish/create-sale-model/create-sale-model',
     })
   },
   handleToBug() {

@@ -12,9 +12,17 @@
   <view class="m-page-filter">
     <!-- 选择 -->
     <view class="page-filter-select">
-      <view class="filter-item" bindtap="handleShowCity">发货地</view>
+      <view class="filter-item-wrap" bindtap="handleShowCity">
+        <text class="filter-item {{publishParams.provinceCode?'active':''}}">地区</text>
+      </view>
       <view class="filter-split"></view>
-      <view bindtap="handleShowCategory" class="filter-item {{publishParams.categoryFirstId?'active':''}}">机型</view>
+      <view class="filter-item-wrap f-align-center" bindtap="handleShowCategory">
+        <text class="filter-item {{publishParams.categoryFirstId?'active':''}}">机型</text>
+      </view>
+      <!-- <view class="filter-split"></view>
+      <view class="filter-item-wrap f-align-right" bindtap="handleShowCategory">
+        <text class="filter-item {{publishParams.categoryFirstId?'active':''}}">品牌</text>
+      </view> -->
     </view>
     <!-- 选中的标签 -->
     <view wx:if="{{publishParams.searchText||publishParams.categoryFirstId||publishParams.categorySecondId||publishParams.provinceCode||publishParams.cityCode}}" class="page-tags">
@@ -49,10 +57,10 @@
 
 <!-- 内容区 -->
 <view class="page-body" style="padding-top:{{marginTop}}px">
-<!-- 发布列表 -->
-<view wx:if="{{publishList.length}}" class="publish-box">
-  <view class="list-item" wx:for="{{publishList}}" wx:key="{{index}}" data-id="{{item.id}}" bindtap="handleToDetail">
-    <view class="img-box">
+  <!-- 发布列表 -->
+  <view wx:if="{{publishList.length}}" class="publish-box">
+    <view class="list-item" wx:for="{{publishList}}" wx:key="{{index}}" data-id="{{item.id}}" bindtap="handleToDetail">
+      <view class="img-box">
         <image src="{{item.mainMedia}}" class="item__img" mode="aspectFill"></image>
         <image wx:if="{{item.imageVideos[0].type==='VIDEO'}}" class="icon-play" src="{{ICON_URL}}list-play.png"></image>
       </view>
@@ -80,8 +88,8 @@
           <view class="item_time">{{tools.splitDate(item.createTime)}}发布</view>
         </view>
       </view>
+    </view>
   </view>
-</view>
 
   <!-- 无数据 -->
   <view wx:else class='m-page-empty' style="margin-top:{{marginTop/2}}px">

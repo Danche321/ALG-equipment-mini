@@ -2,7 +2,7 @@
   <view wx:for="{{listData}}" data-id="{{item.invite.id}}" bindtap="handleToUserHome" wx:key="{{index}}" class="list-item">
     <image class="item__img" src="{{item.invite.headPortrait}}" mode='aspectFill'></image>
       <view class="item-content">
-        <view class="item__nickname">{{item.invite.nickName}}</view>
+        <view class="item__nickname f-ellipsis1">{{item.invite.nickName}}</view>
         <view class="item__bottom">
           <view class="item__num">
             <text>{{item.invite.fansCount}}粉丝</text>

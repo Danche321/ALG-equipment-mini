@@ -1,28 +1,33 @@
+<wxs src="../../../wxs/utils.wxs" module="tools" />
 <block wx:if="{{listData.length}}">
   <view class="list-item {{item.isDownShelf?'item--disabled':''}}" wx:for="{{listData}}" wx:key="{{index}}" data-id="{{item.id}}" bindtap="handleToDetail">
-    <view class="item__top f-flex-justBetween-alignStart">
+    <view class="item-top">
       <view class="img-box">
-        <image src="{{item.mainMedia}}" class="item__img" mode="aspectFill" mode='aspectFill'></image>
-          <image wx:if="{{item.imageVideos[0].type==='VIDEO'}}" class="icon-play" src="{{ICON_URL}}list-play.png"></image>
+        <image src="{{item.mainMedia}}" class="item__img" mode="aspectFill"></image>
+        <image wx:if="{{item.imageVideos[0].type==='VIDEO'}}" class="icon-play" src="{{ICON_URL}}list-play.png"></image>
       </view>
       <view class='item__right'>
-        <view class="f-ellipsis2 item__title">{{item.title}}</view>
-        <view class="tag-box">
-          <text wx:if="{{item.categoryFirstName}}" class="item__tag">{{item.categoryFirstName}}</text>
-          <text wx:if="{{item.categorySecondName}}" class="item__tag">{{item.categorySecondName}}</text>
-          <text wx:if="{{item.productiveYear}}" class="item__tag">{{item.productiveYear}}年</text>
+        <view>
+          <view class="f-ellipsis1 item__title">{{item.title}}</view>
+          <view class="tag-box f-ellipsis1">
+            <block wx:if="{{item.categoryFirstName&&!item.categorySecondName}}">{{item.categoryFirstName}} </block>
+            <block wx:if="{{item.categorySecondName}}" class="item__tag">{{item.categorySecondName}} </block>
+            <block wx:if="{{item.productiveYear}}" class="item__tag">| {{item.productiveYear}}年 </block>
+            <block>
+              <block wx:if="{{!item.locationDetail.cityCode||item.locationDetail.cityName===item.locationDetail.provinceName}}">| {{item.locationDetail.provinceName}}</block>
+              <block wx:else>| {{item.locationDetail.provinceName}}·{{item.locationDetail.cityName}}</block>
+            </block>
+          </view>
         </view>
-        <view class="f-flex-justBetween-alignCenter">
-          <view wx:if="{{item.outPrice!=0}}" class="item__price">
-            ¥
-            <text class="price__value">{{item.outPrice}}</text>万
+        <view class="item-top__bottom">
+          <view class="price-block">
+            <view wx:if="{{item.outPrice!=0}}" class="item__price">
+              ¥
+              <text class="price__value">{{item.outPrice}}</text>万
+            </view>
+            <view wx:else class="item__price">面议</view>
           </view>
-          <view wx:else class="item__price">面议</view>
-          <view class="item__area f-flex-justStart-alignCenter">
-            <image class="area__icon" src="{{ICON_URL}}location.png"></image>
-            <text wx:if="{{!item.locationDetail.cityCode||item.locationDetail.cityName===item.locationDetail.provinceName}}" class="area__text">{{item.locationDetail.provinceName}}</text>
-            <text wx:else class="area__text">{{item.locationDetail.provinceName}}·{{item.locationDetail.cityName}}</text>
-          </view>
+          <view class="item_time">{{tools.splitDate(item.createTime)}}发布</view>
         </view>
       </view>
     </view>

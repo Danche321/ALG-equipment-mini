@@ -28,7 +28,8 @@
     "pages/publish/success-buy/success-buy",
     "pages/my/my-invite/my-invite",
     "components/FreezingDialog/FreezingDialog",
-    "pages/publish/detail-buy/detail-buy"
+    "pages/publish/detail-buy/detail-buy",
+    "pages/publish/create-sale-model/create-sale-model"
   ],
   "window": {
     "backgroundTextStyle": "light",

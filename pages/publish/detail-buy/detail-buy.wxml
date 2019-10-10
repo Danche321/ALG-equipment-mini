@@ -31,7 +31,7 @@
     </view>
     <view class="filed-cell">
       <text class="filed__key">联系人</text>
-      <text class="filed__value">{{info.contact}}</text>
+      <text class="filed__value">{{info.contact||'无'}}</text>
     </view>
     <view class="filed-cell">
       <text class="filed__key">其他要求</text>

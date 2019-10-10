@@ -24,6 +24,7 @@ page {
   font-size: 30prx;
   color: #333;
   font-weight: 500;
+  width: 500rpx;
 }
 
 .item__num {

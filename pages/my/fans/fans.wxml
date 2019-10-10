@@ -3,7 +3,7 @@
     <view class="f-flex-justStart-alignCenter">
       <image class="item__img" src="{{item.personInfo.headPortrait}}" mode='aspectFill'></image>
       <view>
-        <view class="item__nickname">{{item.personInfo.nickName}}</view>
+        <view class="item__nickname f-ellipsis1">{{item.personInfo.nickName}}</view>
         <view class="item__num">
           <text>{{item.personInfo.fansCount}}粉丝</text>
           <text class="f-ml40">{{item.personInfo.publishCount}}发布</text>

@@ -1,11 +1,16 @@
-// const ICON_URL = 'https://mechanical-test.oss-cn-hangzhou.aliyuncs.com/project_mini_icon/' // 测试环境-icon文件oss
-const ICON_URL = 'https://mechanical.oss-cn-hangzhou.aliyuncs.com/project_mini_icon/' // 生产环境-icon文件oss
+
+// 测试环境
+// const BASE_URL = 'https://test.lanchengyun.com'
+// const ICON_URL = 'https://mechanical-test.oss-cn-hangzhou.aliyuncs.com/project_mini_icon/'
+
+ // 生产环境
+const BASE_URL = 'https://www.lanchengyun.com'
+const ICON_URL = 'https://mechanical.oss-cn-hangzhou.aliyuncs.com/project_mini_icon/'
 App({
   onLaunch: function() {
     const updateManager = wx.getUpdateManager()
     updateManager.onCheckForUpdate(function (res) {
       // 请求完新版本信息的回调
-      console.log(res.hasUpdate)
     })
     updateManager.onUpdateReady(function () {
       wx.showModal({
@@ -23,6 +28,15 @@ App({
       // 新的版本下载失败
     })
     this.overShare()
+
+    // 获取分类列表
+    wx.request({
+      url: `${BASE_URL}/category/categoryForList.action`,
+      method: 'get',
+      success: res => {
+        this.globalData.categoryList = res.data.data
+      }
+    })
   },
 
   //重写分享方法
@@ -52,10 +66,10 @@ App({
     })
   },
 
+
   globalData: {
-    // BASE_URL: 'https://test.lanchengyun.com', // 测试环境
-    BASE_URL: 'https://www.lanchengyun.com', // 生产环境
-    ICON_URL: ICON_URL, // 存放icon的oss测试环境地址
+    BASE_URL: BASE_URL,
+    ICON_URL: ICON_URL,
     userInfo: wx.getStorageSync('userInfo') ? JSON.parse(wx.getStorageSync('userInfo')) : null, // 用户信息
     searchText: '', // 搜索关键字
     searchCategoryFirstId: '', // 搜索一级类别id
@@ -68,5 +82,6 @@ App({
     refreshSearch: false, // 是否刷新搜索页的数据
     refreshBuy: false, // 是否刷新求购信息列表
     refreshMyBuy: false, // 是否刷新我的求购信息列表
+    categoryList: [] // 分类列表
   }
 })

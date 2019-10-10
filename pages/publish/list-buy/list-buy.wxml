@@ -3,9 +3,17 @@
 <view class="m-page-filter">
   <!-- 选择 -->
   <view class="page-filter-select">
-    <view class="filter-item" bindtap="handleShowCity">求购地区</view>
+    <view class="filter-item-wrap" bindtap="handleShowCity">
+      <text class="filter-item {{params.provinceCode?'active':''}}">地区</text>
+    </view>
     <view class="filter-split"></view>
-    <view bindtap="handleShowCategory" class="filter-item {{params.categoryFirstId?'active':''}}">机型</view>
+    <view class="filter-item-wrap f-align-center" bindtap="handleShowCategory">
+      <text class="filter-item {{params.categoryFirstId?'active':''}}">机型</text>
+    </view>
+    <view class="filter-split"></view>
+    <view class="filter-item-wrap f-align-right" bindtap="handleShowCategory">
+      <text class="filter-item {{params.categoryFirstId?'active':''}}">品牌</text>
+    </view>
   </view>
   <!-- 选中的标签 -->
   <view wx:if="{{params.searchText||params.categoryFirstId||params.categorySecondId||params.provinceCode||params.cityCode}}" class="page-tags">
