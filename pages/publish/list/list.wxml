@@ -19,13 +19,13 @@
       <view class="filter-item-wrap f-align-center" bindtap="handleShowCategory">
         <text class="filter-item {{publishParams.categoryFirstId?'active':''}}">机型</text>
       </view>
-      <!-- <view class="filter-split"></view>
-      <view class="filter-item-wrap f-align-right" bindtap="handleShowCategory">
-        <text class="filter-item {{publishParams.categoryFirstId?'active':''}}">品牌</text>
-      </view> -->
+      <view class="filter-split"></view>
+      <view class="filter-item-wrap f-align-right" bindtap="handleShowBrand">
+        <text class="filter-item {{publishParams.brandId?'active':''}}">品牌</text>
+      </view>
     </view>
     <!-- 选中的标签 -->
-    <view wx:if="{{publishParams.searchText||publishParams.categoryFirstId||publishParams.categorySecondId||publishParams.provinceCode||publishParams.cityCode}}" class="page-tags">
+    <view wx:if="{{publishParams.searchText||publishParams.categoryFirstId||publishParams.categorySecondId||publishParams.provinceCode||publishParams.cityCode||publishParams.brandId}}" class="page-tags">
       <!-- 关键字 -->
       <view wx:if="{{publishParams.searchText}}" class="tag-item" bindtap="handleClearSearchText">
         <text>{{publishParams.searchText}}</text>
@@ -51,6 +51,11 @@
         <text>{{cityName}}</text>
         <image class="icon-clear" src="{{ICON_URL}}clear.png"></image>
       </view>
+      <!-- 品牌 -->
+      <view wx:if="{{publishParams.brandId}}" class="tag-item" bindtap="handleClearBrand">
+        <text>{{brandName}}</text>
+        <image class="icon-clear" src="{{ICON_URL}}clear.png"></image>
+      </view>
     </view>
   </view>
 </view>
@@ -59,7 +64,7 @@
 <view class="page-body" style="padding-top:{{marginTop}}px">
   <!-- 发布列表 -->
   <view wx:if="{{publishList.length}}" class="publish-box">
-    <view class="list-item" wx:for="{{publishList}}" wx:key="{{index}}" data-id="{{item.id}}" bindtap="handleToDetail">
+    <view class="list-item" wx:for="{{publishList}}" wx:key="index" data-id="{{item.id}}" bindtap="handleToDetail">
       <view class="img-box">
         <image src="{{item.mainMedia}}" class="item__img" mode="aspectFill"></image>
         <image wx:if="{{item.imageVideos[0].type==='VIDEO'}}" class="icon-play" src="{{ICON_URL}}list-play.png"></image>
@@ -68,13 +73,10 @@
         <view>
           <view class="f-ellipsis1 item__title">{{item.title}}</view>
           <view class="tag-box f-ellipsis1">
-            <block wx:if="{{item.categoryFirstName&&!item.categorySecondName}}">{{item.categoryFirstName}} </block>
-            <block wx:if="{{item.categorySecondName}}" class="item__tag">{{item.categorySecondName}} </block>
-            <block wx:if="{{item.productiveYear}}" class="item__tag">| {{item.productiveYear}}年 </block>
-            <block>
-              <block wx:if="{{!item.locationDetail.cityCode||item.locationDetail.cityName===item.locationDetail.provinceName}}">| {{item.locationDetail.provinceName}}</block>
-              <block wx:else>| {{item.locationDetail.provinceName}}·{{item.locationDetail.cityName}}</block>
-            </block>
+            <block wx:if="{{item.productiveYear}}" class="item__tag">{{item.productiveYear}}年 |</block>
+            <block wx:if="{{item.usageHours}}" class="item__tag"> {{item.usageHours}}小时 |</block>
+            <block wx:if="{{!item.locationDetail.cityCode||item.locationDetail.cityName===item.locationDetail.provinceName}}"> {{item.locationDetail.provinceName}}</block>
+            <block wx:else> {{item.locationDetail.provinceName}}·{{item.locationDetail.cityName}}</block>
           </view>
         </view>
         <view class="item-bottom">
@@ -97,8 +99,12 @@
     <text class='empty__text'>没有搜索到符合的设备</text>
   </view>
 </view>
+
 <!-- 选择机型组件 -->
 <select-category visible="{{selectCategoryVisible}}" firstId="{{publishParams.categoryFirstId}}" secondId="{{publishParams.categorySecondId}}" bind:checked="handleCategoryConfirm"></select-category>
 
 <!-- 选择城市组件 -->
 <select-city visible="{{selectCityVisible}}" bind:checked="handleCityConfirm"></select-city>
+
+<!-- 选择品牌组件 -->
+<select-brand visible="{{selectBrandVisible}}" bind:checked="handleBrandConfirm" brandId="{{publishParams.brandId}}"></select-brand>

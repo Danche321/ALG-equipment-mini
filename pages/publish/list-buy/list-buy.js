@@ -18,7 +18,8 @@ Page({
       cityCode: '',
       areaCode: '',
       categoryFirstId: '',
-      categorySecondId: ''
+      categorySecondId: '',
+      brandId: ''
     },
     hasNextPage: true,
     // 选择机型组件
@@ -30,7 +31,10 @@ Page({
     selectCityVisible: false,
     provinceName: '',
     cityName: '',
-    marginTop: ''
+    marginTop: '',
+    // 选择品牌组件
+    selectBrandVisible: false,
+    brandName: ''
   },
 
   /**
@@ -217,6 +221,35 @@ Page({
       })
       this.getList(1)
     }
+  },
+
+  // 选择品牌组件
+  handleBrandConfirm(e) {
+    this.setData({
+      selectBrandVisible: false
+    })
+    if (!e.detail) return false
+    const { id, name } = JSON.parse(e.detail)
+    console.log(id, name)
+    this.setData({
+      'params.brandId': id,
+      brandName: name
+    })
+    this.getList(1)
+  },
+
+  handleShowBrand() {
+    this.setData({
+      selectBrandVisible: !this.data.selectBrandVisible
+    })
+  },
+
+  handleClearBrand() {
+    this.setData({
+      'params.brandId': '',
+      'brandName': ''
+    })
+    this.getList(1)
   },
 
   handleToDetail(e) {

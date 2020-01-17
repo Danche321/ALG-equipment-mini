@@ -11,7 +11,7 @@
   right: 6rpx;
   top: 14rpx;
   z-index: 2;
-  background: #0e48e6;
+  background: #2455df;
   border-radius: 50rpx;
 }
 

@@ -5,7 +5,11 @@ import {
   handleCancelCollect,
   handleMsg
 } from '../../../api/publish.js'
-import { handleBindPhone, fetchWxPhone } from '../../../api/common.js'
+import {
+  handleBindPhone,
+  fetchWxPhone,
+  handleSendTemplate
+} from '../../../api/common.js'
 const innerAudioContext = wx.createInnerAudioContext()
 const app = getApp()
 Page({
@@ -43,14 +47,21 @@ Page({
       placeholder: ''
     },
     isPlaying: false, // 播放状态
-    hasVideo: false // 是否含有视频
+    hasVideo: false, // 是否含有视频
+    templateUserId: '', // 接收消息推送者id
+    moreVisible: false
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    console.log(options)
+    console.log(getCurrentPages().length)
+    if (getCurrentPages().length === 1) {
+      this.setData({
+        moreVisible: true
+      })
+    }
     if (options.scene) {
       console.log(options.scene)
       this.setData({
@@ -70,7 +81,7 @@ Page({
   /**
    * 生命周期函数--监听页面隐藏
    */
-  onHide: function () {
+  onHide: function() {
     innerAudioContext.stop()
     this.setData({
       isPlaying: false
@@ -80,7 +91,7 @@ Page({
   /**
    * 生命周期函数--监听页面隐藏
    */
-  onUnload: function () {
+  onUnload: function() {
     innerAudioContext.stop()
     this.setData({
       isPlaying: false
@@ -140,7 +151,7 @@ Page({
         discussInfo: discuss,
         collectionDown,
         likeDown,
-        hasVideo: publish.imageVideos.some(item => item.type ==='VIDEO')
+        hasVideo: publish.imageVideos.some(item => item.type === 'VIDEO')
       })
     }).catch(err => {
       console.log(err)
@@ -182,34 +193,51 @@ Page({
       'message.params.beDiscussId': '', // 回复的动态的ID
       'message.params.floorDiscussId': '', // 主楼id
       'message.params.floorDiscussUserId': '', // 主楼发布者id
-      'message.placeholder': '看对眼就留言，问问更多细节' // 被回复者昵称
+      'message.placeholder': '看对眼就留言，问问更多细节', // 被回复者昵称
+      templateUserId: this.data.publishInfo.publishUserInfo.id
     })
   },
 
   // 回复
   handleReply(e) {
-    const { beReplyDiscussId, id, userId, userInfo } = e.currentTarget.dataset.info
+    const {
+      beReplyDiscussId,
+      id,
+      userId,
+      userInfo
+    } = e.currentTarget.dataset.info
+    console.log(userId)
     this.setData({
       'message.visible': true,
       'message.params.publishId': this.data.id,
       'message.params.beDiscussId': id, // 回复的动态的ID
       'message.params.floorDiscussId': id, // 主楼id
       'message.params.floorDiscussUserId': userId, // 主楼发布者id
-      'message.placeholder': `回复：${userInfo.nickName}`
+      'message.placeholder': `回复：${userInfo.nickName}`,
+      templateUserId: userId
     })
   },
 
   // 回复评论
   handleReplyChild(e) {
-    const { beReplyDiscussId, id, userId, userInfo } = e.currentTarget.dataset.info
-    const { floorid } = e.currentTarget.dataset
+    const {
+      beReplyDiscussId,
+      id,
+      userId,
+      userInfo
+    } = e.currentTarget.dataset.info
+    console.log(userId)
+    const {
+      floorid
+    } = e.currentTarget.dataset
     this.setData({
       'message.visible': true,
       'message.params.publishId': this.data.id,
       'message.params.beDiscussId': id, // 回复的动态的ID
       'message.params.floorDiscussId': floorid, // 主楼id
       'message.params.floorDiscussUserId': userId, // 主楼发布者id
-      'message.placeholder': `回复：${userInfo.nickName}`
+      'message.placeholder': `回复：${userInfo.nickName}`,
+      templateUserId: userId
     })
   },
 
@@ -221,15 +249,47 @@ Page({
   },
 
   // 留言提交
-  handleMsgConfirm() {
+  handleMsgConfirm(e) {
     const params = this.data.message.params
     handleMsg(params).then(() => {
+      this.getDetail()
       this.setData({
         'message.visible': false,
         'message.params.content': ''
       })
-      this.getDetail()
     })
+  },
+
+  // 推送发送模板消息
+  handleSendTemplate(openid) {
+    const myDate = new Date()
+    const year = myDate.getFullYear()
+    const month = myDate.getMonth() + 1
+    const day = myDate.getDate()
+    const hour = myDate.getHours() < 10 ? `0${myDate.getHours()}` : myDate.getHours()
+    const minute = myDate.getMinutes() < 10 ? `0${myDate.getMinutes()}` : myDate.getMinutes()
+    const date = `${year}-${month}-${day} ${hour}:${minute}`
+    const params = {
+      toUserId: this.data.templateUserId,
+      touser: '',
+      template_id: 'jIRg4smS2TCc_o1Ef9uBFPX8-2jgY_7ymuxJ0AkK6yQ',
+      page: `/pages/publish/detail/detail?id=${this.data.id}`,
+      form_id: formId,
+      data: [
+        {
+          key: 'keyword1',
+          value: this.data.publishInfo.title
+        },
+        {
+          key: 'keyword2',
+          value: this.data.message.params.content
+        },
+        {
+          key: 'keyword3',
+          value: date
+        }
+      ]
+    }
   },
 
   handleMsgBlur() {
@@ -296,7 +356,10 @@ Page({
 
   // 录音播放
   handleAudioPlay() {
-    const { isPlaying, publishInfo } = this.data
+    const {
+      isPlaying,
+      publishInfo
+    } = this.data
     if (isPlaying) {
       innerAudioContext.stop()
     } else {
@@ -380,8 +443,7 @@ Page({
           wx.makePhoneCall({
             phoneNumber: phone
           })
-        } else if (res.cancel) {
-        }
+        } else if (res.cancel) {}
       }
     })
   },
@@ -389,16 +451,20 @@ Page({
   /**
    * 用户点击右上角分享
    */
-  onShareAppMessage: function () {
-    const { id, title, mainMedia } = this.data.publishInfo
+  onShareAppMessage: function() {
+    const {
+      id,
+      title,
+      mainMedia
+    } = this.data.publishInfo
     return {
       title: `#转让#${title}` || '麒麟二手机械',
       path: `pages/publish/detail/detail?id=${id}`,
       imageUrl: '',
-      success: function (res) {
+      success: function(res) {
         console.log(res)
       },
-      fail: function (res) {
+      fail: function(res) {
         console.log(res)
       }
     }

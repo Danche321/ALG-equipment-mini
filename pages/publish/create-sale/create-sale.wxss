@@ -184,7 +184,7 @@ page {
   text-align: right;
 }
 .filed-right-unit{
-  color: #bbb;
+  color: #333;
   font-size: 30rpx;
 }
 .icon-arrow-right{

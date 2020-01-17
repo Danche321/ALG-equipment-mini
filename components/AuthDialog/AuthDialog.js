@@ -30,6 +30,7 @@ Component({
               code: res.code
             }
             fetchUserId(params).then(res => {
+              console.log(res.data)
               const userInfo = res.data
               if (res.data.newBind) { // 首次授权
                 userInfo.headPortrait = avatarUrl
@@ -53,6 +54,9 @@ Component({
       let params = `userId=${userId}&nickName=${nickName}&headPortrait=${headPortrait}`
       handleUpdateInfo(params).then(() => {
       })
-    }
+    },
+
+    // 阻止页面滚动
+    stopScroll() {}
   }
 })

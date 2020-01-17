@@ -2,6 +2,7 @@
   "navigationBarTitleText": "填写转让详情",
   "usingComponents": {
     "bind-record": "/components/record/record",
-    "select-city": "/components/SelectCity/SelectCity"
+    "select-city": "/components/SelectCity/SelectCity",
+    "select-brand": "/components/SelectBrand/SelectBrand"
   }
 }

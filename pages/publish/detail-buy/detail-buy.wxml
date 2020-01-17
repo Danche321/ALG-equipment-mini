@@ -11,6 +11,10 @@
       <text class="filed__value">{{info.categorySecondName||info.categoryFirstName}}</text>
     </view>
     <view class="filed-cell">
+      <text class="filed__key">品牌</text>
+      <text class="filed__value">{{info.brandName||'不限'}}</text>
+    </view>
+    <view class="filed-cell">
       <text class="filed__key">求购地区</text>
       <text class="filed__value">
      <block wx:if="{{!info.locationDetail.cityCode||info.locationDetail.cityName===info.locationDetail.provinceName}}">{{info.locationDetail.provinceName}}</block>
@@ -19,7 +23,7 @@
     </view>
     <view class="filed-cell">
       <text class="filed__key">期望价格</text>
-      <text class="filed__value">{{info.expectedPrice||'不限'}}</text>
+      <text class="filed__value">{{info.expectedPrice||'面议'}}</text>
     </view>
     <view class="filed-cell">
       <text class="filed__key">使用小时数</text>
@@ -46,7 +50,7 @@
   <!-- 备注 -->
   <view class="page-section">
     <view class="page-title">备注</view>
-    <view class="filed-cell filed__value">{{info.remark||'无'}}</view>
+    <view class="filed__value filed__remark">{{info.remark||'无'}}</view>
   </view>
 
 
@@ -80,3 +84,6 @@
     <button type='primary' size='mini' catchtap='save'>保存图片</button>
   </view>
 </view>
+
+<!-- 授权弹窗 -->
+<auth-dialog visible="{{authVisible}}" bind:hideModal="authHide"></auth-dialog>

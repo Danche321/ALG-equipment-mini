@@ -104,7 +104,7 @@ page {
 }
 
 .tag-box {
-  font-size: 22rpx;
+  font-size: 24rpx;
 }
 
 .item__tag {
@@ -139,7 +139,7 @@ page {
 .item-middle{
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: flex-end;
 }
 
 .item__num {

@@ -8,19 +8,27 @@
 <!-- 表单：绑定手机号、选择身份 -->
 <view class="page-form">
   <view class="form-content">
-    <view class="theme-text">信息共享，携手推进行业进步</view>
-    <picker bindchange="bindPickerChange" value="{{activePickerIndex}}" range="{{identList}}">
-      <view class="form-item {{identity?'active':''}}">
-        <image class="item-icon" src="{{ICON_URL}}reg-ident.png"></image>
-        <text class="item__text">{{identity||'选择身份'}}</text>
-        <image class="icon-pass" src="{{ICON_URL}}pass.png"></image>
+    <view class="theme-text">【岚麒麟二手工程机械平台】</view>
+    <view class="content__sub">
+      <view class="sub-item">
+        <image class="item-icon" src="../../../icons/bind-publish.png"></image>
+        <text>发布便捷：1分钟完成寄售/求购发布</text>
       </view>
-    </picker>
-    <button class="form-item {{phone?'active':''}}" disabled="{{phone}}" open-type="getPhoneNumber" bindgetphonenumber="handleGetPhone" bindtap="handleLogin">
-      <image class="item-icon" src="{{ICON_URL}}reg-phone.png"></image>
-      <text class="item__text">{{phone||'验证手机号'}}</text>
-      <image class="icon-pass" src="{{ICON_URL}}pass.png"></image>
+      <view class="sub-item">
+        <image class="item-icon" src="../../../icons/bind-bid.png"></image>
+        <text>没有中间商：买卖双方直接拨号联系</text>
+      </view>
+      <view class="sub-item">
+        <image class="item-icon" src="../../../icons/time.png"></image>
+        <text>全网推广：转发千群，提高机械咨询量</text>
+      </view>
+    </view>
+    <button open-type="getPhoneNumber" bindgetphonenumber="handleGetPhone" bindtap="handleLogin" class="btn-save">
+      <image class="icon-wx" src="../../../icons/weixin.png"></image>
+      <text>微信登录</text>
     </button>
-    <button open-type='getUserInfo' bindgetuserinfo='getUserInfo' class="btn-save">完成</button>
   </view>
 </view>
+
+<!-- 授权弹窗 -->
+<auth-dialog visible="{{authVisible}}" bind:hideModal="authHide"></auth-dialog>

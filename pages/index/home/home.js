@@ -89,7 +89,6 @@ Page({
     })
     qqmapsdk.reverseGeocoder({
       complete: res => {
-        console.log(res)
         if (res.status === 0) {
           const {
             adcode

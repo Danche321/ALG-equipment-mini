@@ -1,5 +1,4 @@
-
-<view class="dialog" wx:if="{{visible}}">
+<view class="dialog" wx:if="{{visible}}" catchtouchmove="stopScroll">
   <view class="dialog-shadow"></view>
   <view class='dialog-box'>
     <image src="../../icons/logo.png" class="dialog-logo"></image>

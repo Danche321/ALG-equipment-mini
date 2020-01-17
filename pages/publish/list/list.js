@@ -20,7 +20,8 @@ Page({
       cityCode: '',
       areaCode: '',
       categoryFirstId: '',
-      categorySecondId: ''
+      categorySecondId: '',
+      brandId: ''
     },
     publishList: [],
     hasNextPage: true,
@@ -34,13 +35,16 @@ Page({
     provinceName: '',
     cityName: '',
     marginTop: '',
-    activePlayingId: ''
+    activePlayingId: '',
+    // 选择品牌组件
+    selectBrandVisible: false,
+    brandName: ''
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function (options) {
+  onLoad: function(options) {
     this.audioConfig() // 监听录音状态
     this.getList(1)
   },
@@ -65,7 +69,7 @@ Page({
   /**
    * 生命周期函数--监听页面隐藏
    */
-  onHide: function () {
+  onHide: function() {
     innerAudioContext.stop()
     this.setData({
       activePlayingId: ''
@@ -75,7 +79,7 @@ Page({
   /**
    * 页面相关事件处理函数--监听用户下拉动作
    */
-  onPullDownRefresh: function () {
+  onPullDownRefresh: function() {
     this.getList(1)
   },
 
@@ -92,7 +96,7 @@ Page({
   /**
    * 用户点击右上角分享
    */
-  onShareAppMessage: function() {
+  onShareAppMessage: function () {
 
   },
 
@@ -212,7 +216,13 @@ Page({
     this.setData({
       selectCategoryVisible: false
     })
-    const { firstid, firstName, secondid, secondName } = JSON.parse(e.detail)
+    if (!e.detail) return false
+    const {
+      firstid,
+      firstName,
+      secondid,
+      secondName
+    } = JSON.parse(e.detail)
     const {
       searchCategoryFirstId,
       searchCategorySecondId
@@ -247,7 +257,10 @@ Page({
     const provinceName = JSON.parse(e.detail).first.fullname
     const cityId = JSON.parse(e.detail).second.id
     const cityName = JSON.parse(e.detail).second.fullname
-    const { provinceCode, cityCode } = this.data.publishParams
+    const {
+      provinceCode,
+      cityCode
+    } = this.data.publishParams
     this.setData({
       provinceName: provinceId ? provinceName : '',
       cityName: cityId ? cityName : ''
@@ -261,11 +274,39 @@ Page({
     }
   },
 
+  // 选择品牌组件
+  handleBrandConfirm(e) {
+    this.setData({
+      selectBrandVisible: false
+    })
+    if (!e.detail) return false
+    const { id, name } = JSON.parse(e.detail)
+    console.log(id, name)
+    this.setData({
+      'publishParams.brandId': id,
+      brandName: name
+    })
+    this.getList(1)
+  },
+
+  handleShowBrand() {
+    this.setData({
+      selectBrandVisible: !this.data.selectBrandVisible
+    })
+  },
+
+  handleClearBrand() {
+    this.setData({
+      'publishParams.brandId': '',
+      'brandName': ''
+    })
+    this.getList(1)
+  },
+
   // 录音配置
   audioConfig() {
     // 停止
-    innerAudioContext.onStop(() => {
-    });
+    innerAudioContext.onStop(() => {});
     // 结束
     innerAudioContext.onEnded(() => {
       this.setData({
@@ -281,9 +322,14 @@ Page({
 
   // 播放录音
   handleAudioPlay(e) {
-    const { src, id } = e.currentTarget.dataset
+    const {
+      src,
+      id
+    } = e.currentTarget.dataset
     console.log(id)
-    const { activePlayingId } = this.data
+    const {
+      activePlayingId
+    } = this.data
     if (activePlayingId === id) {
       innerAudioContext.stop()
       this.setData({
@@ -323,5 +369,10 @@ Page({
     wx.navigateTo({
       url: `/pages/my/person-home/person-home?id=${id}`,
     })
+  },
+
+  // 阻止页面滚动
+  stopScroll(e) {
+    console.log(e)
   }
 })

@@ -82,7 +82,7 @@ Page({
           //res.path是网络图片的本地地址
           ctx.drawImage(res.path, (windowWidth - 200) / 2, 100 + (windowHeight - 240) / 2, 200, 200)
           // 四、长按识别提示
-          ctx.setFontSize(20)
+          ctx.setFontSize(18)
           ctx.fillStyle = '#333';
           var str = `${this.data.title}, 扫码与我联系`;
           ctx.fillText(str, (windowWidth - ctx.measureText(str).width) / 2, windowHeight - 50)

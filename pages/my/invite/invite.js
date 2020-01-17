@@ -31,7 +31,7 @@ Page({
   onShareAppMessage: function () {
     const userId = app.globalData.userInfo && app.globalData.userInfo.id
     return {
-      title: '海量工程机械信息，邀您共享',
+      title: '全国工程二手机械信息，免费发布平台',
       path: `pages/index/share-bind/share-bind?inviteUserId=${userId}`,
       imageUrl: `${this.data.ICON_URL}share.png`, //自定义图片路径 支持PNG及JPG。显示图片长宽比是 5:4。
       success: function (res) {

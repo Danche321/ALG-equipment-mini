@@ -67,13 +67,10 @@
             <view>
               <view class="f-ellipsis1 item__title">{{item.title}}</view>
               <view class="sale-tag-box f-ellipsis1">
-                <block wx:if="{{item.categoryFirstName&&!item.categorySecondName}}">{{item.categoryFirstName}} </block>
-                <block wx:if="{{item.categorySecondName}}" class="item__tag">{{item.categorySecondName}} </block>
-                <block wx:if="{{item.productiveYear}}" class="item__tag">| {{item.productiveYear}}年 </block>
-                <block>
-                  <block wx:if="{{!item.locationDetail.cityCode||item.locationDetail.cityName===item.locationDetail.provinceName}}">| {{item.locationDetail.provinceName}}</block>
-                  <block wx:else>| {{item.locationDetail.provinceName}}·{{item.locationDetail.cityName}}</block>
-                </block>
+                <block wx:if="{{item.productiveYear}}" class="item__tag">{{item.productiveYear}}年 | </block>
+                <block wx:if="{{item.usageHours}}" class="item__tag">{{item.usageHours}}小时 | </block>
+                <block wx:if="{{!item.locationDetail.cityCode||item.locationDetail.cityName===item.locationDetail.provinceName}}">{{item.locationDetail.provinceName}}</block>
+                <block wx:else>{{item.locationDetail.provinceName}}·{{item.locationDetail.cityName}}</block>
               </view>
             </view>
             <view class="item-bottom">
@@ -103,7 +100,10 @@
       <scroll-view wx:if="{{buy.listData.length}}" scroll-y style="height:100%" bindscrolltolower="buyReachBottom">
         <view class="list-buy-item {{item.isDownShelf?'item--disabled':''}}" wx:for="{{buy.listData}}" wx:key="{{index}}" data-id="{{item.id}}" bindtap="handleToBuyDetail">
           <view class="item__top">
-            <view class="title">{{item.categorySecondName||item.categoryFirstName}}</view>
+            <view class="title">
+              <block wx:if="{{item.categoryFirstName==='其他'&&!item.categorySecondName&&item.remark}}">{{item.remark}}</block>
+              <block wx:else>{{item.categorySecondName||item.categoryFirstName}}</block>
+            </view>
             <view class="item__top-bottom">
               <text class="price">{{item.expectedPrice||'面议'}}</text>
               <text class="time">{{tools.splitDate(item.createTime)}}发布</text>
@@ -111,12 +111,14 @@
           </view>
           <view class="item__bottom">
             <view class="bottom-filed">
-              <image class='filed__icon' src="{{ICON_URL}}year-buy.png"></image>
+              <text class="filed__key">设备品牌</text>
+              <text class="filed__value">{{item.brandName||'不限'}}</text>
+            </view>
+            <view class="bottom-filed">
               <text class="filed__key">年限范围</text>
               <text class="filed__value">{{item.yearLimitNum||'不限'}}</text>
             </view>
             <view class="bottom-filed">
-              <image class='filed__icon' src="{{ICON_URL}}location-buy.png"></image>
               <text class="filed__key">求购地区</text>
               <text class="filed__value">
           <block wx:if="{{!item.locationDetail.cityCode||item.locationDetail.cityName===item.locationDetail.provinceName}}">{{item.locationDetail.provinceName}}</block>

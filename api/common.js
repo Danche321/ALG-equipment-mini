@@ -2,6 +2,14 @@
 import request from '../utils/request.js'
 const app = getApp()
 
+// 获取access-token
+export function fetchToken(data) {
+  return request({
+    url: '/wxPg/accessToken.action',
+    method: 'get'
+  })
+}
+
 // 授权获取userid
 export function fetchUserId(data) {
   const code = data.code
@@ -32,7 +40,6 @@ export function fetchWxCode(data) {
 }
 
 
-
 // 关注
 export function handleFocus(data) {
   return request({
@@ -54,5 +61,14 @@ export function handleBindPhone(data) {
   return request({
     url: `/user/bindPhone.action${data}`,
     method: 'post'
+  })
+}
+
+// 模板消息推送
+export function handleSendTemplate(data) {
+  return request({
+    url: `/wxPg/templateSend.action`,
+    method: 'post',
+    data: data
   })
 }

@@ -14,7 +14,7 @@
 .item__title{
   font-size: 30rpx;
   margin-bottom: 20rpx;
-  font-weight: bold;
+  color: #000;
 }
 .children-tag{
   font-size: 26rpx;

@@ -19,8 +19,7 @@
         <view class='item__right'>
           <view class="f-ellipsis2 item__title">{{item.title}}</view>
           <view class="tag-box">
-            <text wx:if="{{item.categoryFirstName}}" class="item__tag">{{item.categoryFirstName}}</text>
-            <text wx:if="{{item.categorySecondName}}" class="item__tag">{{item.categorySecondName}}</text>
+            <text class="item__tag">{{item.categorySecondName||item.categoryFirstName}}</text>
             <text wx:if="{{item.productiveYear}}" class="item__tag">{{item.productiveYear}}年</text>
           </view>
           <view class="price-block">
@@ -34,9 +33,6 @@
       </view>
       <!--中部-->
       <view class='item-middle'>
-        <view class='item-middle-num'>
-          <text class="item__num ">{{item.viewCount}}浏览</text>
-        </view>
         <view class="item__handles" wx:if="{{!item.isDownShelf}}">
           <image catchtap='handleDown' data-id="{{item.id}}" data-index="{{index}}" class="item__btn " src="{{ICON_URL}}btn_shelves.png "></image>
           <image catchtap="handleUpdate" data-id="{{item.id}}" data-index="{{index}}" class="item__btn " src="{{ICON_URL}}btn_modify.png "></image>

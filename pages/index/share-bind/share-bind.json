@@ -1,4 +1,6 @@
 {
-  "navigationBarTitleText": "麒麟二手机",
-  "usingComponents": {}
+  "navigationBarTitleText": "岚麒麟二手机械",
+  "usingComponents": {
+    "auth-dialog": "/components/AuthDialog/AuthDialog"
+  }
 }

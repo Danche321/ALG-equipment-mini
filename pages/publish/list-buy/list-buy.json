@@ -4,6 +4,7 @@
   "enablePullDownRefresh": true,
   "usingComponents": {
     "select-category": "/components/SelectCategory/SelectCategory",
-    "select-city": "/components/SelectCity/SelectCity"
+    "select-city": "/components/SelectCity/SelectCity",
+    "select-brand": "/components/SelectBrand/SelectBrand"
   }
 }

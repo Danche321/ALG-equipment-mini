@@ -49,7 +49,8 @@ Page({
       hasInvoice: 0,
       hasCertificate: 0,
       contact: '',
-      remark: ''
+      remark: '',
+      brandId: ''
     },
     pricePickerIndex: [0, 0],
     priceArray: [
@@ -65,7 +66,10 @@ Page({
     showCategoryName: '', // 分类名称
     shareCategoryName: '', // 分享的分类名称
     selectCityVisible: false, // 选择城市组件
-    showAreaName: '' // 求购地区
+    showAreaName: '', // 求购地区
+    // 选择品牌组件
+    selectBrandVisible: false,
+    brandName: '',
   },
 
   /**
@@ -78,7 +82,7 @@ Page({
     if (app.globalData.updateBuyInfo) { // 编辑
       const data = JSON.parse(app.globalData.updateBuyInfo)
       console.log(data)
-      const { locationDetail, categoryFirstName, categorySecondName } = data
+      const { locationDetail, categoryFirstName, categorySecondName, brandName, brandId } = data
       let showCategoryName
       if (categorySecondName) {
         showCategoryName = `${categoryFirstName}·${categorySecondName}`
@@ -110,7 +114,9 @@ Page({
         'params.remark': data.remark,
         showCategoryName: showCategoryName,
         showAreaName: showAreaName,
-        shareCategoryName: categorySecondName || categoryFirstName
+        shareCategoryName: categorySecondName || categoryFirstName,
+        'params.brandId': brandId,
+        brandName: brandName
       })
     } else { // 新增
       this.setData({
@@ -226,13 +232,14 @@ Page({
             } = res.data
             const {
               showAreaName,
-              shareCategoryName
+              shareCategoryName,
+              brandName
             } = this.data
             app.globalData.refreshBuy = true
             app.globalData.refreshMyBuy = true
             const shareParams = JSON.stringify({
               id: id,
-              title: `#求购# ${shareCategoryName}`
+              title: `#求购# ${brandName}${shareCategoryName}`
             })
             wx.redirectTo({
               url: `/pages/publish/success-buy/success-buy?params=${shareParams}`,
@@ -326,6 +333,30 @@ Page({
       showAreaName: cityId ? `${provinceName}·${cityName}` : provinceName
     })
   },
+
+  // 选择品牌组件
+  handleBrandConfirm(e) {
+    this.setData({
+      selectBrandVisible: false
+    })
+    if (!e.detail) return false
+    const {
+      id,
+      name
+    } = JSON.parse(e.detail)
+    console.log(id, name)
+    this.setData({
+      'params.brandId': id,
+      brandName: name
+    })
+  },
+
+  handleShowBrand() {
+    this.setData({
+      selectBrandVisible: !this.data.selectBrandVisible
+    })
+  },
+
 
   handleRemarkChange(e) {
     this.setData({

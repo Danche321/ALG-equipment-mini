@@ -11,7 +11,15 @@
   </view>
 
   <view class="info-item">
-    <text class="required">求购地区</text>
+    <text>设备品牌</text>
+    <view class="filed-right" bindtap="handleShowBrand">
+      <text style="color:{{params.brandId?'#333':'#bbb'}}">{{brandName||'请选择'}}</text>
+      <image class="icon-arrow-right" src="{{ICON_URL}}arrow-right-gray.png"></image>
+    </view>
+  </view>
+
+  <view class="info-item">
+    <text>求购地区</text>
     <view class="filed-right" bindtap="handleShowCity">
       <text style="color:{{showAreaName?'#333':'#bbb'}}">{{showAreaName||'请选择'}}</text>
       <image class="icon-arrow-right" src="{{ICON_URL}}arrow-right-gray.png"></image>
@@ -92,3 +100,6 @@
 
 <!-- 选择城市组件 -->
 <select-city visible="{{selectCityVisible}}" bind:checked="handleCityConfirm"></select-city>
+
+<!-- 选择品牌组件 -->
+<select-brand visible="{{selectBrandVisible}}" bind:checked="handleBrandConfirm" brandId="{{params.brandId}}"></select-brand>

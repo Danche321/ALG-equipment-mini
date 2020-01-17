@@ -11,12 +11,12 @@
       <text class="filter-item {{params.categoryFirstId?'active':''}}">机型</text>
     </view>
     <view class="filter-split"></view>
-    <view class="filter-item-wrap f-align-right" bindtap="handleShowCategory">
-      <text class="filter-item {{params.categoryFirstId?'active':''}}">品牌</text>
+    <view class="filter-item-wrap f-align-right" bindtap="handleShowBrand">
+      <text class="filter-item {{params.brandId?'active':''}}">品牌</text>
     </view>
   </view>
   <!-- 选中的标签 -->
-  <view wx:if="{{params.searchText||params.categoryFirstId||params.categorySecondId||params.provinceCode||params.cityCode}}" class="page-tags">
+  <view wx:if="{{params.searchText||params.categoryFirstId||params.categorySecondId||params.provinceCode||params.cityCode||params.brandId}}" class="page-tags">
     <!-- 关键字 -->
     <view wx:if="{{params.searchText}}" class="tag-item" bindtap="handleClearSearchText">
       <text>{{params.searchText}}</text>
@@ -42,6 +42,11 @@
       <text>{{cityName}}</text>
       <image class="icon-clear" src="{{ICON_URL}}clear.png"></image>
     </view>
+    <!-- 品牌 -->
+    <view wx:if="{{params.brandId}}" class="tag-item" bindtap="handleClearBrand">
+      <text>{{brandName}}</text>
+      <image class="icon-clear" src="{{ICON_URL}}clear.png"></image>
+    </view>
   </view>
 </view>
 
@@ -49,7 +54,10 @@
   <view wx:if="{{listData.length}}" class="publish-box">
     <view class="list-item {{item.isDownShelf?'item--disabled':''}}" wx:for="{{listData}}" wx:key="{{index}}" data-id="{{item.id}}" bindtap="handleToDetail">
       <view class="item__top">
-        <view class="title">{{item.categorySecondName||item.categoryFirstName}}</view>
+        <view class="title">
+          <block wx:if="{{item.categoryFirstName==='其他'&&!item.categorySecondName&&item.remark}}">{{item.remark}}</block>
+          <block wx:else>{{item.categorySecondName||item.categoryFirstName}}</block>
+        </view>
         <view class="item__top-bottom">
           <text class="price">{{item.expectedPrice||'面议'}}</text>
           <text class="time">{{tools.splitDate(item.createTime)}}发布</text>
@@ -57,12 +65,14 @@
       </view>
       <view class="item__bottom">
         <view class="bottom-filed">
-          <image class='filed__icon' src="{{ICON_URL}}year-buy.png"></image>
+          <text class="filed__key">设备品牌</text>
+          <text class="filed__value">{{item.brandName||'不限'}}</text>
+        </view>
+        <view class="bottom-filed">
           <text class="filed__key">年限范围</text>
           <text class="filed__value">{{item.yearLimitNum||'不限'}}</text>
         </view>
         <view class="bottom-filed">
-          <image class='filed__icon' src="{{ICON_URL}}location-buy.png"></image>
           <text class="filed__key">求购地区</text>
           <text class="filed__value">
           <block wx:if="{{!item.locationDetail.cityCode||item.locationDetail.cityName===item.locationDetail.provinceName}}">{{item.locationDetail.provinceName}}</block>
@@ -85,3 +95,6 @@
 
 <!-- 选择城市组件 -->
 <select-city visible="{{selectCityVisible}}" bind:checked="handleCityConfirm"></select-city>
+
+<!-- 选择品牌组件 -->
+<select-brand visible="{{selectBrandVisible}}" bind:checked="handleBrandConfirm" brandId="{{params.brandId}}"></select-brand>

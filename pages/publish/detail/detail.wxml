@@ -3,7 +3,7 @@
   <wxs src="../../../wxs/utils.wxs" module="tools" />
   <!-- 轮播 -->
   <swiper circular duration="{{duration}}" class="swiper-box" bindchange="handleSwiperChange">
-    <block wx:for="{{publishInfo.imageVideos}}" wx:key="{{index}}">
+    <block wx:for="{{publishInfo.imageVideos}}" wx:key="index">
       <swiper-item class="swiper-item">
         <image wx:if="{{item.type==='IMAGE'}}" src="{{item.file}}" mode='aspectFill' class='swiper-item' data-list="{{publishInfo.imageVideos}}" data-src="{{item.file}}" bindtap='handlePriviewImg'></image>
         <video wx:else id="myVideo" src="{{item.file}}" show-mute-btn="{{true}}" show-fullscreen-btn="{{true}}" class='swiper-item' poster="{{publishInfo.mainMedia}}"></video>
@@ -40,7 +40,7 @@
       <text class="info-item__key">出厂年份</text>
     </view>
     <view class="info-item">
-      <text wx:if="{{publishInfo.productiveYear}}" class="info-item__value">{{publishInfo.productiveYear}}小时</text>
+      <text wx:if="{{publishInfo.usageHours}}" class="info-item__value">{{publishInfo.usageHours}}小时</text>
       <text wx:else class="info-item__value">无</text>
       <text class="info-item__key">使用时长</text>
     </view>
@@ -76,20 +76,20 @@
         <text class="list-item__value">{{publishInfo.categorySecondName||publishInfo.categoryFirstName}}</text>
       </view>
       <view class="base-list-item">
-        <text class="list-item__key">品牌型号</text>
-        <text class="list-item__value">tt</text>
+        <text class="list-item__key">品牌</text>
+        <text class="list-item__value">{{publishInfo.brandName||'无'}}</text>
       </view>
       <view class="base-list-item">
         <text class="list-item__key">发票</text>
-        <text class="list-item__value">tt</text>
+        <text class="list-item__value">{{publishInfo.hasCertificate===1?'有':'无'}}</text>
       </view>
       <view class="base-list-item">
         <text class="list-item__key">合格证</text>
-        <text class="list-item__value">tt</text>
+        <text class="list-item__value">{{publishInfo.hasInvoice===1?'有':'无'}}</text>
       </view>
       <view class="base-list-item">
         <text class="list-item__key">联系人</text>
-        <text class="list-item__value">tt</text>
+        <text class="list-item__value">{{publishInfo.contact||'无'}}</text>
       </view>
     </view>
   </view>
@@ -100,7 +100,7 @@
       <text wx:if="{{discussInfo.length}}">·{{discussInfo.length}}</text>
     </view>
     <block wx:if="{{discussInfo.length}}">
-      <view wx:for="{{discussInfo}}" wx:key="{{index}}" class="message-item">
+      <view wx:for="{{discussInfo}}" wx:key="index" class="message-item">
         <view class="f-flex-justBetween-alignCenter">
           <view class="f-flex-justStart-alignCenter">
             <image bindtap="handleToHome" data-userid="{{item.userId}}" class="message__headimg" src="{{item.userInfo.headPortrait}}" mode='aspectFill'></image>
@@ -110,7 +110,7 @@
         </view>
         <view class="message-bottom">
           <view class="message__content" data-info="{{item}}" bindtap="handleReply">{{item.content}}</view>
-          <view wx:for="{{item.secondLevel}}" wx:key="{{index}}" wx:for-item="childItem" class="message-child">
+          <view wx:for="{{item.secondLevel}}" wx:key="index" wx:for-item="childItem" class="message-child">
             <view class="f-flex-justBetween-alignCenter">
               <view class="f-flex-justStart-alignCenter">
                 <image bindtap="handleToHome" data-userid="{{childItem.userInfo.id}}" class="child__headimg" src="{{childItem.userInfo.headPortrait}}" mode='aspectFill'></image>
@@ -132,10 +132,12 @@
   <!-- 底部 -->
   <view class="page-footer f-flex-justBetween-alignCenter">
     <button wx:if="{{bindPhone}}" class="footer-connect" bindtap="handleCall">
-      <image class="connect__icon" src="{{ICON_URL}}mobile.png"></image>联系TA
+      <image class="connect__icon" src="{{ICON_URL}}mobile.png"></image>
+      <text class="connect_text">联系车主</text>
     </button>
     <button wx:else class="footer-connect" open-type="getPhoneNumber" bindgetphonenumber="handleGetPhone" bindtap="handleLogin">
-      <image class="connect__icon" src="{{ICON_URL}}mobile.png"></image>联系TA
+      <image class="connect__icon" src="{{ICON_URL}}mobile.png"></image>
+      <text class="connect_text">联系车主</text>
     </button>
     <view class="f-flex-justBetween-alignCenter footer-handles">
       <view class="handle__item" bindtap="handleNewMsg">
@@ -157,9 +159,20 @@
 
 <!-- 留言 -->
 <view wx:if="{{message.visible}}" class="page-takeMsg">
-  <input class="takeMsg__input" value="{{message.params.content}}" cursor-spacing="14" focus="{{true}}" placeholder="{{message.placeholder}}" confirm-type="send" bindinput="handleMsgInput" bindconfirm="handleMsgConfirm" bindblur="handleMsgBlur"></input>
+  <input class="takeMsg__input" value="{{message.params.content}}" cursor-spacing="14" focus="{{true}}" placeholder="{{message.placeholder}}" confirm-type="send" bindinput="handleMsgInput" bindblur="handleMsgBlur" bindconfirm="handleMsgConfirm"></input>
   <button bindtap="handleMsgConfirm" disabled="{{!message.params.content}}" class="takeMsg__send {{message.params.content?'takeMsg__send-active':''}}">发送</button>
 </view>
+
+<block wx:if="{{moreVisible}}">
+  <navigator url="/pages/publish/publish-type/publish-type" openType="switchTab">
+    <image src="/icons/detail_publish.png" class="icon-publish"></image>
+  </navigator>
+  <navigator url="/pages/publish/list/list" openType="switchTab" class="block-fixed block-more">
+    <image src="/icons/detail_car.png" class="fixed-icon"></image>
+    <text class="fixed_text">更多车源</text>
+    <view class="block-transition"></view>
+  </navigator>
+</block>
 
 <!-- 授权弹窗 -->
 <auth-dialog visible="{{authVisible}}" bind:hideModal="authHide"></auth-dialog>

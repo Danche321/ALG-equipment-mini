@@ -43,6 +43,12 @@ Page({
     })
   },
 
+  onUnload: function() {
+    wx.switchTab({
+      url: `/pages/index/home/home`,
+    })
+  },
+
   /**
    * 用户点击右上角分享
    */

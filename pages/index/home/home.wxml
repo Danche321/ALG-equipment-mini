@@ -8,7 +8,7 @@
 <!-- 轮播 -->
 <view class="page-swpier">
   <swiper indicator-dots autoplay circular duration="{{duration}}" class="swiper-box" style="top:{{statusBarHeight+titleBar.height+titleBar.top}}px">
-    <block wx:for="{{bannerList}}" wx:key="{{index}}">
+    <block wx:for="{{bannerList}}" wx:key="index">
       <swiper-item class="swiper-item">
         <image data-url="{{item.url}}" bindtap="handleBannerTo" src="{{item.image}}" class="slide-image" />
       </swiper-item>
@@ -17,9 +17,9 @@
 </view>
 <!-- 分类 -->
 <swiper class="swiper-category" indicator-dots>
-  <swiper-item class="swiper-item" wx:for="{{categoryList}}" wx:key="{{index}}">
+  <swiper-item class="swiper-item" wx:for="{{categoryList}}" wx:key="index">
     <view class="category-box f-flex-justStart-wrap">
-      <view wx:for="{{item}}" wx:for-item="cell" wx:key="{{index}}" class="category-item" data-id="{{cell.id}}" data-name="{{cell.name}}" bindtap="handleSearchCategory">
+      <view wx:for="{{item}}" wx:for-item="cell" wx:key="index" class="category-item" data-id="{{cell.id}}" data-name="{{cell.name}}" bindtap="handleSearchCategory">
         <image src="{{cell.icon}}"></image>
         <view>{{cell.name}}</view>
       </view>
@@ -28,7 +28,7 @@
 </swiper>
 <!-- 发布列表 -->
 <view class="publish-box">
-  <view class="list-item" wx:for="{{publishList}}" wx:key="{{index}}" data-id="{{item.id}}" bindtap="handleToDetail">
+  <view class="list-item" wx:for="{{publishList}}" wx:key="index" data-id="{{item.id}}" bindtap="handleToDetail">
     <view class="img-box">
       <image src="{{item.mainMedia}}" class="item__img" mode="aspectFill"></image>
       <image wx:if="{{item.imageVideos[0].type==='VIDEO'}}" class="icon-play" src="{{ICON_URL}}list-play.png"></image>
@@ -37,13 +37,10 @@
       <view>
         <view class="f-ellipsis1 item__title">{{item.title}}</view>
         <view class="tag-box f-ellipsis1">
-          <block wx:if="{{item.categoryFirstName&&!item.categorySecondName}}">{{item.categoryFirstName}} </block>
-          <block wx:if="{{item.categorySecondName}}" class="item__tag">{{item.categorySecondName}} </block>
-          <block wx:if="{{item.productiveYear}}" class="item__tag">| {{item.productiveYear}}年 </block>
-          <block>
-            <block wx:if="{{!item.locationDetail.cityCode||item.locationDetail.cityName===item.locationDetail.provinceName}}">| {{item.locationDetail.provinceName}}</block>
-            <block wx:else>| {{item.locationDetail.provinceName}}·{{item.locationDetail.cityName}}</block>
-          </block>
+          <block wx:if="{{item.productiveYear}}" class="item__tag">{{item.productiveYear}}年 |</block>
+          <block wx:if="{{item.usageHours}}" class="item__tag"> {{item.usageHours}}小时 |</block>
+          <block wx:if="{{!item.locationDetail.cityCode||item.locationDetail.cityName===item.locationDetail.provinceName}}"> {{item.locationDetail.provinceName}}</block>
+            <block wx:else> {{item.locationDetail.provinceName}}·{{item.locationDetail.cityName}}</block>
         </view>
       </view>
       <view class="item-bottom">

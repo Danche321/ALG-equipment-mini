@@ -35,6 +35,9 @@ page {
 .filed__value{
   color: #333;
 }
+.filed__remark{
+  padding:  20rpx 0;
+}
 .other{
   margin-right: 40rpx;
 }

@@ -2,8 +2,13 @@ import {
   handleCreatePublish,
   handleUpdatePublish
 } from '../../../api/publish.js'
-import { handleBindPhone, fetchWxPhone } from '../../../api/common.js'
-import { checkPhone } from '../../../utils/rules.js'
+import {
+  handleBindPhone,
+  fetchWxPhone
+} from '../../../api/common.js'
+import {
+  checkPhone
+} from '../../../utils/rules.js'
 const app = getApp()
 const QQMapWX = require('../../../libs/qqmap-wx-jssdk.js');
 const yearArr = []
@@ -39,6 +44,7 @@ Page({
       usageHours: '', // 使用小时数
       hasInvoice: 0, // 发票
       hasCertificate: 0, // 合格证
+      brandId: ''
     },
     hasVideo: false,
     showAreaName: '', // 城市名称
@@ -48,7 +54,11 @@ Page({
       src: '',
       showImg: ''
     },
-    yearArray: yearArr
+    yearArray: yearArr,
+    // 选择品牌组件
+    selectBrandVisible: false,
+    brandName: '',
+    categorySecondName: ''
   },
 
 
@@ -76,7 +86,13 @@ Page({
         voiceIntroduce,
         locationDetail,
         categoryFirstName,
-        categorySecondName
+        categorySecondName,
+        usageHours, // 使用小时数
+        hasInvoice, // 发票
+        hasCertificate, // 合格证
+        brandId,
+        brandName,
+        contact
       } = data
       let showAreaName
       if (!locationDetail.cityCode || locationDetail.cityName === locationDetail.provinceName) {
@@ -96,7 +112,7 @@ Page({
           }
         }),
         'params.outPrice': outPrice === '0' ? '' : outPrice,
-        'params.productiveYear': productiveYear?`${productiveYear}`:'',
+        'params.productiveYear': productiveYear ? `${productiveYear}年` : '',
         'params.secondCategoryId': categorySecondId,
         'params.textIntroduce': textIntroduce,
         'params.voiceIntroduce': voiceIntroduce,
@@ -105,16 +121,25 @@ Page({
         'params.cityCode': locationDetail.cityCode,
         'params.cityName': locationDetail.cityName,
         showAreaName: showAreaName,
-        hasVideo: imageVideos.some(item => item.type === 'VIDEO')
+        hasVideo: imageVideos.some(item => item.type === 'VIDEO'),
+        'params.usageHours': usageHours,
+        'params.hasInvoice': hasInvoice,
+        'params.hasCertificate': hasCertificate,
+        'params.brandId': brandId,
+        'params.contact': contact,
+        brandName: brandName,
+        categorySecondName: categorySecondName
       })
     } else {
       wx.getStorage({
         key: 'createSaleType',
         success: res => {
           const params = JSON.parse(res.data)
+          console.log(params)
           this.setData({
             'params.firstCategoryId': params.firstid,
-            'params.secondCategoryId': params.secondid
+            'params.secondCategoryId': params.secondid,
+            categorySecondName: params.secondName
           })
         }
       })
@@ -199,7 +224,9 @@ Page({
         if (res.size > (10 * 1024 * 1024)) {
           return app.showErrMsg('视频大小不能超过10M');
         }
-        const { tempFilePath } = res
+        const {
+          tempFilePath
+        } = res
         this.handleUploadFile(tempFilePath, 'VIDEO')
       }
     })
@@ -287,8 +314,7 @@ Page({
         content: '为了保证信息的真实性，首次在平台进行信息发布，需要绑定手机号码，平台将对你的隐私进行保护！',
         showCancel: false,
         success(res) {
-          if (res.confirm) {
-          }
+          if (res.confirm) {}
         }
       })
     } else {
@@ -326,28 +352,37 @@ Page({
   handleSubmit() {
     const {
       id,
-      title,
       provinceCode,
       contactPhone,
       firstCategoryId,
-      imageVideos
+      imageVideos,
+      contact,
+      brandId
     } = this.data.params
-    if (!title) return wx.showToast({
-      title: '请填写标题',
+    if (!imageVideos.length)
+      return wx.showToast({
+        title: '请上传设备图片/视频',
+        icon: 'none'
+      })
+    if (!brandId)
+      return wx.showToast({
+        title: '请选择设备品牌',
+        icon: 'none'
+      })
+    if (!provinceCode)
+      return wx.showToast({
+        title: '请选择设备位置',
+        icon: 'none'
+      })
+    if (!contact) return wx.showToast({
+      title: '请填写联系人',
       icon: 'none'
     })
-    if (!imageVideos.length) return wx.showToast({
-      title: '请上传设备图片/视频',
-      icon: 'none'
-    })
-    if (!provinceCode) return wx.showToast({
-      title: '请选择发货城市',
-      icon: 'none'
-    })
-    if (!contactPhone) return wx.showToast({
-      title: '请填写联系方式',
-      icon: 'none'
-    })
+    if (!contactPhone)
+      return wx.showToast({
+        title: '请填写联系方式',
+        icon: 'none'
+      })
     wx.showModal({
       title: '温馨提示',
       content: '请确保设备信息真实性，否则平台将进行删除并冻结您的账号！',
@@ -355,6 +390,12 @@ Page({
       cancelColor: '#999',
       success: res => {
         if (res.confirm) {
+          console.log(this.data.brandName)
+          if (this.data.brandName==='其他') {
+            this.data.params.title = this.data.categorySecondName
+          } else {
+            this.data.params.title = `${this.data.brandName}${this.data.categorySecondName}`
+          }
           if (this.data.params.productiveYear) {
             this.data.params.productiveYear = this.data.params.productiveYear.substring(0, this.data.params.productiveYear.length - 1)
           }
@@ -423,7 +464,7 @@ Page({
       })
     })
   },
-  
+
   // 获取定位城市
   getLocation() {
     // 实例化API核心类
@@ -480,6 +521,29 @@ Page({
     })
   },
 
+  // 选择品牌组件
+  handleBrandConfirm(e) {
+    this.setData({
+      selectBrandVisible: false
+    })
+    if (!e.detail) return false
+    const {
+      id,
+      name
+    } = JSON.parse(e.detail)
+    console.log(id, name)
+    this.setData({
+      'params.brandId': id,
+      brandName: name
+    })
+  },
+
+  handleShowBrand() {
+    this.setData({
+      selectBrandVisible: !this.data.selectBrandVisible
+    })
+  },
+
   // 出厂日期确定
   bindYearPickerChange(e) {
     const year = this.data.yearArray[e.detail.value]
@@ -487,7 +551,7 @@ Page({
       'params.productiveYear': year
     })
   },
-  
+
   // 发票
   handleInvoiceToggle() {
     this.setData({
@@ -559,17 +623,19 @@ Page({
   // 图片预览
   handlePriviewImg(event) {
     const src = event.currentTarget.dataset.src; //获取data-src
-    const imgList = this.data.params.imageVideos.filter(item => item.type ==='IMAGE').map(item => item.fileUrl) //获取data-list
+    const imgList = this.data.params.imageVideos.filter(item => item.type === 'IMAGE').map(item => item.fileUrl) //获取data-list
     wx.previewImage({
       current: src, // 当前显示图片的http链接
       urls: imgList // 需要预览的图片http链接列表
     })
   },
-  
+
   // 视频预览
   handlePriviewVideo() {
     const videoContext = wx.createVideoContext('myVideo', this);
-    videoContext.requestFullScreen({ direction: 0 });
+    videoContext.requestFullScreen({
+      direction: 0
+    });
     this.setData({
       'video.visible': true
     })

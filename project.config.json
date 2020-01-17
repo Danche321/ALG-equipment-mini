@@ -4,7 +4,7 @@
 		"ignore": []
 	},
 	"setting": {
-		"urlCheck": true,
+		"urlCheck": false,
 		"es6": true,
 		"postcss": true,
 		"minified": true,
@@ -22,7 +22,7 @@
 		}
 	},
 	"compileType": "miniprogram",
-	"libVersion": "2.7.7",
+	"libVersion": "2.9.4",
 	"appid": "wxb64ae6be832c8aeb",
 	"projectname": "%E5%B7%A5%E5%9C%B0%E5%B0%8F%E7%A8%8B%E5%BA%8F",
 	"debugOptions": {
@@ -48,8 +48,12 @@
 			"currentL": -1,
 			"list": []
 		},
+		"gamePlugin": {
+			"current": -1,
+			"list": []
+		},
 		"miniprogram": {
-			"current": 9,
+			"current": 7,
 			"list": [
 				{
 					"id": 0,
@@ -83,7 +87,7 @@
 					"id": 4,
 					"name": "pages/publish/detail/detail",
 					"pathName": "pages/publish/detail/detail",
-					"query": "id=30",
+					"query": "id=41",
 					"scene": 1011
 				},
 				{
@@ -101,17 +105,17 @@
 					"scene": null
 				},
 				{
-					"id": -1,
-					"name": "pages/index/share-bind/share-bind",
-					"pathName": "pages/index/share-bind/share-bind",
+					"id": 7,
+					"name": "pages/publish/publish-success/publish-success",
+					"pathName": "pages/publish/publish-success/publish-success",
 					"query": "id=75",
 					"scene": null
 				},
 				{
-					"id": -1,
+					"id": 8,
 					"name": "pages/publish/detail-buy/detail-buy",
 					"pathName": "pages/publish/detail-buy/detail-buy",
-					"query": "id=2",
+					"query": "id=16",
 					"scene": null
 				},
 				{
@@ -140,6 +144,13 @@
 					"name": "pages/publish/create-sale/create-sale",
 					"pathName": "pages/publish/create-sale/create-sale",
 					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "pages/index/category/category",
+					"pathName": "pages/index/category/category",
+					"query": "scene=2",
 					"scene": null
 				}
 			]

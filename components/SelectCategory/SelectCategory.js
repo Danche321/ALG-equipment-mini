@@ -63,6 +63,9 @@ Component({
     // 关闭
     handleHidden() {
       this.triggerEvent('checked')
-    }
+    },
+
+    // 阻止页面滚动
+    stopScroll() { }
   }
 })

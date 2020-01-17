@@ -1,8 +1,8 @@
-<view hidden="{{!visible}}">
+<view hidden="{{!visible}}" catchtouchmove="stopScroll">
   <view class="page-content">
     <view class="content__title">选择城市</view>
     <scroll-view class="content__scroll" scroll-y>
-      <view wx:for="{{listData}}" class="categoty-item" wx:key="{{index}}">
+      <view wx:for="{{listData}}" class="categoty-item" wx:key="index">
         <!-- 省份 -->
         <view catchtap="handleSelectFirst" class="item__first {{activeFirstId==item.id?'active':''}}" data-index="{{index}}" data-id="{{item.id}}" data-fullname="{{item.fullname}}" data-first="{{item}}">{{item.fullname}}</view>
 

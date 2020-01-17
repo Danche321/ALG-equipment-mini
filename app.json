@@ -2,7 +2,6 @@
   "pages": [
     "pages/index/home/home",
     "pages/index/category/category",
-    "pages/index/switchcity/switchcity",
     "pages/publish/create-sale/create-sale",
     "pages/publish/create-buy/create-buy",
     "pages/publish/list/list",
